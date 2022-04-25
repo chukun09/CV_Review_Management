@@ -1,10 +1,10 @@
-import { CV_Review_ManagementTemplatePage } from './app.po';
+import { CVRMTemplatePage } from './app.po';
 
-describe('CV_Review_Management App', function() {
-  let page: CV_Review_ManagementTemplatePage;
+describe('CVRM App', function() {
+  let page: CVRMTemplatePage;
 
   beforeEach(() => {
-    page = new CV_Review_ManagementTemplatePage();
+    page = new CVRMTemplatePage();
   });
 
   it('should display message saying app works', () => {

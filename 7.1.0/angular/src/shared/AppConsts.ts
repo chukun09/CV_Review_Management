@@ -11,7 +11,7 @@ export class AppConsts {
     };
 
     static readonly localization = {
-        defaultLocalizationSourceName: 'CV_Review_Management'
+        defaultLocalizationSourceName: 'CVRM'
     };
 
     static readonly authorization = {

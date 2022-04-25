@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CV_Review_Management": {
+    "CVRM": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -98,21 +98,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "CV_Review_Management:build"
+            "browserTarget": "CVRM:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "CV_Review_Management:build:production"
+              "browserTarget": "CVRM:build:production"
             },
             "hmr": {
-              "browserTarget": "CV_Review_Management:build:hmr"
+              "browserTarget": "CVRM:build:hmr"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "CV_Review_Management:build"
+            "browserTarget": "CVRM:build"
           }
         },
         "test": {
@@ -167,7 +167,7 @@
         }
       }
     },
-    "CV_Review_Management-e2e": {
+    "CVRM-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -176,7 +176,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "CV_Review_Management:serve"
+            "devServerTarget": "CVRM:serve"
           }
         },
         "lint": {
@@ -191,7 +191,7 @@
       }
     }
   },
-  "defaultProject": "CV_Review_Management",
+  "defaultProject": "CVRM",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

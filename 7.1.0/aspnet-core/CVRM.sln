@@ -7,19 +7,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AFAA0841-BD9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F10AA149-2626-486E-85BB-9CD5365F3016}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CV_Review_Management.Core", "src\CV_Review_Management.Core\CV_Review_Management.Core.csproj", "{0FA75A5B-AB83-4FD0-B545-279774C01E87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CVRM.Core", "src\CVRM.Core\CVRM.Core.csproj", "{0FA75A5B-AB83-4FD0-B545-279774C01E87}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CV_Review_Management.Application", "src\CV_Review_Management.Application\CV_Review_Management.Application.csproj", "{3870C648-4AEA-4B85-BA3F-F2F63B96136A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CVRM.Application", "src\CVRM.Application\CVRM.Application.csproj", "{3870C648-4AEA-4B85-BA3F-F2F63B96136A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CV_Review_Management.Tests", "test\CV_Review_Management.Tests\CV_Review_Management.Tests.csproj", "{0D4C5D00-C144-4213-A007-4B8944113AB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CVRM.Tests", "test\CVRM.Tests\CVRM.Tests.csproj", "{0D4C5D00-C144-4213-A007-4B8944113AB1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CV_Review_Management.Migrator", "src\CV_Review_Management.Migrator\CV_Review_Management.Migrator.csproj", "{880B3591-E057-46FE-B525-10BD83828B93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CVRM.Migrator", "src\CVRM.Migrator\CVRM.Migrator.csproj", "{880B3591-E057-46FE-B525-10BD83828B93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CV_Review_Management.Web.Host", "src\CV_Review_Management.Web.Host\CV_Review_Management.Web.Host.csproj", "{38E184BD-E874-4633-A947-AED4FDB73F40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CVRM.Web.Host", "src\CVRM.Web.Host\CVRM.Web.Host.csproj", "{38E184BD-E874-4633-A947-AED4FDB73F40}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CV_Review_Management.Web.Core", "src\CV_Review_Management.Web.Core\CV_Review_Management.Web.Core.csproj", "{22CFE0D2-8DCA-42D7-AD7D-784C3862493F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CVRM.Web.Core", "src\CVRM.Web.Core\CVRM.Web.Core.csproj", "{22CFE0D2-8DCA-42D7-AD7D-784C3862493F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CV_Review_Management.EntityFrameworkCore", "src\CV_Review_Management.EntityFrameworkCore\CV_Review_Management.EntityFrameworkCore.csproj", "{E0580562-F8F2-4EBB-B07A-ABFC6F2C314F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CVRM.EntityFrameworkCore", "src\CVRM.EntityFrameworkCore\CVRM.EntityFrameworkCore.csproj", "{E0580562-F8F2-4EBB-B07A-ABFC6F2C314F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

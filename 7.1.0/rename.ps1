@@ -7,7 +7,7 @@ $oldCompanyName="AbpCompanyName"
 $newCompanyName="YourCompanyName"
 
 # project name placeholder
-$oldProjectName="CV_Review_Management"
+$oldProjectName="CVRM"
 # your project name
 $newProjectName="YourProjectName"
 

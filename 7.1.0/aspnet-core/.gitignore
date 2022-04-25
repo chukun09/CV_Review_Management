@@ -251,6 +251,6 @@ paket-files/
 .idea/
 *.sln.iml
 
-src/CV_Review_Management.Web.Mvc/secrets.json
-src/CV_Review_Management.Web.Host/secrets.json
-src/CV_Review_Management.Migrator/secrets.json
+src/CVRM.Web.Mvc/secrets.json
+src/CVRM.Web.Host/secrets.json
+src/CVRM.Migrator/secrets.json

@@ -4,6 +4,6 @@
 .vs/
 obj/
 bin/
-aspnet-core/src/CV_Review_Management.Web.Host/App_Data/Logs/
-aspnet-core/src/CV_Review_Management.Web.Mvc/App_Data/Logs/
-aspnet-core/src/CV_Review_Management.Migrator/Logs/Logs.txt
+aspnet-core/src/CVRM.Web.Host/App_Data/Logs/
+aspnet-core/src/CVRM.Web.Mvc/App_Data/Logs/
+aspnet-core/src/CVRM.Migrator/Logs/Logs.txt
