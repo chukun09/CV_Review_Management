@@ -1292,6 +1292,11 @@
     node-gyp "^7.1.0"
     read-package-json-fast "^2.0.1"
 
+"@pdftron/webviewer@^8.0.0":
+  version "8.4.1"
+  resolved "https://registry.yarnpkg.com/@pdftron/webviewer/-/webviewer-8.4.1.tgz#003e0c5c6158a8e56609102dca7fd000c61cde35"
+  integrity sha512-eTHMMumTTzFgr+dIm+FrpSeevLILHUZd6KzXP7SlKQ+6ZIsxNgKiax9ArUi82fo/vfb/NGx6Go0bsJ8VxX5+8w==
+
 "@schematics/angular@12.0.5":
   version "12.0.5"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-12.0.5.tgz#a5d30c7420dca31306adab62faed1083c28536b5"

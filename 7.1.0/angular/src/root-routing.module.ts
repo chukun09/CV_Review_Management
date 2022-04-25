@@ -12,7 +12,13 @@ const routes: Routes = [
         path: 'app',
         loadChildren: () => import('app/app.module').then(m => m.AppModule), // Lazy load account module
         data: { preload: true }
+    },
+    {
+        path: 'web-view',
+        loadChildren: () => import('pdf/web-view-pdf/web-view.module').then(m => m.WebViewComponentModule),
+        data: { preload: true }
     }
+
 ];
 
 @NgModule({
