@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import WebViewer, { WebViewerInstance } from '@pdftron/webviewer';
-
+import { jsPDF } from "jspdf";
 @Component({
   selector: 'web-view',
   templateUrl: './web-view.component.html',
@@ -10,7 +10,7 @@ import WebViewer, { WebViewerInstance } from '@pdftron/webviewer';
 export class WebViewComponent implements OnInit, AfterViewInit {
   @ViewChild('viewer') viewer: ElementRef;
   wvInstance: WebViewerInstance;
-  @Output() coreControlsEvent:EventEmitter<string> = new EventEmitter(); 
+  @Output() coreControlsEvent: EventEmitter<string> = new EventEmitter();
 
   private documentLoaded$: Subject<void>;
 
@@ -19,7 +19,6 @@ export class WebViewComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-debugger
     WebViewer({
       path: '../../assets/lib',
       initialDoc: '../../assets/pdf/webviewer-demo-annotated.pdf'
@@ -55,6 +54,14 @@ debugger
   }
 
   ngOnInit() {
+  }
+  downloadPDF() {
+    let pdf = new jsPDF();
+    pdf.html(this.viewer.nativeElement, {
+      callback: (pdf) => {
+        pdf.save("demo.pdf");
+      }
+    })
   }
 
   getDocumentLoadedObservable() {
