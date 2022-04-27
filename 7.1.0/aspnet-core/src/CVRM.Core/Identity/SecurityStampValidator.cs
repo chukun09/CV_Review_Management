@@ -7,6 +7,7 @@ using CVRM.Authorization.Users;
 using CVRM.MultiTenancy;
 using Microsoft.Extensions.Logging;
 using Abp.Domain.Uow;
+using CVRM.Entites.Users;
 
 namespace CVRM.Identity
 {

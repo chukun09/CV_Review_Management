@@ -2,6 +2,7 @@ using Abp.Authorization.Roles;
 using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
 using CVRM.Authorization.Users;
+using CVRM.Entites.Users;
 
 namespace CVRM.Authorization.Roles
 {

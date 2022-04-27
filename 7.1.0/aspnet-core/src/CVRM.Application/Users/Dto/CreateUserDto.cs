@@ -4,6 +4,7 @@ using Abp.Authorization.Users;
 using Abp.AutoMapper;
 using Abp.Runtime.Validation;
 using CVRM.Authorization.Users;
+using CVRM.Entites.Users;
 
 namespace CVRM.Users.Dto
 {

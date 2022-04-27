@@ -4,6 +4,7 @@ using Abp.Domain.Uow;
 using Abp.MultiTenancy;
 using Abp.Runtime.Caching;
 using CVRM.Authorization.Users;
+using CVRM.Entites.Users;
 using CVRM.MultiTenancy;
 
 namespace CVRM.Features

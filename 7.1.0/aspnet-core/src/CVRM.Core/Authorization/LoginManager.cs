@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Abp.Authorization;
-using Abp.Authorization.Users;
 using Abp.Configuration;
 using Abp.Configuration.Startup;
 using Abp.Dependency;
@@ -10,6 +9,8 @@ using Abp.Zero.Configuration;
 using CVRM.Authorization.Roles;
 using CVRM.Authorization.Users;
 using CVRM.MultiTenancy;
+using CVRM.Entites.Users;
+using Abp.Authorization.Users;
 
 namespace CVRM.Authorization
 {

@@ -13,6 +13,7 @@ using CVRM.Authorization;
 using CVRM.Authorization.Roles;
 using CVRM.Authorization.Users;
 using CVRM.Editions;
+using CVRM.Entites.Users;
 using CVRM.MultiTenancy.Dto;
 using Microsoft.AspNetCore.Identity;
 

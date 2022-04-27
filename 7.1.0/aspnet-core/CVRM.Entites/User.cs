@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Abp.Authorization.Users;
 using Abp.Extensions;
 
-namespace CVRM.Authorization.Users
+namespace CVRM.Entites.Users
 {
     public class User : AbpUser<User>
     {

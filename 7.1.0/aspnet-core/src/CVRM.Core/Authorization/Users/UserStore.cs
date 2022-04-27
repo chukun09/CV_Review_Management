@@ -4,6 +4,7 @@ using Abp.Domain.Uow;
 using Abp.Linq;
 using Abp.Organizations;
 using CVRM.Authorization.Roles;
+using CVRM.Entites.Users;
 
 namespace CVRM.Authorization.Users
 {

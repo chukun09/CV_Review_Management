@@ -9,6 +9,7 @@ using CVRM.Authorization.Roles;
 using CVRM.Authorization.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using CVRM.Entites.Users;
 
 namespace CVRM.EntityFrameworkCore.Seed.Host
 {

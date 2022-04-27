@@ -17,6 +17,7 @@ using CVRM.Authorization;
 using CVRM.Authorization.Users;
 using CVRM.Models.TokenAuth;
 using CVRM.MultiTenancy;
+using CVRM.Entites.Users;
 
 namespace CVRM.Controllers
 {
@@ -143,7 +144,7 @@ namespace CVRM.Controllers
                 externalUser.Surname,
                 externalUser.EmailAddress,
                 externalUser.EmailAddress,
-                Authorization.Users.User.CreateRandomPassword(),
+                Entites.Users.User.CreateRandomPassword(),
                 true
             );
 

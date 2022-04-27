@@ -10,6 +10,7 @@ using Abp.Domain.Uow;
 using CVRM.Authorization.Roles;
 using CVRM.Authorization.Users;
 using CVRM.MultiTenancy;
+using CVRM.Entites.Users;
 
 namespace CVRM.Identity
 {

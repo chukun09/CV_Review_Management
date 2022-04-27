@@ -1,5 +1,5 @@
 ﻿using Abp.MultiTenancy;
-using CVRM.Authorization.Users;
+using CVRM.Entites.Users;
 
 namespace CVRM.MultiTenancy
 {

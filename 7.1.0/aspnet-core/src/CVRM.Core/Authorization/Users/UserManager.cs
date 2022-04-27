@@ -12,6 +12,7 @@ using Abp.Organizations;
 using Abp.Runtime.Caching;
 using CVRM.Authorization.Roles;
 using Abp.Authorization.Roles;
+using CVRM.Entites.Users;
 
 namespace CVRM.Authorization.Users
 {

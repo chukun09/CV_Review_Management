@@ -1,8 +1,8 @@
 ﻿using Abp.Application.Features;
 using Abp.Domain.Repositories;
 using Abp.MultiTenancy;
-using CVRM.Authorization.Users;
 using CVRM.Editions;
+using CVRM.Entites.Users;
 
 namespace CVRM.MultiTenancy
 {

@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using CVRM.Authorization.Users;
+using CVRM.Entites.Users;
 
 namespace CVRM.Sessions.Dto
 {

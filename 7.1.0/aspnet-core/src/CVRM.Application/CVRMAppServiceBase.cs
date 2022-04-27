@@ -6,6 +6,7 @@ using Abp.IdentityFramework;
 using Abp.Runtime.Session;
 using CVRM.Authorization.Users;
 using CVRM.MultiTenancy;
+using CVRM.Entites.Users;
 
 namespace CVRM
 {

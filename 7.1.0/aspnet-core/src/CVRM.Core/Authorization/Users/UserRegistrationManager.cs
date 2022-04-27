@@ -11,6 +11,7 @@ using Abp.Runtime.Session;
 using Abp.UI;
 using CVRM.Authorization.Roles;
 using CVRM.MultiTenancy;
+using CVRM.Entites.Users;
 
 namespace CVRM.Authorization.Users
 {

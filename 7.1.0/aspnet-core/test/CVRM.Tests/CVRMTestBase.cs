@@ -14,6 +14,7 @@ using CVRM.EntityFrameworkCore;
 using CVRM.EntityFrameworkCore.Seed.Host;
 using CVRM.EntityFrameworkCore.Seed.Tenants;
 using CVRM.MultiTenancy;
+using CVRM.Entites.Users;
 
 namespace CVRM.Tests
 {

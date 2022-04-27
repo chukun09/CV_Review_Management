@@ -18,6 +18,7 @@ using CVRM.Authorization;
 using CVRM.Authorization.Accounts;
 using CVRM.Authorization.Roles;
 using CVRM.Authorization.Users;
+using CVRM.Entites.Users;
 using CVRM.Roles.Dto;
 using CVRM.Users.Dto;
 using Microsoft.AspNetCore.Identity;

@@ -1,6 +1,7 @@
 ﻿using Abp.Authorization;
 using CVRM.Authorization.Roles;
 using CVRM.Authorization.Users;
+using CVRM.Entites.Users;
 
 namespace CVRM.Authorization
 {

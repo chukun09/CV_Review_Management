@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Abp.Authorization;
 using CVRM.Authorization.Roles;
 using Abp.Domain.Uow;
+using CVRM.Entites.Users;
 
 namespace CVRM.Authorization.Users
 {
