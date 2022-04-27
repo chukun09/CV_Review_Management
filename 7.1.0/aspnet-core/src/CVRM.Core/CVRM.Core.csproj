@@ -22,4 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CVRM.Entites\CVRM.Entites.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CVRM\" />
+  </ItemGroup>
 </Project>

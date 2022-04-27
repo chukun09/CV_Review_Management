@@ -15,7 +15,7 @@ const routes: Routes = [
     },
     {
         path: 'web-view',
-        loadChildren: () => import('pdf/web-view-pdf/web-view.module').then(m => m.WebViewComponentModule),
+        loadChildren: () => import('app/pdf/web-view-pdf/web-view.module').then(m => m.WebViewComponentModule),
         data: { preload: true }
     }
 
