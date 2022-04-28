@@ -20,6 +20,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System.IO;
+using CVRM.SignalR;
 
 namespace CVRM.Web.Host.Startup
 {
@@ -106,6 +107,7 @@ namespace CVRM.Web.Host.Startup
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<CommentHub>("/comment");
                 endpoints.MapHub<AbpCommonHub>("/signalr");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("defaultWithArea", "{area}/{controller=Home}/{action=Index}/{id?}");

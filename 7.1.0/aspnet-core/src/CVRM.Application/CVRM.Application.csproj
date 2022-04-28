@@ -12,6 +12,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CVRM.Entites\CVRM.Entites.csproj" />
     <ProjectReference Include="..\CVRM.Core\CVRM.Core.csproj" />
   </ItemGroup>
 </Project>
