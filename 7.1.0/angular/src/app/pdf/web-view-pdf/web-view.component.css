@@ -19,7 +19,37 @@ app-webviewer {
   flex: 1;
   margin: 8px;
   -webkit-box-shadow: 1px 1px 10px #999;
-          box-shadow: 1px 1px 10px #999;
+  box-shadow: 1px 1px 10px #999;
 }
 
-.viewer { width: 100%; height: 100%; }
+.viewer {
+  width: 100%;
+  height: 100%;
+}
+
+#btnSave {
+  position: fixed;
+  width: 129px;
+  height: 39px;
+  /* top: 15px; */
+  /* right: 15px; */
+  /* color: #4314B6; */
+  border-radius: 5px;
+  background: #0A2341;
+  color: white;
+  bottom: 10px;
+  right: 20px;
+}
+#btnCancel {
+  position: fixed;
+  width: 129px;
+  height: 39px;
+  /* top: 15px; */
+  /* right: 15px; */
+  /* color: #4314B6; */
+  border-radius: 5px;
+  background: #0A2341;
+  color: white;
+  bottom: 10px;
+  right: 159px;
+}

@@ -8,8 +8,7 @@ import { WebViewService } from './../../../services/web-view.service'
 })
 
 export class WebViewComponent implements OnInit {
-
-
+  instanceNew: any;
   constructor(private webViewService: WebViewService) {
   }
 
@@ -17,10 +16,9 @@ export class WebViewComponent implements OnInit {
     var instantJSON: any;
     var instant: any;
     let response = await this.webViewService.getJsonPDF();
-     response.subscribe( (data) => {
-      instantJSON =  data.result.jsonPDF;
-      instantJSON =  JSON.parse(instantJSON);
-      debugger
+    response.subscribe((data) => {
+      instantJSON = data.result.jsonPDF;
+      instantJSON = JSON.parse(instantJSON);
       instant = {
         annotations: instantJSON.annotations,
         format: instantJSON.format
@@ -35,6 +33,7 @@ export class WebViewComponent implements OnInit {
         autoSaveMode: PSPDFKit.AutoSaveMode.INTELLIGENT
       }).then(instance => {
         (window as any).instance = instance;
+        this.instanceNew = instance;
         // instance.addEventListener("annotations.didSave", async () => {
         //   const instantJSON = await instance.exportInstantJSON();
         //   // This saves the Instant JSON to your server, which in turn stores it in a database.
@@ -50,6 +49,16 @@ export class WebViewComponent implements OnInit {
     });
     // const response = await fetch("https://localhost:44311/api/services/app/PDFEntity/getPDFJsonById?id=4");
     // const instantJSON = await response.json();
+  }
+  async saveFilePDF() {
+    const instantJSON = await this.instanceNew.exportInstantJSON();
+    let annotations = {
+      jsonPDF: JSON.stringify(instantJSON),
+      cvId: 11
+    }
+    this.webViewService.addNewAnnotation(annotations).subscribe(res => {
+      console.log(res);
+    });
   }
 
 }
