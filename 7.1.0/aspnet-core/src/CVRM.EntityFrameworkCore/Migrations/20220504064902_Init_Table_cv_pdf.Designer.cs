@@ -3,6 +3,7 @@ using System;
 using CVRM.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CVRM.Migrations
 {
     [DbContext(typeof(CVRMDbContext))]
-    partial class CVRMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220504064902_Init_Table_cv_pdf")]
+    partial class Init_Table_cv_pdf
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1804,9 +1806,12 @@ namespace CVRM.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("cVEntityId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CVId");
+                    b.HasIndex("cVEntityId");
 
                     b.ToTable("cv_pdf");
                 });
@@ -2448,13 +2453,13 @@ namespace CVRM.Migrations
 
             modelBuilder.Entity("CVRM.Entites.PDFEntity", b =>
                 {
-                    b.HasOne("CVRM.Entites.CVEntity", "CVEntity")
+                    b.HasOne("CVRM.Entites.CVEntity", "cVEntity")
                         .WithMany()
-                        .HasForeignKey("CVId")
+                        .HasForeignKey("cVEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CVEntity");
+                    b.Navigation("cVEntity");
                 });
 
             modelBuilder.Entity("CVRM.Entites.SkillEntity", b =>

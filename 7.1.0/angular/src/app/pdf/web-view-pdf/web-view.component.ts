@@ -1,70 +1,55 @@
-import { Component, ViewChild, OnInit, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import WebViewer, { WebViewerInstance } from '@pdftron/webviewer';
-import { jsPDF } from "jspdf";
+import { Component, OnInit } from '@angular/core';
+import PSPDFKit from 'pspdfkit';
+import { WebViewService } from './../../../services/web-view.service'
 @Component({
   selector: 'web-view',
   templateUrl: './web-view.component.html',
   styleUrls: ['./web-view.component.css']
 })
-export class WebViewComponent implements OnInit, AfterViewInit {
-  @ViewChild('viewer') viewer: ElementRef;
-  wvInstance: WebViewerInstance;
-  @Output() coreControlsEvent: EventEmitter<string> = new EventEmitter();
 
-  private documentLoaded$: Subject<void>;
+export class WebViewComponent implements OnInit {
 
-  constructor() {
-    this.documentLoaded$ = new Subject<void>();
+
+  constructor(private webViewService: WebViewService) {
   }
 
-  ngAfterViewInit(): void {
-    WebViewer({
-      path: '../../assets/lib',
-      initialDoc: '../../assets/pdf/webviewer-demo-annotated.pdf'
-    }, this.viewer.nativeElement).then(instance => {
-      this.wvInstance = instance;
-      // instance.UI.setTheme('dark');
-
-      this.coreControlsEvent.emit(instance.UI.LayoutMode.Single);
-
-      const { documentViewer, Annotations, annotationManager } = instance.Core;
-
-      instance.UI.openElements(['notesPanel']);
-
-      documentViewer.addEventListener('annotationsLoaded', () => {
-        console.log('annotations loaded');
+  async ngOnInit(): Promise<void> {
+    var instantJSON: any;
+    var instant: any;
+    let response = await this.webViewService.getJsonPDF();
+     response.subscribe( (data) => {
+      instantJSON =  data.result.jsonPDF;
+      instantJSON =  JSON.parse(instantJSON);
+      debugger
+      instant = {
+        annotations: instantJSON.annotations,
+        format: instantJSON.format
+      };
+      console.log(instant.annotations)
+      PSPDFKit.load({
+        // Use the assets directory URL as a base URL. PSPDFKit will download its library assets from here.
+        baseUrl: location.protocol + "//" + location.host + "/assets/",
+        instantJSON: instantJSON,
+        document: "./../../../assets/pdf/webviewer-demo-annotated.pdf",
+        container: "#pspdfkit-container",
+        autoSaveMode: PSPDFKit.AutoSaveMode.INTELLIGENT
+      }).then(instance => {
+        (window as any).instance = instance;
+        // instance.addEventListener("annotations.didSave", async () => {
+        //   const instantJSON = await instance.exportInstantJSON();
+        //   // This saves the Instant JSON to your server, which in turn stores it in a database.
+        //   let annotations = {
+        //     jsonPDF: JSON.stringify(instantJSON),
+        //     cvId: 11
+        //   }
+        //   this.webViewService.addNewAnnotation(annotations).subscribe(res => {
+        //     console.log(res);
+        //   });
+        // });
       });
-
-      documentViewer.addEventListener('documentLoaded', () => {
-        this.documentLoaded$.next();
-        const rectangleAnnot = new Annotations.RectangleAnnotation({
-          PageNumber: 1,
-          // values are in page coordinates with (0, 0) in the top left
-          X: 100,
-          Y: 150,
-          Width: 200,
-          Height: 50,
-          Author: annotationManager.getCurrentUser()
-        });
-        annotationManager.addAnnotation(rectangleAnnot);
-        annotationManager.redrawAnnotation(rectangleAnnot);
-      });
-    })
+    });
+    // const response = await fetch("https://localhost:44311/api/services/app/PDFEntity/getPDFJsonById?id=4");
+    // const instantJSON = await response.json();
   }
 
-  ngOnInit() {
-  }
-  downloadPDF() {
-    let pdf = new jsPDF();
-    pdf.html(this.viewer.nativeElement, {
-      callback: (pdf) => {
-        pdf.save("demo.pdf");
-      }
-    })
-  }
-
-  getDocumentLoadedObservable() {
-    return this.documentLoaded$.asObservable();
-  }
 }

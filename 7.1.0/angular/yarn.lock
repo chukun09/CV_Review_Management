@@ -6759,6 +6759,11 @@ psl@^1.1.28:
   resolved "https://registry.yarnpkg.com/psl/-/psl-1.8.0.tgz#9326f8bcfb013adcc005fdff056acce020e51c24"
   integrity sha512-RIdOzyoavK+hA18OGGWDqUTsCLhtA7IcZ/6NCs4fFJaHBDab+pDDmDIByWFRQJq2Cd7r1OoQxBGKOaztq+hjIQ==
 
+pspdfkit@^2022.2.1:
+  version "2022.2.1"
+  resolved "https://registry.yarnpkg.com/pspdfkit/-/pspdfkit-2022.2.1.tgz#56363e825290bc36e82c34201b6ba3017f29db63"
+  integrity sha512-KW1iiP+NLXuuUxIFycTABKId87Ulc1Y7jCIbm5xwYbhBHaBu1aK71/2Q3PSG/dXoeLaM9WgPKE230PvxQeWblw==
+
 pump@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/pump/-/pump-3.0.0.tgz#b4a2116815bde2f4e1ea602354e8c75565107a64"

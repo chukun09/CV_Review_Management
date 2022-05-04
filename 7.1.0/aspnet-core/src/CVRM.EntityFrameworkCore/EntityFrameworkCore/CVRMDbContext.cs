@@ -22,6 +22,7 @@ namespace CVRM.EntityFrameworkCore
         public virtual DbSet<Province> Province { get; set; }
         public virtual DbSet<SkillEntity> SkillEntity { get; set; }
         public virtual DbSet<UserEntity> UserEntity { get; set; }
+        public virtual DbSet<PDFEntity> PDFEntity { get; set; }
         public CVRMDbContext(DbContextOptions<CVRMDbContext> options)
             : base(options)
         {
