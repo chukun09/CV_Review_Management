@@ -30,10 +30,10 @@
                 "output": "/assets/abp"
               },
               {
-               		"glob": "**/*",
-               		"input": "./node_modules/pspdfkit/dist/pspdfkit-lib/",
-               		"output": "./assets/pspdfkit-lib/"
-               	}
+                "glob": "**/*",
+                "input": "./node_modules/pspdfkit/dist/pspdfkit-lib/",
+                "output": "./assets/pspdfkit-lib/"
+              }
             ],
             "styles": [
               "node_modules/famfamfam-flags/dist/sprite/famfamfam-flags.css",
