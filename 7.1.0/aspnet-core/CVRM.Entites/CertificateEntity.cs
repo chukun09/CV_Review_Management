@@ -14,8 +14,11 @@ namespace CVRM.Entites
     {
         [Required]
         public string CertificateName { get; set; }
+        public string? IssuingOrganization { get; set; }
         public DateTime? CompletedDate { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
+        public string? CredentialID { get; set; }
+        public string? CredentialURL { get; set; }
         public int CVId { get; set; }
         [ForeignKey("CVId")]
         public CVEntity CVEntity { get; set; }
