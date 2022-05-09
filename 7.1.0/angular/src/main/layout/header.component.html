@@ -1,0 +1,112 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg" style="border-bottom: 1px solid #C8C8C8; padding: 0px !important">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Navbar brand -->
+      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+        <img src="./../../assets/img/logoCVRM.png" height="50" alt="CVRM Logo" loading="lazy" />
+      </a>
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link text-secondary" href="#">Tạo CV theo Template</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-secondary" href="#">Đánh giá CV</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-secondary" href="#">Top CV nổi bật</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-secondary" href="#">Câu hỏi nổi bật</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+    </div>
+    <!-- Collapsible wrapper -->
+
+    <!-- Right elements -->
+    <div class="d-flex align-items-center">
+      <!-- Icon -->
+      <!-- <div class="dropdown">
+        <a class="text-reset me-3 dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink" role="button"
+          data-mdb-toggle="dropdown" aria-expanded="false">
+          <img src="./../../assets/img/Notifications.svg" height="25" alt="Notifications" loading="lazy" />
+          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+        </a>
+      </div> -->
+      <div class="btn-group mr-2" style="margin-bottom: 7px;" dropdown>
+        <a href id="basic-link" dropdownToggle (click)="false" aria-controls="basic-link-dropdown">
+          <img src="./../../assets/img/Notifications.svg" height="40" alt="Notifications" loading="lazy" />
+          <span class="badge rounded-pill badge-notification bg-danger">1</span></a>
+        <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+          aria-labelledby="basic-link">
+          <li *ngFor="let choice of items">
+            <a class="dropdown-item" href="#">{{choice}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Notifications
+      <div class="dropdown">
+        <a
+          class="text-reset me-3 dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fas fa-bell"></i>
+          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <li>
+            <a class="dropdown-item" href="#">Some news</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Another news</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </li>
+        </ul>
+      </div> -->
+      <!-- Avatar -->
+      <div class="btn-group" dropdown>
+        <a href id="basic-link" dropdownToggle (click)="false" aria-controls="basic-link-dropdown">
+          <img src="./../../assets/img/Avatar.svg" height="40" alt="Avatar" loading="lazy" />
+          <span class="text-secondary"> Trần Đức Long <img src="./../../assets/img/ic_twotone-arrow-drop-down.svg" height="20" alt="dropdown"
+              loading="lazy" /></span>
+        </a>
+        <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+          aria-labelledby="basic-link">
+          <li>
+            <a class="dropdown-item" href="#">My profile</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Settings</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Right elements -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+
+<!-- Navbar -->

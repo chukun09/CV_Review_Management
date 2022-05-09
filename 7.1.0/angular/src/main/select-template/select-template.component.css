@@ -1,0 +1,51 @@
+h1.text-center {
+    font-family: 'Roboto' !important;
+    font-weight: 700 !important;
+    font-size: 30px !important;
+    line-height: 28px !important;
+    text-align: center;
+}
+
+p.text-center {
+    font-family: 'Roboto' !important;
+    font-style: "normal" !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 23px !important;
+    text-align: center;
+}
+
+.btn-create {
+    width: 171px;
+    height: 65px;
+    border-radius: 5px;
+    background-color: #4314B6;
+    color: white;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.015em;
+}
+:root {
+    --gradient: linear-gradient(to left top, #DD2476 10%, #FF512F 90%) !important;
+  }
+
+.btn-usetemplate{
+    width: 129px;
+    height: 39px;
+    border-radius: 5px;
+    background-color: #4314B6;
+    color: white;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.015em;
+}
