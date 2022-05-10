@@ -32,6 +32,8 @@ import { FooterComponent } from './layout/footer.component';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
 import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown';
 import { SelectTemplateModule } from './select-template/select-template.module';
+import { AllCvComponent } from './all-cv/all-cv.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -56,6 +58,7 @@ import { SelectTemplateModule } from './select-template/select-template.module';
     // layout
     HeaderComponent,
     FooterComponent,
+    AllCvComponent,
   ],
   imports: [
     CommonModule,
@@ -73,7 +76,8 @@ import { SelectTemplateModule } from './select-template/select-template.module';
     NgxPaginationModule,
     MdbCheckboxModule,
     MdbDropdownModule,
-    SelectTemplateModule
+    SelectTemplateModule,
+    NgSelectModule
    
   ],
   providers: [],

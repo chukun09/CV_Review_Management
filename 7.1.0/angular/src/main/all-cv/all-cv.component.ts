@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 
 @Component({
-  selector: 'app-select-template',
-  templateUrl: './select-template.component.html',
-  styleUrls: ['./select-template.component.css'],
+  selector: 'app-all-cv',
   animations: [appModuleAnimation()],
+  templateUrl: './all-cv.component.html',
+  styleUrls: ['./all-cv.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectTemplateComponent implements OnInit {
+export class AllCvComponent implements OnInit {
 
   constructor() { }
 
