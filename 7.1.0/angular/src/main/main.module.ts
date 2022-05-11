@@ -34,7 +34,9 @@ import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown';
 import { SelectTemplateModule } from './select-template/select-template.module';
 import { AllCvComponent } from './all-cv/all-cv.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-
+// Component
+import {WebViewComponent} from './web-view-pdf/web-view.component'
+import { WebViewComponentModule } from './web-view-pdf/web-view.module';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MdbCheckboxModule,
     MdbDropdownModule,
     SelectTemplateModule,
-    NgSelectModule
+    NgSelectModule,
+    WebViewComponentModule
    
   ],
   providers: [],

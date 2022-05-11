@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   declarations: [
     WebViewComponent
   ],
+  exports: [WebViewComponent],
   imports: [
     WebViewRoutingModule,
     CommonModule,

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { appModuleAnimation } from '@shared/animations/routerTransition';
+import { appModuleAnimation } from './../../shared/animations/routerTransition';
 import PSPDFKit from 'pspdfkit';
-import { WebViewService } from './../../../services/web-view.service'
+import { WebViewService } from '../../services/web-view.service'
+import { AppComponentBase } from '@shared/app-component-base';
 @Component({
   selector: 'web-view',
   templateUrl: './web-view.component.html',
@@ -10,10 +11,12 @@ import { WebViewService } from './../../../services/web-view.service'
   styleUrls: ['./web-view.component.css']
 })
 
-export class WebViewComponent implements OnInit {
+export class WebViewComponent  extends AppComponentBase implements OnInit {
   instanceNew: any;
   constructor(private webViewService: WebViewService,
-    private _router: Router) {
+    private _router: Router,
+    injector : Injector) {
+    super(injector);
   }
 
   async ngOnInit(): Promise<void> {
