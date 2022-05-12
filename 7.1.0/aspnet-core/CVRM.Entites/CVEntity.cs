@@ -31,5 +31,8 @@ namespace CVRM.Entites
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public UserEntity UserEntity { get; set; }
+        public int? TemplateId { get; set; }
+        [ForeignKey("TemplateId")]
+        public CVTemplateEntity? CVTemplateEntity { get; set; }
     }
 }

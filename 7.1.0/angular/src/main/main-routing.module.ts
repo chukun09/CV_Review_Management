@@ -4,6 +4,7 @@ import { AppRouteGuard } from '@shared/auth/auth-route-guard';
 import { AllCvComponent } from './all-cv/all-cv.component';
 import { MainComponent } from './main.component';
 import { SelectTemplateComponent } from './select-template/select-template.component';
+import { UserInformationComponent } from './user-information/user-information.component';
 import { WebViewComponent } from './web-view-pdf/web-view.component';
 
 @NgModule({
@@ -15,6 +16,11 @@ import { WebViewComponent } from './web-view-pdf/web-view.component';
                 children: [
                     { path: 'select-template', loadChildren: () => import('./select-template/select-template.module').then(m => m.SelectTemplateModule), data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard] },
                     { path: 'all-cv', component: AllCvComponent, data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard] },
+                    {
+                        path: 'user-information/:id',
+                        component: UserInformationComponent,
+                        data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
+                    }
                 ],
             },
             {

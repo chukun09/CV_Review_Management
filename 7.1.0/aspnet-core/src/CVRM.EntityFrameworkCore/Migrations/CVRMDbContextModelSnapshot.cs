@@ -1594,14 +1594,104 @@ namespace CVRM.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("varchar(10)");
 
+                    b.Property<int?>("TemplateId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TemplateId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("user_cv");
+                });
+
+            modelBuilder.Entity("CVRM.Entites.CVLikeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CVId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CVId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("cv_likes");
+                });
+
+            modelBuilder.Entity("CVRM.Entites.CVTemplateEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TemplateURL")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("cv_template");
                 });
 
             modelBuilder.Entity("CVRM.Entites.District", b =>
@@ -2421,11 +2511,36 @@ namespace CVRM.Migrations
 
             modelBuilder.Entity("CVRM.Entites.CVEntity", b =>
                 {
+                    b.HasOne("CVRM.Entites.CVTemplateEntity", "CVTemplateEntity")
+                        .WithMany()
+                        .HasForeignKey("TemplateId");
+
                     b.HasOne("CVRM.Entites.UserEntity", "UserEntity")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CVTemplateEntity");
+
+                    b.Navigation("UserEntity");
+                });
+
+            modelBuilder.Entity("CVRM.Entites.CVLikeEntity", b =>
+                {
+                    b.HasOne("CVRM.Entites.CVEntity", "CVEntity")
+                        .WithMany()
+                        .HasForeignKey("CVId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CVRM.Entites.UserEntity", "UserEntity")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CVEntity");
 
                     b.Navigation("UserEntity");
                 });
