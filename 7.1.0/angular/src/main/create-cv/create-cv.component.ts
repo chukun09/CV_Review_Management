@@ -3,12 +3,12 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/app-component-base';
 
 @Component({
-  selector: 'app-user-information',
-  templateUrl: './user-information.component.html',
-  styleUrls: ['./user-information.component.css'],
+  selector: 'app-create-cv',
+  templateUrl: './create-cv.component.html',
+  styleUrls: ['./create-cv.component.css'],
   animations: [appModuleAnimation()]
 })
-export class UserInformationComponent extends AppComponentBase implements OnInit {
+export class CreateCvComponent extends AppComponentBase implements OnInit {
 
   constructor(injector: Injector) {
     super(injector);

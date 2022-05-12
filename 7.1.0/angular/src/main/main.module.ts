@@ -38,6 +38,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import {WebViewComponent} from './web-view-pdf/web-view.component'
 import { WebViewComponentModule } from './web-view-pdf/web-view.module';
 import { UserInformationComponent } from './user-information/user-information.component';
+import { CreateCvComponent } from './create-cv/create-cv.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { UserInformationComponent } from './user-information/user-information.co
     FooterComponent,
     AllCvComponent,
     UserInformationComponent,
+    CreateCvComponent,
   ],
   imports: [
     CommonModule,

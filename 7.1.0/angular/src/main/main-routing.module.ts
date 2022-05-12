@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppRouteGuard } from '@shared/auth/auth-route-guard';
 import { AllCvComponent } from './all-cv/all-cv.component';
+import { CreateCvComponent } from './create-cv/create-cv.component';
 import { MainComponent } from './main.component';
 import { SelectTemplateComponent } from './select-template/select-template.component';
 import { UserInformationComponent } from './user-information/user-information.component';
@@ -26,6 +27,11 @@ import { WebViewComponent } from './web-view-pdf/web-view.component';
             {
                 path: 'web-view/:id',
                 loadChildren: () => import('./web-view-pdf/web-view.module').then(m => m.WebViewComponentModule),
+                data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
+            },
+            {
+                path: 'create-cv/:id',
+                component: CreateCvComponent,
                 data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
             }
         ])
