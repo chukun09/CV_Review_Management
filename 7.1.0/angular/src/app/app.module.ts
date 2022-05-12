@@ -67,7 +67,7 @@ import { SidebarMenuComponent } from './layout/sidebar-menu.component';
     SidebarComponent,
     SidebarLogoComponent,
     SidebarUserPanelComponent,
-    SidebarMenuComponent
+    SidebarMenuComponent,
   ],
   imports: [
     CommonModule,
