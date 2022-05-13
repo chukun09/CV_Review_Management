@@ -1,25 +1,64 @@
 <div [@routerTransition]>
-    <div class="container-fluid vh-100">
-        <div class="row h-100 d-flex justify-content-center align-items-center">
-            <div class="col-5">
-                <div class="form p-4">
-                    <form>
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Email address</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Password</label>
-                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                        </div>
-                        <div class="form-group form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                      </form>
-                </div>
+  <div class="container-fluid vh-100">
+    <div class="row h-100 d-flex justify-content-center align-items-center">
+      <div class="col-5">
+        <div class="form p-4 d-flex" style="max-height: 80vh; overflow-y: scroll;">
+          <form class="w-100" style="height:max-content">
+            <div class="form-row">
+              <h3 class="font-weight-bold title-form">Thông tin liên hệ</h3>
             </div>
+            <div class="form-group">
+              <label for="exampleInputName">Họ và tên</label>
+              <input type="text" class="form-control" id="exampleInputName" name="lastName"
+                [(ngModel)]="userInformation.lastName" disabled>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail">Email</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" [(ngModel)]="userInformation.email"
+                name="email" placeholder="Enter email" disabled>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPhoneNumber">Số điện thoại</label>
+              <input type="text" class="form-control" id="exampleInputPhoneNumber"
+                [(ngModel)]="userInformation.phoneNumber" name="phoneNumber" placeholder="Enter your phone">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputAddress">Địa chỉ</label>
+              <input type="text" class="form-control" id="exampleInputAddress" aria-describedby="addressHelp"
+                placeholder="Enter address">
+            </div>
+            <div class="form-row">
+              <h3 class="font-weight-bold title-form">Quản lý tài khoản</h3>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername">Tên đăng nhập</label>
+              <input type="text" class="form-control" [(ngModel)]="userLogin.userName" name="userName"
+                id="exampleInputUsername" disabled>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword">Mật khẩu</label>
+              <input type="password" class="form-control" [(ngModel)]="userLogin.password" name="password"
+                id="exampleInputPassword" disabled>
+            </div>
+            <div class="form-group custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitches">
+              <label class="custom-control-label" for="customSwitches">Nhận thông báo</label>
+            </div>
+            <div class="form-row">
+              <h3 class="font-weight-bold title-form">CV của tôi</h3>
+            </div>
+            <div class="form-group">
+              <a href="#" class="link-cv">CV-TranDucLong-09-2021-2.pdf</a>
+            </div>
+            <div class="form-group">
+              <label class="text-muted label-pdf">Hỗ trợ định dạng .doc .docx .pdf,<br>
+                không chứa mật khẩu bảo vệ, dung lượng dưới 1 MB</label>
+            </div>
+            <div class="form-group"><button type="button" class="btn btn-primary float-right btn-form">Lưu</button>
+              <button type="submit" class="btn btn-primary float-right btn-form">Hủy</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
+  </div>

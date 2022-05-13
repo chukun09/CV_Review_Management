@@ -17,5 +17,6 @@ namespace CVRM.CVRM.UserManagement
         CreateUpdateUserDto,
         CreateUpdateUserDto>
     {
+        Task<UserEntityDto> GetUserEntityByUserIdAsync(int id);
     }
 }

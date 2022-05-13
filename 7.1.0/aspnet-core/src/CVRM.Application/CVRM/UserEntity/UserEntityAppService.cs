@@ -26,5 +26,11 @@ namespace CVRM.CVRM.UserManagement
         {
             _iUserEntityRepository = iUserEntityRepository;
         }
+
+        public async Task<UserEntityDto> GetUserEntityByUserIdAsync(int id)
+        {
+            var userEntity = await _iUserEntityRepository.FirstOrDefaultAsync(p => p.UserId == id);
+            return ObjectMapper.Map<UserEntityDto>(userEntity);
+        }
     }
 }

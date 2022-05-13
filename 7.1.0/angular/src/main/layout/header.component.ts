@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Injector } from '@angular/core';
+import { AppComponentBase } from '@shared/app-component-base';
 import { AppAuthService } from '@shared/auth/app-auth.service';
 
 @Component({
@@ -6,9 +7,14 @@ import { AppAuthService } from '@shared/auth/app-auth.service';
   templateUrl: './header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent {
-  constructor(private _authService: AppAuthService){
-    
+export class HeaderComponent extends AppComponentBase {
+  shownLoginName = '';
+  constructor(injector: Injector, private _authService: AppAuthService) {
+    super(injector);
+  }
+
+  ngOnInit() {
+    this.shownLoginName = this.appSession.getShownLoginName();
   }
   logout(): void {
     this._authService.logout();
