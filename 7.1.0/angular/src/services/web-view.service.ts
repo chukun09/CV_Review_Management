@@ -10,8 +10,8 @@ export class WebViewService {
       'Content-Type': 'application/json'
     })
   };
-  async getJsonPDF() {
-    return await this.http.get<any>("https://localhost:44311/api/services/app/PDFEntity/Get?Id=4");
+  async getJsonPDFbyCVId(id) {
+    return await this.http.get<any>("https://localhost:44311/api/services/app/PDFEntity/getPDFJsonById?id=" + id);
   }
   addNewAnnotation(body: any) {
     return this.http.post("https://localhost:44311/api/services/app/PDFEntity/Create", body, this.headers);

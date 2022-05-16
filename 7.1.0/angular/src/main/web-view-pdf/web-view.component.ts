@@ -1,9 +1,10 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { appModuleAnimation } from './../../shared/animations/routerTransition';
 import PSPDFKit from 'pspdfkit';
 import { WebViewService } from '../../services/web-view.service'
 import { AppComponentBase } from '@shared/app-component-base';
+import { UserInformationService } from 'services/user-information.service';
 @Component({
   selector: 'web-view',
   templateUrl: './web-view.component.html',
@@ -11,26 +12,39 @@ import { AppComponentBase } from '@shared/app-component-base';
   styleUrls: ['./web-view.component.css']
 })
 
-export class WebViewComponent  extends AppComponentBase implements OnInit {
+export class WebViewComponent extends AppComponentBase implements OnInit {
   instanceNew: any;
+  userInformation: any;
+  userLogin: any;
+  id: number;
+  fullName: string;
   constructor(private webViewService: WebViewService,
     private _router: Router,
-    injector : Injector) {
+    private userInformationService: UserInformationService,
+    private route: ActivatedRoute,
+    injector: Injector) {
     super(injector);
   }
 
   async ngOnInit(): Promise<void> {
+    this.route.params.subscribe((params) => {
+      this.id = params["id"];
+    });
     var instantJSON: any;
     var instant: any;
-    let response = await this.webViewService.getJsonPDF();
+    this.userLogin = this.appSession.user;
+    (await this.userInformationService.getUserInformationByUserId(this.userLogin.id)).subscribe((response) => {
+      this.userInformation = response.result;
+      this.fullName = this.userInformation.firstName + ' ' + this.userInformation.lastName;
+    });
+    let response = await this.webViewService.getJsonPDFbyCVId(this.id);
     response.subscribe((data) => {
-      instantJSON = data.result.jsonPDF;
+      instantJSON = data.result;
       instantJSON = JSON.parse(instantJSON);
       instant = {
         annotations: instantJSON.annotations,
         format: instantJSON.format
       };
-      console.log(instant.annotations)
       const item: any = {
         type: "custom",
         id: "my-button",
@@ -47,11 +61,12 @@ export class WebViewComponent  extends AppComponentBase implements OnInit {
         container: "#pspdfkit-container",
         toolbarItems: [...PSPDFKit.defaultToolbarItems, item],
         autoSaveMode: PSPDFKit.AutoSaveMode.INTELLIGENT,
+        isEditableAnnotation: (annotation) => annotation.creatorName === this.fullName
         // initialViewState: new PSPDFKit.ViewState({ readOnly: true })
       }).then(async instance => {
         (window as any).instance = instance;
-        instance.setAnnotationCreatorName("Long");
-        // this.instanceNew = instance;
+        instance.setAnnotationCreatorName(this.fullName);
+        this.instanceNew = instance;
         // const arrayBuffer = await instance.exportPDF();
         // const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
         // const formData = new FormData();
@@ -79,7 +94,7 @@ export class WebViewComponent  extends AppComponentBase implements OnInit {
     const instantJSON = await this.instanceNew.exportInstantJSON();
     let annotations = {
       jsonPDF: JSON.stringify(instantJSON),
-      cvId: 11
+      cvId: this.id
     }
     this.webViewService.addNewAnnotation(annotations).subscribe(res => {
       console.log(res);

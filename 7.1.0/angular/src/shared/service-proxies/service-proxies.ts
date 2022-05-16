@@ -2964,7 +2964,7 @@ export interface IRegisterInput {
 
 export class RegisterOutput implements IRegisterOutput {
     canLogin: boolean;
-
+    userId: number;
     constructor(data?: IRegisterOutput) {
         if (data) {
             for (var property in data) {
@@ -2977,6 +2977,7 @@ export class RegisterOutput implements IRegisterOutput {
     init(_data?: any) {
         if (_data) {
             this.canLogin = _data["canLogin"];
+            this.userId = _data["userId"];
         }
     }
 
@@ -3003,6 +3004,7 @@ export class RegisterOutput implements IRegisterOutput {
 
 export interface IRegisterOutput {
     canLogin: boolean;
+    userId: number;
 }
 
 export class ResetPasswordDto implements IResetPasswordDto {

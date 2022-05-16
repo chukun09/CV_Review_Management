@@ -50,7 +50,8 @@ namespace CVRM.Authorization.Accounts
 
             return new RegisterOutput
             {
-                CanLogin = user.IsActive && (user.IsEmailConfirmed || !isEmailConfirmationRequiredForLogin)
+                CanLogin = user.IsActive && (user.IsEmailConfirmed || !isEmailConfirmationRequiredForLogin),
+                UserId = user.Id
             };
         }
     }

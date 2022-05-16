@@ -25,7 +25,7 @@ namespace CVRM.Entites
         public string Email { get; set; }
         [Phone, StringLength(10)]
         public string? PhoneNumber { get; set; }
-        public string Skills { get; set; }
+        public string? Skills { get; set; }
         public long UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }

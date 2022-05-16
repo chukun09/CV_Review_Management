@@ -2018,7 +2018,7 @@ namespace CVRM.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -2045,16 +2045,12 @@ namespace CVRM.Migrations
                         .HasColumnType("varchar(10)");
 
                     b.Property<string>("Skills")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
 
                     b.HasIndex("UserId");
 

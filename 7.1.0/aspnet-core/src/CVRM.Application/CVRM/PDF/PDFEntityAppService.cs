@@ -24,6 +24,6 @@ namespace CVRM.CVRM.PDF
         {
             _iPDFRepository = iPDFRepository;
     }
-        public async Task<string> getPDFJsonById(int id) =>  _iPDFRepository.FirstOrDefaultAsync(p => p.Id == id).Result.JsonPDF;
+        public async Task<string> getPDFJsonByCVId(int id) =>  _iPDFRepository.GetAll().OrderByDescending(p => p.CreationTime).FirstOrDefault(p => p.CVId == id).JsonPDF;
     }
 }

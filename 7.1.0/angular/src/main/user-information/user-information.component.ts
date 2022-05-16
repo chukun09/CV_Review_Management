@@ -9,8 +9,8 @@ import { UserInformationService } from '../../services/user-information.service'
   animations: [appModuleAnimation()]
 })
 export class UserInformationComponent extends AppComponentBase implements OnInit {
-   userInformation: any;
-   userLogin: any;
+  userInformation: any;
+  userLogin: any;
   constructor(injector: Injector, private userInformationService: UserInformationService) {
     super(injector);
   }

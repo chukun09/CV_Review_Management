@@ -5,6 +5,7 @@ using CVRM.CVRM.User;
 using CVRM.CVRM.User.Dto;
 using CVRM.Entites;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace CVRM.CVRM.UserManagement
 
         public async Task<UserEntityDto> GetUserEntityByUserIdAsync(int id)
         {
-            var userEntity = await _iUserEntityRepository.FirstOrDefaultAsync(p => p.UserId == id);
+            var userEntity = await _iUserEntityRepository.GetAll().OrderByDescending(p => p.CreationTime).FirstOrDefaultAsync(p => p.UserId == id);
             return ObjectMapper.Map<UserEntityDto>(userEntity);
         }
     }

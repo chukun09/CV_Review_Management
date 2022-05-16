@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CVRM.Migrations
 {
-    public partial class Init_Database_Again : Migration
+    public partial class Init_New_Migration_Database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -927,11 +927,11 @@ namespace CVRM.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    Email = table.Column<string>(type: "varchar(255)", nullable: false)
+                    Email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PhoneNumber = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Skills = table.Column<string>(type: "longtext", nullable: false)
+                    Skills = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -1910,12 +1910,6 @@ namespace CVRM.Migrations
                 name: "IX_district_ProvinceID",
                 table: "district",
                 column: "ProvinceID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_user_Email",
-                table: "user",
-                column: "Email",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_user_UserId",

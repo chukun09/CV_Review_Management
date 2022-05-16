@@ -32,7 +32,6 @@ namespace CVRM.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<UserEntity>().HasIndex(p => p.Email).IsUnique(true);
         }
     }
 }
