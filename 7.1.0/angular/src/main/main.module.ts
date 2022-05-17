@@ -29,8 +29,6 @@ import { ResetPasswordDialogComponent } from '../app/users/reset-password/reset-
 // layout
 import { HeaderComponent } from './layout/header.component';
 import { FooterComponent } from './layout/footer.component';
-import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
-import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown';
 import { SelectTemplateModule } from './select-template/select-template.module';
 import { AllCvComponent } from './all-cv/all-cv.component';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -80,8 +78,6 @@ import { CreateCvComponent } from './create-cv/create-cv.component';
     ServiceProxyModule,
     SharedModule,
     NgxPaginationModule,
-    MdbCheckboxModule,
-    MdbDropdownModule,
     SelectTemplateModule,
     NgSelectModule,
     WebViewComponentModule

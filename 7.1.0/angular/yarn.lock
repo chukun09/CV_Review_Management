@@ -5444,13 +5444,6 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mdb-angular-ui-kit@1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/mdb-angular-ui-kit/-/mdb-angular-ui-kit-1.6.1.tgz#7fdc8e958c560e923ddfed316a6c37a1352c85de"
-  integrity sha512-ziNYG1b9B7RU5uw8auvMLqV71Nyl7Tbh3o/4bYEOcrea33H+MH7CjboZgvZKLMD1wZeoLB0YqQ7gv96JOO7z2Q==
-  dependencies:
-    tslib "^2.0.0"
-
 mdn-data@2.0.14:
   version "2.0.14"
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.0.14.tgz#7113fc4281917d63ce29b43446f701e68c25ba50"

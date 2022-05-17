@@ -1,4 +1,23 @@
 <div [@routerTransition]>
-    <button type="button" (click)="downloadPDFbyHTML()"></button>
-    <div innerHtml="{{test}}" id="cv" #cv></div>
+    <div class="container-fluid pl-0 pr-0">
+        <div class="col-12">
+            <div class="row bg-black d-flex create-cv-header">
+                <button type="button" class="btn btn-outline-dark mr-auto ml-3">Trở về</button>
+                <input type="text"
+                    class="rounded-none max-w-full outline-none inline-block m-auto text-start overflow-hidden border-b duration-150 transition-colors bg-transparent cursor-text px-0 truncate placeholder-opacity-1 py-0.5 my-0.5 placeholder-gray-200 focus:placeholder-gray-400 focus:border-brand-400 hover:border-gray-700"
+                    alt="Resume Long Trần" placeholder="Resume Long Trần" value=""
+                    style="width: 147px; outline: none; font-family: inherit; font-weight: inherit; font-size: inherit; color:aliceblue"
+                    [(ngModel)]="title" (input)="setTitle($event.target.value)">
+                <button type="button" (click)="downloadPDFbyHTML()" class="btn btn-download ml-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                        class="px-0.5 flex-shrink-0 box-content h-6 w-5">
+                        <path fill-rule="evenodd"
+                            d="M3 17a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zm3.293-7.707a1 1 0 0 1 1.414 0L9 10.586V3a1 1 0 1 1 2 0v7.586l1.293-1.293a1 1 0 1 1 1.414 1.414l-3 3a1 1 0 0 1-1.414 0l-3-3a1 1 0 0 1 0-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg> Tải xuống</button>
+            </div>
+            <div innerHtml="{{test}}" id="cv" #cv></div>
+        </div>
+    </div>
+
 </div>

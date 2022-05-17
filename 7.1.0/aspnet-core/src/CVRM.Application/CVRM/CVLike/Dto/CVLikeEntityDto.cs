@@ -13,8 +13,6 @@ namespace CVRM.CVRM.CVLike.Dto
     public class CVLikeEntityDto : EntityDto
     {
         public int UserId { get; set; }
-        public UserEntity UserEntity { get; set; }
         public int CVId { get; set; }
-        public CVEntity CVEntity { get; set; }
     }
 }
