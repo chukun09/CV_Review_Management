@@ -11,7 +11,7 @@ export class WebViewService {
     })
   };
   async getJsonPDFbyCVId(id) {
-    return await this.http.get<any>("https://localhost:44311/api/services/app/PDFEntity/getPDFJsonById?id=" + id);
+    return await this.http.get<any>("https://localhost:44311/api/services/app/PDFEntity/getPDFJsonByCVId?id=" + id);
   }
   addNewAnnotation(body: any) {
     return this.http.post("https://localhost:44311/api/services/app/PDFEntity/Create", body, this.headers);

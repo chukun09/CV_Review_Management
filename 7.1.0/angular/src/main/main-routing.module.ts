@@ -30,7 +30,7 @@ import { WebViewComponent } from './web-view-pdf/web-view.component';
                 data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
             },
             {
-                path: 'create-cv/:id',
+                path: 'create-cv',
                 component: CreateCvComponent,
                 data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
             }

@@ -15,3 +15,8 @@ declare namespace abp {
     function clearBusy(elm?: any, delay?: any): void;
   }
 }
+declare module '*html'
+{
+  const value:string;
+  export default value
+}

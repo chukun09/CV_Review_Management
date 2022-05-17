@@ -32,6 +32,7 @@
     "chart.js": "^3.1.1",
     "core-js": "^3.2.1",
     "famfamfam-flags": "^1.0.0",
+    "html-loader": "^3.1.0",
     "jspdf": "^2.5.1",
     "lodash-es": "^4.17.15",
     "mdb-angular-ui-kit": "1.6.1",

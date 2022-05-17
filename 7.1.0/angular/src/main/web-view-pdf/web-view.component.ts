@@ -5,6 +5,7 @@ import PSPDFKit from 'pspdfkit';
 import { WebViewService } from '../../services/web-view.service'
 import { AppComponentBase } from '@shared/app-component-base';
 import { UserInformationService } from 'services/user-information.service';
+import {Location} from '@angular/common';
 @Component({
   selector: 'web-view',
   templateUrl: './web-view.component.html',
@@ -22,6 +23,7 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
     private _router: Router,
     private userInformationService: UserInformationService,
     private route: ActivatedRoute,
+    private _location: Location,
     injector: Injector) {
     super(injector);
   }
@@ -45,21 +47,28 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
         annotations: instantJSON.annotations,
         format: instantJSON.format
       };
-      const item: any = {
+      const item: any = [{
         type: "custom",
-        id: "my-button",
+        id: "save-button",
         title: "Save",
-        onPress: (event) => {
+        onPress: () => {
           this.saveFilePDF();
         }
-      };
+      }, {
+        type: "custom",
+        id: "cancel-button",
+        title: "Cancel",
+        onPress: () => {
+          this.cancelEdit();
+        }
+      }];
       PSPDFKit.load({
         // Use the assets directory URL as a base URL. PSPDFKit will download its library assets from here.
         baseUrl: location.protocol + "//" + location.host + "/assets/",
         instantJSON: instantJSON,
-        document: "./../../../assets/pdf/webviewer-demo-annotated.pdf",
+        document: "../../assets/pdf/webviewer-demo-annotated.pdf",
         container: "#pspdfkit-container",
-        toolbarItems: [...PSPDFKit.defaultToolbarItems, item],
+        toolbarItems: PSPDFKit.defaultToolbarItems.concat(item),
         autoSaveMode: PSPDFKit.AutoSaveMode.INTELLIGENT,
         isEditableAnnotation: (annotation) => annotation.creatorName === this.fullName
         // initialViewState: new PSPDFKit.ViewState({ readOnly: true })
@@ -67,13 +76,6 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
         (window as any).instance = instance;
         instance.setAnnotationCreatorName(this.fullName);
         this.instanceNew = instance;
-        // const arrayBuffer = await instance.exportPDF();
-        // const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
-        // const formData = new FormData();
-        // formData.append("file", blob);
-        // console.log(formData);
-
-
         // instance.addEventListener("annotations.didSave", async () => {
         //   const instantJSON = await instance.exportInstantJSON();
         //   // This saves the Instant JSON to your server, which in turn stores it in a database.
@@ -86,9 +88,11 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
         //   });
         // });
       });
+    }, error => {
+      this.message.error("Vui lòng kiểm tra lại URL, không thể tìm thấy CV !", "Lỗi đường dẫn");
+      console.log(error);
+      this._router.navigate(['/main/all-cv']);
     });
-    // const response = await fetch("https://localhost:44311/api/services/app/PDFEntity/getPDFJsonById?id=4");
-    // const instantJSON = await response.json();
   }
   async saveFilePDF() {
     const instantJSON = await this.instanceNew.exportInstantJSON();
@@ -99,6 +103,9 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
     this.webViewService.addNewAnnotation(annotations).subscribe(res => {
       console.log(res);
     });
-    this._router.navigate(['/app/about']);
+    this._router.navigate(['/main/all-cv']);
+  }
+  async cancelEdit(){
+    this._location.back();
   }
 }
