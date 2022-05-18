@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace CVRM.SignalR
 {
-    public interface ITypeHubClient
+    public class AnnotationHub : Hub<ITypeHubClient>
     {
-        Task BoardCastSomeThing(int jobID);
-        Task BoardCastAnnotation();
     }
 }

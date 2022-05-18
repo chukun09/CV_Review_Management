@@ -1,6 +1,6 @@
 <div [@routerTransition]>
     <div class="container-fluid pl-0 pr-0">
-        <div class="col-12">
+        <div class="col-12 p-0" style="height: 100vh;">
             <div class="row bg-black d-flex create-cv-header">
                 <button type="button" class="btn btn-outline-dark mr-auto ml-3">Trở về</button>
                 <input type="text"
@@ -16,7 +16,20 @@
                             clip-rule="evenodd"></path>
                     </svg> Tải xuống</button>
             </div>
-            <div innerHtml="{{test}}" id="cv" #cv></div>
+            <div class="container-fluid p-0 w-100 h-100">
+                <div class="row h-100 d-flex">
+                    <div class="col p-0 d-flex">
+
+                    </div>
+                    <div class="col p-0 d-flex justify-content-center align-items-center"
+                        style="background-color: #F5F5F5;">
+                        <div innerHtml="{{test}}" id="cv" #cv></div>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
     </div>
 

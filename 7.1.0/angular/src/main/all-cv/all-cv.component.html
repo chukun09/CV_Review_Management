@@ -41,6 +41,10 @@
                                 <a href="#" id="basic-link" class="float-right mr-2" >
                                     <img src="./../../assets/img/bxs_comment-edit.svg" height="40" alt="Notifications" loading="lazy" />
                                 </a>
+                                <button href="#" id="basic-link" class="float-right bg-white border-0" (click)="toogleLike()" >
+                                    <img *ngIf="like" src="./../../assets/img/akar-icons_heart.svg" height="40" alt="Heart" loading="lazy"  />
+                                    <img *ngIf="!like" src="./../../assets/img/ant-design_heart-filled.svg" height="40" alt="Heart" loading="lazy"  />
+                                </button>
                             </div>
                         </div>
                     </div>

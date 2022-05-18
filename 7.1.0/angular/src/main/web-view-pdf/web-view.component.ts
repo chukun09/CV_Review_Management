@@ -1,11 +1,12 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { appModuleAnimation } from './../../shared/animations/routerTransition';
-import PSPDFKit from 'pspdfkit';
+import PSPDFKit, { Instance } from 'pspdfkit';
 import { WebViewService } from '../../services/web-view.service'
 import { AppComponentBase } from '@shared/app-component-base';
 import { UserInformationService } from 'services/user-information.service';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
+import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 @Component({
   selector: 'web-view',
   templateUrl: './web-view.component.html',
@@ -19,6 +20,26 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
   userLogin: any;
   id: number;
   fullName: string;
+  // SignalR
+  private hubConnection: HubConnection;
+  // -------------SignalR Service-------------
+  public startConnection = () => {
+    this.hubConnection = new HubConnectionBuilder()
+      .withUrl('https://localhost:44311/annotation')
+      .build();
+    this.hubConnection
+      .start()
+      .then(() => console.log('Connection started'))
+      .catch(err => console.log('Error while starting connection: ' + err))
+  }
+  public addTransferChartDataListener = () => {
+    this.hubConnection.on('boardcastannotation', () => {
+      // this.data = data;
+      PSPDFKit.unload(this.instanceNew);
+      this.initialState();
+      // console.log(data);
+    });
+  }
   constructor(private webViewService: WebViewService,
     private _router: Router,
     private userInformationService: UserInformationService,
@@ -32,13 +53,33 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
     this.route.params.subscribe((params) => {
       this.id = params["id"];
     });
-    var instantJSON: any;
-    var instant: any;
     this.userLogin = this.appSession.user;
     (await this.userInformationService.getUserInformationByUserId(this.userLogin.id)).subscribe((response) => {
       this.userInformation = response.result;
       this.fullName = this.userInformation.firstName + ' ' + this.userInformation.lastName;
     });
+    this.startConnection();
+    this.addTransferChartDataListener();
+    this.initialState();
+
+  }
+  async saveFilePDF() {
+    const instantJSON = await this.instanceNew.exportInstantJSON();
+    let annotations = {
+      jsonPDF: JSON.stringify(instantJSON),
+      cvId: this.id
+    }
+    this.webViewService.addNewAnnotation(annotations).subscribe(res => {
+      console.log(res);
+    });
+    this._router.navigate(['/main/all-cv']);
+  }
+  async cancelEdit() {
+    this._location.back();
+  }
+  async initialState() {
+    var instantJSON: any;
+    var instant: any;
     let response = await this.webViewService.getJsonPDFbyCVId(this.id);
     response.subscribe((data) => {
       instantJSON = data.result;
@@ -93,19 +134,5 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
       console.log(error);
       this._router.navigate(['/main/all-cv']);
     });
-  }
-  async saveFilePDF() {
-    const instantJSON = await this.instanceNew.exportInstantJSON();
-    let annotations = {
-      jsonPDF: JSON.stringify(instantJSON),
-      cvId: this.id
-    }
-    this.webViewService.addNewAnnotation(annotations).subscribe(res => {
-      console.log(res);
-    });
-    this._router.navigate(['/main/all-cv']);
-  }
-  async cancelEdit(){
-    this._location.back();
   }
 }

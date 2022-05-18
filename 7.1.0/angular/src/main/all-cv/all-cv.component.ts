@@ -10,12 +10,14 @@ import { AppComponentBase } from '@shared/app-component-base';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AllCvComponent extends AppComponentBase implements OnInit {
-
+  like:boolean = true;
   constructor(injector : Injector) {
     super(injector);
   }
 
   ngOnInit(): void {
   }
-
+  toogleLike(){
+    this.like = !this.like;
+  }
 }

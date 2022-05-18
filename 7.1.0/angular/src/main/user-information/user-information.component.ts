@@ -11,6 +11,7 @@ import { UserInformationService } from '../../services/user-information.service'
 export class UserInformationComponent extends AppComponentBase implements OnInit {
   userInformation: any;
   userLogin: any;
+  fullName: any;
   constructor(injector: Injector, private userInformationService: UserInformationService) {
     super(injector);
   }
@@ -19,6 +20,7 @@ export class UserInformationComponent extends AppComponentBase implements OnInit
     this.userLogin = this.appSession.user;
     (await this.userInformationService.getUserInformationByUserId(this.userLogin.id)).subscribe((response) => {
       this.userInformation = response.result;
+      this.fullName = this.userInformation.firstName + " " + this.userInformation.lastName;
     });
   }
 }

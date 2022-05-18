@@ -108,6 +108,7 @@ namespace CVRM.Web.Host.Startup
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<CommentHub>("/comment");
+                endpoints.MapHub<AnnotationHub>("/annotation");
                 endpoints.MapHub<AbpCommonHub>("/signalr");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("defaultWithArea", "{area}/{controller=Home}/{action=Index}/{id?}");
