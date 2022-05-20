@@ -16,5 +16,8 @@ namespace CVRM.CVRM.CVLike
         CreateUpdateCVLikeEntityDto,
         CreateUpdateCVLikeEntityDto>
     {
+        Task<CVLikeEntityDto> UpdateStatusLike(int UserId, int CVId);
+        Task<List<CVLikeEntityDto>> GetListCVLikeByCVId(int CVId);
+     
     }
 }

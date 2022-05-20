@@ -37,6 +37,7 @@ import {WebViewComponent} from './web-view-pdf/web-view.component'
 import { WebViewComponentModule } from './web-view-pdf/web-view.module';
 import { UserInformationComponent } from './user-information/user-information.component';
 import { CreateCvComponent } from './create-cv/create-cv.component';
+import { BaseTemplateComponent } from './create-cv/base-template/base-template.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { CreateCvComponent } from './create-cv/create-cv.component';
     AllCvComponent,
     UserInformationComponent,
     CreateCvComponent,
+    BaseTemplateComponent,
   ],
   imports: [
     CommonModule,
