@@ -6,5 +6,6 @@
 export const environment = {
     production: false,
     hmr: false,
-    appConfig: 'appconfig.json'
+    appConfig: 'appconfig.json',
+    BASE_API_URL: 'https://localhost:44311/api/services/app',
 };

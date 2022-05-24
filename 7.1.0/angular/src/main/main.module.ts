@@ -32,12 +32,14 @@ import { FooterComponent } from './layout/footer.component';
 import { SelectTemplateModule } from './select-template/select-template.module';
 import { AllCvComponent } from './all-cv/all-cv.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 // Component
 import {WebViewComponent} from './web-view-pdf/web-view.component'
 import { WebViewComponentModule } from './web-view-pdf/web-view.module';
 import { UserInformationComponent } from './user-information/user-information.component';
 import { CreateCvComponent } from './create-cv/create-cv.component';
 import { BaseTemplateComponent } from './create-cv/base-template/base-template.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import { BaseTemplateComponent } from './create-cv/base-template/base-template.c
     UserInformationComponent,
     CreateCvComponent,
     BaseTemplateComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -73,6 +76,7 @@ import { BaseTemplateComponent } from './create-cv/base-template/base-template.c
     HttpClientModule,
     HttpClientJsonpModule,
     ModalModule.forChild(),
+    BsDatepickerModule.forRoot(),
     BsDropdownModule,
     CollapseModule,
     TabsModule,

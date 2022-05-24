@@ -4,6 +4,7 @@ import { AppRouteGuard } from '@shared/auth/auth-route-guard';
 import { AllCvComponent } from './all-cv/all-cv.component';
 import { CreateCvComponent } from './create-cv/create-cv.component';
 import { MainComponent } from './main.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SelectTemplateComponent } from './select-template/select-template.component';
 import { UserInformationComponent } from './user-information/user-information.component';
 import { WebViewComponent } from './web-view-pdf/web-view.component';
@@ -21,7 +22,8 @@ import { WebViewComponent } from './web-view-pdf/web-view.component';
                         path: 'user-information/:id',
                         component: UserInformationComponent,
                         data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
-                    }
+                    },
+                    { path: 'reset-password', component: ResetPasswordComponent, data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard] }
                 ],
             },
             {

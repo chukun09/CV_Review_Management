@@ -12,7 +12,20 @@
     font-family: 'Roboto';
     font-size: 24px;
 }
-
+.input-date {
+    background-image: url("../../assets/img/calendar.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+}
+input.input-date {
+    background-color: #ffffff;
+}
+/* .bs-datepicker-head {
+    background-color: #0a2341;
+} */
+.theme-green .bs-datepicker-head {
+    background-color: #0a2341;
+}
 .btn-form {
     height: 30px;
     font-family: 'Roboto';

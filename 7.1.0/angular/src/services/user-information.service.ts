@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'environments/environment';
+import { API_CONSTS } from '@shared/AppConsts';
 
 @Injectable({ providedIn: 'root' })
 export class UserInformationService {
@@ -11,6 +13,6 @@ export class UserInformationService {
     })
   };
   async getUserInformationByUserId(id) {
-    return await this.http.get<any>("https://localhost:44311/api/services/app/UserEntity/GetUserEntityByUserId?id=" + id);
+    return await this.http.get<any>(environment.BASE_API_URL + API_CONSTS.UserEntity.GET_BY_USERID + "?id=" + id);
   }
 }

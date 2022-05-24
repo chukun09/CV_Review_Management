@@ -18,3 +18,13 @@ export class AppConsts {
         encryptedAuthTokenName: 'enc_auth_token'
     };
 }
+export const API_CONSTS = {
+    UserEntity: {
+        CREATE: "/UserEntity/Create",
+        GET_BY_USERID: "/UserEntity/GetUserEntityByUserId",
+    },
+    PDFEntity: {
+        GET_PDF_JSON: "/PDFEntity/getPDFJsonByCVId",
+        CREATE: "/PDFEntity/Create"
+    }
+}

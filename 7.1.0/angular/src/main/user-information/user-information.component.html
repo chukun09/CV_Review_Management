@@ -9,8 +9,8 @@
             </div>
             <div class="form-group">
               <label for="exampleInputName">Họ và tên</label>
-              <input type="text" class="form-control" id="exampleInputName" name="lastName"
-                [ngModel]="fullName" disabled>
+              <input type="text" class="form-control" id="exampleInputName" name="lastName" [ngModel]="fullName"
+                disabled>
             </div>
             <div class="form-group">
               <label for="exampleInputEmail">Email</label>
@@ -23,9 +23,29 @@
                 [(ngModel)]="userInformation.phoneNumber" name="phoneNumber" placeholder="Enter your phone">
             </div>
             <div class="form-group">
-              <label for="exampleInputAddress">Địa chỉ</label>
-              <input type="text" class="form-control" id="exampleInputAddress" aria-describedby="addressHelp"
-                placeholder="Enter address">
+              <label><strong class="title-bold">Campaign End Date</strong><strong class="required-tick">
+                  *</strong></label>
+              <input type="text" placeholder="01/01/20" class="form-control input-date" name="campaignEndDateName"
+                #dp="bsDatepicker" bsDatepicker [(ngModel)]="userInformation.birthDate"
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',  returnFocusToInput: true, isAnimated: true }" #campaignEndDateName="ngModel"
+                required readonly>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPhoneNumber">Địa chỉ</label>
+              <input type="text" class="form-control" id="exampleInputPhoneNumber"
+                [(ngModel)]="userInformation.phoneNumber" name="phoneNumber" placeholder="Enter your phone">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="exampleInputAddress">Tỉnh / Thành Phố</label>
+                <ng-select bindLabel="name" bindValue="id" [searchable]="false" placeholder="Select Filter">
+                </ng-select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="exampleInputAddress">Quận / Huyện</label>
+                <ng-select bindLabel="name" bindValue="id" [searchable]="false" placeholder="Select Filter">
+                </ng-select>
+              </div>
             </div>
             <div class="form-row">
               <h3 class="font-weight-bold title-form">Quản lý tài khoản</h3>
@@ -35,11 +55,11 @@
               <input type="text" class="form-control" [(ngModel)]="userLogin.userName" name="userName"
                 id="exampleInputUsername" disabled>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="exampleInputPassword">Mật khẩu</label>
               <input type="password" class="form-control" [(ngModel)]="userLogin.password" name="password"
                 id="exampleInputPassword" disabled>
-            </div>
+            </div> -->
             <div class="form-group custom-control custom-switch">
               <input type="checkbox" class="custom-control-input" id="customSwitches">
               <label class="custom-control-label" for="customSwitches">Nhận thông báo</label>
