@@ -1,7 +1,8 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/app-component-base';
-import { UserInformationService } from '../../services/user-information.service'
+import { UserInformationService } from '../../services/user-information.service';
+
 @Component({
   selector: 'app-user-information',
   templateUrl: './user-information.component.html',
@@ -12,7 +13,11 @@ export class UserInformationComponent extends AppComponentBase implements OnInit
   userInformation: any;
   userLogin: any;
   fullName: any;
-  constructor(injector: Injector, private userInformationService: UserInformationService) {
+  maxDate: Date;
+  submitted = false;
+  constructor(injector: Injector,
+    private userInformationService: UserInformationService,
+  ) {
     super(injector);
   }
 
@@ -22,5 +27,7 @@ export class UserInformationComponent extends AppComponentBase implements OnInit
       this.userInformation = response.result;
       this.fullName = this.userInformation.firstName + " " + this.userInformation.lastName;
     });
+    this.maxDate = new Date();
   }
+
 }

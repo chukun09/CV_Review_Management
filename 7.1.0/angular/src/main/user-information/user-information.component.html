@@ -5,7 +5,7 @@
         <div class="form p-4 d-flex" style="max-height: 80vh; overflow-y: scroll;">
           <form class="w-100" style="height:max-content">
             <div class="form-row">
-              <h3 class="font-weight-bold title-form">Thông tin liên hệ</h3>
+              <h3 class="font-weight-bold title-form">Thông tin cá nhân</h3>
             </div>
             <div class="form-group">
               <label for="exampleInputName">Họ và tên</label>
@@ -23,12 +23,12 @@
                 [(ngModel)]="userInformation.phoneNumber" name="phoneNumber" placeholder="Enter your phone">
             </div>
             <div class="form-group">
-              <label><strong class="title-bold">Campaign End Date</strong><strong class="required-tick">
+              <label><strong class="title-bold">Ngày Sinh</strong><strong class="required-tick">
                   *</strong></label>
-              <input type="text" placeholder="01/01/20" class="form-control input-date" name="campaignEndDateName"
-                #dp="bsDatepicker" bsDatepicker [(ngModel)]="userInformation.birthDate"
-                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',  returnFocusToInput: true, isAnimated: true }" #campaignEndDateName="ngModel"
-                required readonly>
+              <input type="text" placeholder="01/01/20" class="form-control input-date" name="birthDate"
+                #dp="bsDatepicker" bsDatepicker [(ngModel)]="userInformation.birthDate" [maxDate]="maxDate"
+                [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY',  returnFocusToInput: true, isAnimated: true }"
+                #birthDate="ngModel" required readonly>
             </div>
             <div class="form-group">
               <label for="exampleInputPhoneNumber">Địa chỉ</label>

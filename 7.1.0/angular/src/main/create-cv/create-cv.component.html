@@ -20,67 +20,91 @@
                 <div class="row h-100 d-flex">
                     <div class="col p-0">
                         <div class="form d-flex" style="padding: 2rem 5rem;">
-                            <form class="w-100" style="height:max-content">
+                            <form class="w-100" style="height:max-content" [formGroup]="createCVForm"
+                                (ngSubmit)="onSubmit()">
                                 <div class="form-row">
-                                    <h3 class="font-weight-bold title-form">Thông tin liên hệ</h3>
+                                    <h3 class="font-weight-bold title-form">Thông tin cá nhân</h3>
+                                </div>
+                                <div class="form-group form-row">
+                                    <!-- Upload image -->
+                                    <div class="avatar-upload col-md-3">
+                                        <label class="form-label">Ảnh đại diện</label>
+                                        <div class="avatar-edit">
+                                            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
+                                                (change)="uploadFile($event)" />
+                                            <label for="imageUpload" *ngIf="editFile"
+                                                [ngClass]="['custom-label', 'upload-image']"></label>
+                                            <label *ngIf="removeUpload" [ngClass]="['custom-label', 'remove-image']"
+                                                (click)="removeUploadedFile()"></label>
+                                        </div>
+                                        <div class="avatar-preview">
+                                            <div id="imagePreview" [style.backgroundImage]="'url('+ imageUrl +')'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row col-md-9">
+                                        <div class="w-100 d-flex">
+                                            <div class="form-group col">
+                                                <label for="firstName" class="form-label">Họ</label>
+                                                <input type="text" class="form-control bg-gray-100"
+                                                    placeholder="Nhập họ của bạn" name="firstName">
+                                            </div>
+                                            <div class="form-group col ml-3">
+                                                <label for="lastName" class="form-label">Tên</label>
+                                                <input type="text" class="form-control bg-gray-100"
+                                                    placeholder="Nhập tên của bạn" name="lastName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="text" class="form-control bg-gray-100"
+                                                placeholder="Nhập địa chỉ email của bạn" name="Email">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputName">Họ và tên</label>
-                                    <input type="text" class="form-control" id="exampleInputName" name="lastName"
-                                        disabled>
+                                    <label for="headline" class="form-label">Tiêu đề</label>
+                                    <input type="text" class="form-control bg-gray-100"
+                                        placeholder="Nhập tiêu đề của CV" name="HeadLine">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail">Email</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" name="email"
-                                        placeholder="Enter email" disabled>
+                                    <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                                    <input type="text" class="form-control bg-gray-100"
+                                        placeholder="Nhập số điện thoại của bạn" name="PhoneNumber">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPhoneNumber">Số điện thoại</label>
-                                    <input type="text" class="form-control" id="exampleInputPhoneNumber"
-                                        name="phoneNumber" placeholder="Enter your phone">
+                                    <label for="phoneNumber" class="form-label">Ngày sinh</label>
+                                    <input type="text" placeholder="01/01/20"
+                                        class="form-control input-date bg-gray-100" name="birthDate" #dp="bsDatepicker"
+                                        bsDatepicker
+                                        [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY',  returnFocusToInput: true, isAnimated: true }"
+                                        required readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputAddress">Địa chỉ</label>
-                                    <input type="text" class="form-control" id="exampleInputAddress"
-                                        aria-describedby="addressHelp" placeholder="Enter address">
+                                    <label for="Address" class="form-label">Địa chỉ</label>
+                                    <input type="text" class="form-control bg-gray-100"
+                                        placeholder="Nhập địa chỉ của bạn" name="Address">
                                 </div>
                                 <div class="form-row">
-                                    <h3 class="font-weight-bold title-form">Quản lý tài khoản</h3>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputUsername">Tên đăng nhập</label>
-                                    <input type="text" class="form-control" name="userName" id="exampleInputUsername"
-                                        disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword">Mật khẩu</label>
-                                    <input type="password" class="form-control" name="password"
-                                        id="exampleInputPassword" disabled>
-                                </div>
-                                <div class="form-group custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitches">
-                                    <label class="custom-control-label" for="customSwitches">Nhận thông báo</label>
-                                </div>
-                                <div class="form-row">
-                                    <h3 class="font-weight-bold title-form">CV của tôi</h3>
-                                </div>
-                                <div class="form-group">
-                                    <a href="#" class="link-cv">CV-TranDucLong-09-2021-2.pdf</a>
-                                </div>
-                                <div class="form-group">
-                                    <label class="text-muted label-pdf">Hỗ trợ định dạng .doc .docx .pdf,<br>
-                                        không chứa mật khẩu bảo vệ, dung lượng dưới 1 MB</label>
-                                </div>
-                                <div class="form-group"><button type="button"
-                                        class="btn btn-primary float-right btn-form">Lưu</button>
-                                    <button type="submit" class="btn btn-primary float-right btn-form">Hủy</button>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputAddress" class="form-label">Tỉnh / Thành Phố</label>
+                                        <ng-select bindLabel="name" bindValue="id" [searchable]="false"
+                                            placeholder="Select Filter">
+                                        </ng-select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputAddress" class="form-label">Quận / Huyện</label>
+                                        <ng-select bindLabel="name" bindValue="id" [searchable]="false"
+                                            placeholder="Select Filter">
+                                        </ng-select>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="col p-0 d-flex justify-content-center align-items-center"
                         style="background-color: #F5F5F5;">
-                        <div id="cv" #cv>
+                        <div id="cv" #cv style="transform: scale(0.8);">
                             <iframe class="w-100 h-100"
                                 src="http://127.0.0.1:5500/src/assets/template/ResponsiveCVResume/index.html">
                                 <app-base-template></app-base-template>
