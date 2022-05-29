@@ -1,394 +1,488 @@
 <style>
-    /*Var*/
-    * {
-        box-sizing: border-box;
-        padding: 0px;
-        margin: 0px;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap');
 
-    body,
-    html {
-        font-size: 14px;
-        color: #2A2A2A;
-        font-family: 'Poppins', sans-serif;
-    }
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	box-sizing: border-box;
+	font-family: 'Ubuntu', sans-serif;
+}
 
-    .box-cv-wrapper {
-        display: flex;
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-    }
+body{
+	background: linear-gradient(to right, #3525af, #9153c9);
+}
 
-    .box-sidebar {
-        width: 400px;
-        background-color: #144E52;
-        color: #fff;
-        padding: 3rem 2rem;
-    }
+.resume{
+	width: 1000px;
+	background: #fff;
+	margin: 25px auto;
+	display: flex;
+}
 
-    .box-sidebar .avatar {
-        margin-bottom: 2rem;
-    }
+.left{
+	background: #292b2f;
+	width: 250px;
+	padding: 0 20px;
+}
 
-    .box-sidebar .avatar img {
-        width: 10rem;
-        height: 10rem;
-    }
+.right{
+	width: calc(100% - 250px);
+}
 
-    .box-sidebar .userinfo {
-        margin-bottom: 2rem;
-    }
+.left .img_holder{
+	text-align: center;
+	padding: 20px 0;
+}
 
-    .box-sidebar .userinfo .username {
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        font-size: 2rem;
-    }
+.left .img_holder img{
+	width: 200px;
+	border-radius: 30px;
+}
 
-    .box-sidebar .contact-info {
-        margin-bottom: 2rem;
-    }
+.pb{
+	padding-bottom: 20px;
+}
 
-    .box-sidebar .contact-info .item {
-        display: block;
-        margin-bottom: 1rem;
-        padding: 0.5rem 1rem;
-        background-color: #e5e5e5;
-        color: #233A5F;
-        border-radius: 4px;
-    }
+.title{
+	font-size: 24px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	padding-bottom: 10px;
+	color: #3525af;
+	position: relative;
+	text-align: right;
+	margin-bottom: 15px;
+}
 
-    .box-sidebar .list {
-        margin-left: 20px;
-    }
+.title:before{
+	content: "";
+	position: absolute;
+	top: 35px;
+	right: 0;
+	width: 50px;
+	height: 3px;
+	background: #3525af;
+}
 
-    .box-sidebar .list li {
-        margin-bottom: 1rem;
-    }
+.left .icon{
+	font-size: 20px;
+	color: #9153c9;
+}
 
-    .box-sidebar .flex-box.honor {
-        margin-bottom: 1rem;
-    }
+.left .text{
+	color: #9153c9;
+	text-transform: uppercase;
+	font-size: 13px;
+}
 
-    .box-sidebar .desc {
-        opacity: 0.6;
-    }
+.contact .li_wrap{
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 15px;
+}
 
-    .box-sidebar .social-list {
-        text-align: center;
-    }
+.contact .li_wrap .icon{
+	width: 50px;
+	height: 50px;
+	background: #fff;
+	border-radius: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 15px;
+}
 
-    .box-sidebar .social-list a {
-        display: inline-block;
-        margin: 0px 5px;
-        font-size: 2rem;
-        color: #fff;
-        cursor: pointer;
-        text-decoration: none;
-        transition: transform 0.3s ease;
-    }
+.contact .li_wrap .text{
+	width: calc(100% - 50px);
+	word-break: break-word;
+	color: #fff;
+}
 
-    .box-sidebar .social-list a:hover {
-        transition: transform 0.3s ease;
-        transform: scale(1.1);
-    }
+.skills ul,
+.hobbies ul{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
 
-    .box-content {
-        margin-left: 2rem;
-        flex: 1;
-        padding: 2rem;
-    }
+.skills .li_wrap,
+.hobbies .li_wrap{
+	width: 100px;
+	height: 100px;
+	margin-bottom: 15px;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
 
-    .box-content .main-title {
-        position: relative;
-        color: #233A5F;
-        padding-bottom: 0.2rem;
-    }
+.skills .li_wrap{
+	background: #fff;
+}
 
-    .box-content .main-title:before {
-        width: 70px;
-        content: "";
-        height: 3px;
-        position: absolute;
-        bottom: 0px;
-        background-color: #233A5F;
-    }
+.skills .li_wrap .text,
+.hobbies .li_wrap .text{
+	margin-top: 5px;
+}
 
-    .main-title {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-        font-weight: 600;
-    }
+.hobbies .li_wrap{
+	border: 2px solid #fff;
+}
 
-    .main-desc {
-        color: #878787;
-    }
+.hobbies .li_wrap .icon,
+.hobbies .li_wrap .text{
+	color: #fff;
+}
 
-    .box {
-        margin-bottom: 2rem;
-    }
+.hobbies .li_wrap:hover{
+	background: #fff;
+}
 
-    .flex-box {
-        display: flex;
-        justify-content: space-between;
-    }
+.hobbies .li_wrap:hover .icon,
+.hobbies .li_wrap:hover .text{
+	color: #9153c9;
+}
 
-    .flex-box .date {
-        white-space: nowrap;
-    }
+.header{
+	background: #292b2f;
+	padding: 15px 30px;
+	color: #fff;
+	height: 240px;
+}
 
-    .flex-box .content {
-        flex: 1;
-        margin-left: 2rem;
-        padding-left: 20px;
-        position: relative;
-    }
+.header .name{
+	font-size: 52px;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: #3525af;
+}
 
-    .flex-box .content:before {
-        content: "";
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        position: absolute;
-        top: 10px;
-        left: 0px;
-        background-color: #e5e5e5;
-    }
+.header .role{
+	font-weight: 300;
+	font-size: 20px;
+}
 
-    .flex-box .name {
-        margin: 0.5rem 0px;
-        font-weight: 600;
-    }
+.header .about{
+	margin-top: 20px;
+	line-height: 26px;
+}
 
-    .flex-box .logo {
-        width: 4rem;
-    }
+.right_inner{
+	padding: 30px;
+	color: #292b2f;
+}
 
-    .flex-box .logo img {
-        width: 100%;
-    }
+.right_inner .education{
+	margin-top: 30px;
+}
 
-    .flex-box .name-company {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-    }
+.right_inner .li_wrap{
+	display: flex;
+	margin-bottom: 15px;
+}
 
-    .flex-box .pos {
-        margin-bottom: 1rem;
-    }
+.right_inner .li_wrap .date {
+    width: 125px;
+    color: #9153c9;
+}
 
-    .flex-box.-education .pos {
-        font-size: 1.2rem;
-    }
+.right_inner .li_wrap .info{
+	width: calc(100%  - 125px);
+	padding-left: 25px;
+	position: relative;
+}
 
-    /*Responsive*/
-    @media (max-width: 991px) {
-        .box-sidebar {
-            width: 320px;
-        }
-    }
+.right_inner .li_wrap .info_title{
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: #9153c9;
+}
 
-    @media (max-width: 768px) {
-        .box-cv-wrapper {
-            display: block;
-        }
+.right_inner .li_wrap .info_com{
+	font-weight: 300;
+	font-size: 14px;
+	margin-top: 3px;
+}
 
-        .box-sidebar {
-            width: 100%;
-        }
+.right_inner .li_wrap .info_cont{
+	margin-top: 15px;
+}
 
-        .box-content {
-            margin-left: 0px;
-        }
-    }
+.right_inner .li_wrap .info:before{
+	content: "";
+	position: absolute;
+	top: 3px;
+	left: 0;
+	width: 10px;
+	height: 10px;
+	background: #9153c9;
+	border-radius: 50%;
+}
 
-    @media (max-width: 420px) {
-        .flex-box {
-            display: block;
-        }
-
-        .flex-box .content {
-            margin-left: 0px;
-            margin-top: 1rem;
-        }
-
-        .box-content .box {
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #e0e0e0;
-        }
-    }
-
-    #cv .box-cv-wrapper {
-        color: red;
-    }
+.right_inner .li_wrap .info:after{
+	content: "";
+	position: absolute;
+	top: 10px;
+	left: 4px;
+	width: 2px;
+	height: 90%;
+	background: #9153c9;
+}
 </style>
-<div class="box-cv-wrapper">
-    <div class="box-sidebar">
-        <div class="avatar">
-            <img src="img/avatar.png" alt="">
-        </div>
-        <div class="userinfo">
-            <div class="username">Uoc Nguyen</div>
-            <div class="post">Frontend Developer</div>
-        </div>
-        <div class="contact-info">
-            <div class="item">
-                VietNam, December 12, 1991
+<div class="wrapper">
+    <div class="resume">
+        <div class="left">
+            <div class="img_holder">
+                <img src="pic.png" alt="picture">
             </div>
-            <div class="item">
-                +84.91 111 8683
+            <div class="contact_wrap pb">
+                <div class="title">
+                    Contact
+                </div>
+                <div class="contact">
+                    <ul>
+                        <li>
+                            <div class="li_wrap">
+                                <div class="icon"><i class="fas fa-mobile-alt" aria-hidden="true"></i></div>
+                                <div class="text">972 9838485</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="li_wrap">
+                                <div class="icon"><i class="fas fa-envelope" aria-hidden="true"></i></div>
+                                <div class="text">aniabukstein@gmail.com</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="li_wrap">
+                                <div class="icon"><i class="fab fa-weebly" aria-hidden="true"></i></div>
+                                <div class="text">www.aniabukstein.com</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="li_wrap">
+                                <div class="icon"><i class="fas fa-map-signs" aria-hidden="true"></i></div>
+                                <div class="text">17 street, jerusalem, Israel</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="item">
-                vanuoc.haui@gmail.com
+            <div class="skills_wrap pb">
+                <div class="title">
+                    Skills
+                </div>
+                <div class="skills">
+                    <ul>
+                        <li>
+                            <div class="li_wrap">
+                                <div class="icon"><i class="fab fa-html5"></i></div>
+                                <div class="text">HTML</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="li_wrap">
+                                <div class="icon"><i class="fab fa-css3-alt"></i></div>
+                                <div class="text">CSS</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="li_wrap">
+                                <div class="icon"><i class="fab fa-js"></i></div>
+                                <div class="text">Javascript</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="li_wrap">
+                                <div class="icon"><i class="fab fa-react"></i></div>
+                                <div class="text">React.JS</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="item">
-                Ha Noi, Viet Nam
+            <div class="hobbies_wrap pb">
+                <div class="title">
+                    hobbies
+                </div>
+                <div class="hobbies">
+                    <ul>
+                        <li>
+                            <div class="li_wrap">
+                                <div class="icon"><i class="fas fa-book"></i></div>
+                                <div class="text">Reading</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="li_wrap">
+                                <div class="icon"><i class="fas fa-music"></i></div>
+                                <div class="text">Music</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="li_wrap">
+                                <div class="icon"><i class="fas fa-gamepad"></i></div>
+                                <div class="text">Gaming</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="li_wrap">
+                                <div class="icon"><i class="fas fa-tree"></i></div>
+                                <div class="text">Gardening</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="box">
-            <div class="main-title">Skills</div>
-            <ul class="list">
-                <li>HTML and CSS</li>
-                <li>Scripting language: Javascript, Typescript, Python, Java</li>
-                <li>Framework/Library: Django, React, Next, Bootstrap, TailwindCSS, etc</li>
-                <li>Understanding UI Design; Visual Hierarchy, Design System, etc</li>
-            </ul>
-        </div>
-        <div class="box">
-            <div class="main-title">Honor & Award</div>
-            <div class="flex-box honor">
-                <div class="text">Best Graduated</div>
-                <div class="date">2019</div>
-            </div>
-            <div class="desc">Included in one of the award recipients of the best graduate students in the IV graduation
-                period of UPN “Veteran”
-                Yogyakarta</div>
-        </div>
-        <div class="box">
-            <div class="main-title">Hobbies & Interest</div>
-            <ul class="list">
-                <li>Apple device</li>
-                <li>Movie</li>
-                <li>Book</li>
-            </ul>
-        </div>
-        <div class="box social">
-            <div class="main-title">Links and Credentials</div>
-            <div class="social-list">
-                <a href="#">
-                    <i class="lab la-linkedin"></i>
-                </a>
-                <a href="#">
-                    <i class="lab la-github"></i>
-                </a>
-                <a href="#">
-                    <i class="lab la-dribbble"></i>
-                </a>
-                <a href="#">
-                    <i class="lab la-instagram"></i>
-                </a>
-                <a href="#">
-                    <i class="las la-external-link-alt"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="box-content">
-        <div class="box">
-            <div class="main-title">About</div>
-            <div class="main-desc">I have a background in information technology, with a focus on frontend development
-                and UI design. I am the type of
-                person who seizes every opportunity to learn something new. That is why I enjoy challenges. From there,
-                I'm under
-                pressure to learn quickly and gain a lot of new experience.</div>
-        </div>
-
-        <div class="box">
-            <div class="main-title">Education</div>
-            <div class="flex-box -education">
-                <div class="date">2015 - 2019</div>
-                <div class="content">
-                    <div class="pos">Informtics, Universitas Pembangunan Nasional ”Veteran” Yogyakarta</div>
-                    <div class="name">Bachelor of Computer Science, Artificial Intelligence</div>
-                    <div class="main-desc">
-                        I graduated in July 2019 with a GPA of 3.63. One of the award recipients for the best graduate
-                        of the university at the
-                        time. In my thesis, I looked into how Natural Language Processing (NLP) was used in Telegram
-                        Bot. For the NLP approach
-                        method, I used Neural Network (Deep Learning) and Text Mining.
+        <div class="right">
+            <div class="header">
+                <div class="name_role">
+                    <div class="name">
+                        Ania Bukstein
+                    </div>
+                    <div class="role">
+                        UI UX Developer
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="main-title">Experience</div>
-        <div class="box">
-            <div class="flex-box -exp">
-                <div class="logo">
-                    <img src="img/logos/logo1.png" alt="">
+                <div class="about">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta beatae optio, corporis fugit accusantium debitis laborum tenetur, quisquam distinctio nihil quam eum. Laudantium saepe, sunt, esse laboriosam dolores distinctio?
                 </div>
-                <div class="content">
-                    <div class="name-company">Upwork</div>
-                    <div class="pos">Frontend Developer | Nov 2019 - present</div>
-                    <div class="main-desc">
-                        Upwork is an American freelancing platform where enterprises and individuals connect in order to
-                        conduct business. I am
-                        currently accepting remote or freelance Web Development and UI Design work from this platform.
+            </div>
+            <div class="right_inner">
+                <div class="exp">
+                    <div class="title">
+                        experience
+                    </div>
+                    <div class="exp_wrap">
+                        <ul>
+                            <li>
+                                <div class="li_wrap">
+                                    <div class="date">
+                                        2018 - Present
+                                    </div>
+                                    <div class="info">
+                                        <p class="info_title">
+                                            UI Team Lead
+                                        </p>
+                                        <p class="info_com">
+                                            Facebook
+                                        </p>
+                                        <p class="info_cont">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga voluptatibus consequatur rem nostrum omnis! Architecto.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="li_wrap">
+                                    <div class="date">
+                                        2015 - 2018
+                                    </div>
+                                    <div class="info">
+                                        <p class="info_title">
+                                            UI Developer
+                                        </p>
+                                        <p class="info_com">
+                                            Amazon
+                                        </p>
+                                        <p class="info_cont">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga voluptatibus consequatur rem nostrum omnis! Architecto.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="li_wrap">
+                                    <div class="date">
+                                        2014 - 2015
+                                    </div>
+                                    <div class="info">
+                                        <p class="info_title">
+                                            Junior UI Developer
+                                        </p>
+                                        <p class="info_com">
+                                            Coding Power
+                                        </p>
+                                        <p class="info_cont">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga voluptatibus consequatur rem nostrum omnis! Architecto.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="box">
-            <div class="flex-box -exp">
-                <div class="logo">
-                    <img src="img/logos/logo2.png" alt="">
-                </div>
-                <div class="content">
-                    <div class="name-company">Currinda Pty. Ltd.</div>
-                    <div class="pos">UI Engineer | Oct 2020 - Aug 2021</div>
-                    <div class="main-desc">
-                        I am a member of the Engineer Team, along with three other people. I am in charge of creating an
-                        interface design that
-                        is both user-friendly and consistent with the company's brand. I also assist the team with
-                        frontend development,
-                        particularly in the creation of design systems and UI components with React.
+                <div class="education">
+                    <div class="title">
+                        Education
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="box">
-            <div class="flex-box -exp">
-                <div class="logo">
-                    <img src="img/logos/logo3.png" alt="">
-                </div>
-                <div class="content">
-                    <div class="name-company">Bubays Pte. Ltd.</div>
-                    <div class="pos">Web Developer | May 2019 - Nov 2019</div>
-                    <div class="main-desc">
-                        I am in charge of the company website's full-stack development and maintenance. The job entails
-                        creating and maintaining
-                        a website from the ground up. In addition, I am the only Web Developer in this company.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="main-title">Volunter Experience</div>
-        <div class="box">
-            <div class="flex-box -exp">
-                <div class="logo">
-                    <img src="img/logos/logo4.png" alt="">
-                </div>
-                <div class="content">
-                    <div class="name-company">KawalCOVID19</div>
-                    <div class="pos">Frontend Developer | Oct 2020 - present</div>
-                    <div class="main-desc">
-                        Assisting in the resolution of several user-related issues. API integration and system design
-                        jobs are among them. For
-                        the time being, I'm also working with the team on the wargabantuwarga.com and silacak.com
+                    <div class="education_wrap">
+                        <ul>
+                            <li>
+                                <div class="li_wrap">
+                                    <div class="date">
+                                        2010 - 2014
+                                    </div>
+                                    <div class="info">
+                                        <p class="info_title">
+                                            Computer Science
+                                        </p>
+                                        <p class="info_com">
+                                            Israel University
+                                        </p>
+                                        <p class="info_cont">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga voluptatibus consequatur rem nostrum omnis! Architecto.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="li_wrap">
+                                    <div class="date">
+                                        2008 - 2010
+                                    </div>
+                                    <div class="info">
+                                        <p class="info_title">
+                                            Computer Science
+                                        </p>
+                                        <p class="info_com">
+                                            Israel Junior College
+                                        </p>
+                                        <p class="info_cont">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga voluptatibus consequatur rem nostrum omnis! Architecto.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="li_wrap">
+                                    <div class="date">
+                                        1998 - 2008
+                                    </div>
+                                    <div class="info">
+                                        <p class="info_title">
+                                            Schooling
+                                        </p>
+                                        <p class="info_com">
+                                            Israel School
+                                        </p>
+                                        <p class="info_cont">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga voluptatibus consequatur rem nostrum omnis! Architecto.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
