@@ -14,5 +14,6 @@ namespace CVRM.Entites
         public string? Name { get; set; }
         public string TemplateURL { get; set; }
         public string ImageURL { get; set; }
+        public string StyleURL { get; set; }
     }
 }

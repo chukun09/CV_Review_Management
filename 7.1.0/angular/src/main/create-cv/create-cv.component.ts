@@ -19,7 +19,6 @@ import html2canvas from "html2canvas";
   templateUrl: "./create-cv.component.html",
   styleUrls: ["./create-cv.component.css"],
   animations: [appModuleAnimation()],
-  encapsulation: ViewEncapsulation.None,
 })
 export class CreateCvComponent extends AppComponentBase implements OnInit {
   @ViewChild("cv", { static: false }) el!: ElementRef;
@@ -46,7 +45,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     this.setTitle("CV " + this.userLogin.name + " " + this.userLogin.surname);
   }
   downloadPDFbyHTML() {
-    // let date: number = new Date().getTime();
+    let date: number = new Date().getTime();
     // let pdf = new jsPDF('l', 'mm', [210, 297]);
     // pdf.html(this.el.nativeElement, {
     //   callback: (pdf) => {
@@ -56,16 +55,34 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     //     pdf.save(this.title + "_" + date + ".pdf");
     //   }
     // });
-    return html2canvas(this.el.nativeElement).then((canvas) => {
-      let date: number = new Date().getTime();
-      const img = canvas.toDataURL("img/jpeg");
-      var imgWidth = (canvas.width * 60) / 240;
-      var imgHeight = (canvas.height * 60) / 240;
-      // jspdf changes
-      var pdf = new jsPDF("p", "mm", "a4");
-      pdf.addImage(img, "png", 15, 2, imgWidth, imgHeight); // 2: 19
-      pdf.save(this.title + "_" + date + ".pdf");
+
+
+
+    html2canvas(this.el.nativeElement, { allowTaint: true, scale: 1.8 }).then(function (canvas) {
+      const HTML_Width = canvas.width;
+      const HTML_Height = canvas.height;
+      var top_left_margin = 0;
+      var PDF_Width = HTML_Width;
+      var PDF_Height = HTML_Height;
+      var canvas_image_width = HTML_Width;
+      var canvas_image_height = HTML_Height;
+      canvas.getContext('experimental-webgl');
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+      var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+      pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+      pdf.save(date + ".pdf");
     });
+    ///Solution 2
+    // return html2canvas(this.el.nativeElement).then((canvas) => {
+    //   let date: number = new Date().getTime();
+    //   const img = canvas.toDataURL("img/jpeg");
+    //   var imgWidth = (canvas.width * 60) / 240;
+    //   var imgHeight = (canvas.height * 60) / 240;
+    //   // jspdf changes
+    //   var pdf = new jsPDF("p", "mm", "a4");
+    //   pdf.addImage(img, "png", 15, 2, imgWidth, imgHeight); // 2: 19
+    //   pdf.save(this.title + "_" + date + ".pdf");
+    // });
   }
   public setTitle(newTitle: string) {
     this.title = newTitle;
