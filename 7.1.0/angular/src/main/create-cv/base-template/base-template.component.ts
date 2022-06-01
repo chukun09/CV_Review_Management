@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Injector, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
 import { TemplateService } from '../../../services/template.service';
 @Component({
@@ -10,6 +10,7 @@ import { TemplateService } from '../../../services/template.service';
 export class BaseTemplateComponent extends AppComponentBase implements OnInit {
   templateHTML: any;
   styleUrl: any;
+  @Input() dataCV: any;
   constructor(injector: Injector, private templateService: TemplateService) {
     super(injector);
   }

@@ -27,6 +27,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   title: any;
   submitted = false;
   username: any;
+  dataCV: any;
   constructor(
     injector: Injector,
     private titleService: Title,
@@ -56,22 +57,29 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     //   }
     // });
 
-
-
-    html2canvas(this.el.nativeElement, { allowTaint: true, scale: 1.8 }).then(function (canvas) {
-      const HTML_Width = canvas.width;
-      const HTML_Height = canvas.height;
-      var top_left_margin = 0;
-      var PDF_Width = HTML_Width;
-      var PDF_Height = HTML_Height;
-      var canvas_image_width = HTML_Width;
-      var canvas_image_height = HTML_Height;
-      canvas.getContext('experimental-webgl');
-      var imgData = canvas.toDataURL("image/jpeg", 1.0);
-      var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
-      pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-      pdf.save(date + ".pdf");
-    });
+    html2canvas(this.el.nativeElement, { allowTaint: true, scale: 1.8 }).then(
+      function (canvas) {
+        const HTML_Width = canvas.width;
+        const HTML_Height = canvas.height;
+        var top_left_margin = 0;
+        var PDF_Width = HTML_Width;
+        var PDF_Height = HTML_Height;
+        var canvas_image_width = HTML_Width;
+        var canvas_image_height = HTML_Height;
+        canvas.getContext("experimental-webgl");
+        var imgData = canvas.toDataURL("image/jpeg", 1.0);
+        var pdf = new jsPDF("p", "pt", [PDF_Width, PDF_Height]);
+        pdf.addImage(
+          imgData,
+          "JPG",
+          top_left_margin,
+          top_left_margin,
+          canvas_image_width,
+          canvas_image_height
+        );
+        pdf.save(date + ".pdf");
+      }
+    );
     ///Solution 2
     // return html2canvas(this.el.nativeElement).then((canvas) => {
     //   let date: number = new Date().getTime();
@@ -97,8 +105,6 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       "",
       [
         Validators.required,
-        Validators.minLength(2),
-        Validators.pattern("^[_A-z0-9]*((-|s)*[_A-z0-9])*$"),
       ],
     ],
     lastName: ["", [Validators.required]],
@@ -114,6 +120,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       [
         Validators.required,
         Validators.maxLength(10),
+        Validators.minLength(10),
         Validators.pattern("^[0-9]+$"),
       ],
     ],
@@ -132,6 +139,10 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     hobbys: this.fb.array([]),
     skills: this.fb.array([]),
   });
+  get phoneNumber() { return this.createCVForm.get('phoneNumber'); }
+  get firstName() { return this.createCVForm.get('firstName'); }
+  get lastName() { return this.createCVForm.get('lastName'); }
+  get email() { return this.createCVForm.get('email'); }
 
   /*########################## File Upload ########################*/
   @ViewChild("fileInput") el2!: ElementRef;
