@@ -1,5 +1,7 @@
-<!-- <div [innerHTML]="templateHTML | safeHtml" id="cvTemplate">
-</div> -->
+<div #container [innerHTML]="templateHTML | safeHtml" id="cvTemplate">
+</div>
+<html-outlet [html]="templateHTML"></html-outlet>
+<!--
 <div id="cvTemplate">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap');
@@ -241,7 +243,7 @@
         <div class="resume">
             <div class="left">
                 <div class="img_holder">
-                    <!-- <img src="pic.png" alt="picture"> -->
+                    <img [src]="'url('+ dataCV.value.file +')'" alt="picture">
                 </div>
                 <div class="contact_wrap pb">
                     <div class="title">
@@ -498,4 +500,4 @@
     </div>
 </div>
 <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-
+ -->

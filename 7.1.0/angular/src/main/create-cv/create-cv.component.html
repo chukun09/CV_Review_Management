@@ -31,7 +31,7 @@
                                         <label class="form-label">Ảnh đại diện</label>
                                         <div class="avatar-edit">
                                             <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
-                                                (change)="uploadFile($event)" />
+                                                (change)="uploadFile($event)"/>
                                             <label for="imageUpload" *ngIf="editFile"
                                                 [ngClass]="['custom-label', 'upload-image']"></label>
                                             <label *ngIf="removeUpload" [ngClass]="['custom-label', 'remove-image']"
@@ -47,7 +47,8 @@
                                             <div class="form-group col">
                                                 <label for="firstName" class="form-label">Họ</label>
                                                 <input type="text" class="form-control bg-gray-100"
-                                                    placeholder="Nhập họ và tên đệm của bạn" formControlName="firstName" [ngClass]="firstName.invalid
+                                                    placeholder="Nhập họ và tên đệm của bạn" formControlName="firstName"
+                                                    [ngClass]="firstName.invalid
                                                      && (firstName.dirty || firstName.touched) 
                                          ? 'border-danger' : ''" required>
                                                 <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
@@ -78,15 +79,15 @@
                                                 [ngClass]="email.invalid
                                                      && (email.dirty || email.touched) 
                                          ? 'border-danger' : ''" required>
-                                         <div *ngIf="email.invalid && (email.dirty || email.touched)"
-                                                    class="text-danger">
-                                                    <div *ngIf="email.errors?.['required']">
-                                                        Vui lòng nhập email của bạn.
-                                                    </div>
-                                                    <div *ngIf="email.errors?.['pattern']">
-                                                        Email không đúng định dạng.
-                                                    </div>
+                                            <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                                                class="text-danger">
+                                                <div *ngIf="email.errors?.['required']">
+                                                    Vui lòng nhập email của bạn.
                                                 </div>
+                                                <div *ngIf="email.errors?.['pattern']">
+                                                    Email không đúng định dạng.
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

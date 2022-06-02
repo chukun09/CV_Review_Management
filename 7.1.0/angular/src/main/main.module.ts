@@ -40,6 +40,7 @@ import { UserInformationComponent } from './user-information/user-information.co
 import { CreateCvComponent } from './create-cv/create-cv.component';
 import { BaseTemplateComponent } from './create-cv/base-template/base-template.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import {HtmlOutlet} from './create-cv/base-template/html-outlet.component'
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     CreateCvComponent,
     BaseTemplateComponent,
     ResetPasswordComponent,
+    HtmlOutlet
   ],
   imports: [
     CommonModule,
