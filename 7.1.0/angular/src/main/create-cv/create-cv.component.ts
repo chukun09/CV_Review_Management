@@ -101,12 +101,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   }
   createCVForm = this.fb.group({
     file: [null],
-    firstName: [
-      "",
-      [
-        Validators.required,
-      ],
-    ],
+    firstName: ["", [Validators.required]],
     lastName: ["", [Validators.required]],
     email: [
       "",
@@ -139,10 +134,30 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     hobbys: this.fb.array([]),
     skills: this.fb.array([]),
   });
-  get phoneNumber() { return this.createCVForm.get('phoneNumber'); }
-  get firstName() { return this.createCVForm.get('firstName'); }
-  get lastName() { return this.createCVForm.get('lastName'); }
-  get email() { return this.createCVForm.get('email'); }
+  get phoneNumber() {
+    return this.createCVForm.get("phoneNumber");
+  }
+  get firstName() {
+    return this.createCVForm.get("firstName");
+  }
+  get lastName() {
+    return this.createCVForm.get("lastName");
+  }
+  get email() {
+    return this.createCVForm.get("email");
+  }
+  get gender() {
+    return this.createCVForm.get("gender");
+  }
+  get birthDate() {
+    return this.createCVForm.get("birthDate");
+  }
+  get headline() {
+    return this.createCVForm.get("headline");
+  }
+  get description() {
+    return this.createCVForm.get("description");
+  }
 
   /*########################## File Upload ########################*/
   @ViewChild("fileInput") el2!: ElementRef;
@@ -179,6 +194,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     this.createCVForm.patchValue({
       file: [null],
     });
+    this.imageUrl = [null];
   }
 
   // Getter method to access formcontrols
