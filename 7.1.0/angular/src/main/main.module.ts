@@ -40,6 +40,8 @@ import { UserInformationComponent } from './user-information/user-information.co
 import { CreateCvComponent } from './create-cv/create-cv.component';
 import { BaseTemplateComponent } from './create-cv/base-template/base-template.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { BaseTemplateModule } from './create-cv/base-template/base-template.module';
+import { NgxDynamicContentModule } from 'ngx-dynamic-content';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,6 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     AllCvComponent,
     UserInformationComponent,
     CreateCvComponent,
-    BaseTemplateComponent,
     ResetPasswordComponent,
   ],
   imports: [
@@ -77,12 +78,14 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     HttpClientJsonpModule,
     ModalModule.forChild(),
     BsDatepickerModule.forRoot(),
+    NgxDynamicContentModule.forRoot({}),
     BsDropdownModule,
     CollapseModule,
     TabsModule,
     MainRoutingModule,
     ServiceProxyModule,
     SharedModule,
+    BaseTemplateModule,
     NgxPaginationModule,
     SelectTemplateModule,
     NgSelectModule,

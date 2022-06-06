@@ -33,6 +33,7 @@ import { WebViewComponent } from './web-view-pdf/web-view.component';
             },
             {
                 path: 'create-cv',
+                loadChildren: () => import('./create-cv/base-template/base-template.module').then(m => m.BaseTemplateModule),
                 component: CreateCvComponent,
                 data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
             }

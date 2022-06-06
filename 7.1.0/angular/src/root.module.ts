@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID, CompilerFactory, COMPILER_OPTIONS } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -9,7 +9,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { AbpHttpInterceptor } from 'abp-ng2-module';
-
+import {JitCompilerFactory} from '@angular/platform-browser-dynamic';
 import { SharedModule } from '@shared/shared.module';
 import { ServiceProxyModule } from '@shared/service-proxies/service-proxy.module';
 import { RootRoutingModule } from './root-routing.module';
@@ -18,6 +18,7 @@ import { API_BASE_URL } from '@shared/service-proxies/service-proxies';
 
 import { RootComponent } from './root.component';
 import { AppInitializer } from './app-initializer';
+import { NgxDCModule } from 'ngx-dynamic-compiler';
 
 export function getCurrentLanguage(): string {
   if (abp.localization.currentLanguage.name) {
@@ -40,6 +41,7 @@ export function getCurrentLanguage(): string {
     TabsModule.forRoot(),
     ServiceProxyModule,
     RootRoutingModule,
+    NgxDCModule 
   ],
   declarations: [RootComponent],
   providers: [
@@ -50,6 +52,7 @@ export function getCurrentLanguage(): string {
       deps: [AppInitializer],
       multi: true,
     },
+    {provide: CompilerFactory, useClass: JitCompilerFactory, deps: [COMPILER_OPTIONS]},
     { provide: API_BASE_URL, useFactory: () => AppConsts.remoteServiceBaseUrl },
     {
       provide: LOCALE_ID,

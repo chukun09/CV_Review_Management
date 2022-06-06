@@ -14,6 +14,7 @@ import { jsPDF } from "jspdf";
 import { ChangeDetectorRef } from "@angular/core";
 import { FormBuilder, FormArray, Validators } from "@angular/forms";
 import html2canvas from "html2canvas";
+import { title } from "process";
 @Component({
   selector: "app-create-cv",
   templateUrl: "./create-cv.component.html",
@@ -24,7 +25,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   @ViewChild("cv", { static: false }) el!: ElementRef;
   test: any;
   userLogin: any;
-  title: any;
+  title: any = "";
   submitted = false;
   username: any;
   dataCV: any;
@@ -56,7 +57,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     //     pdf.save(this.title + "_" + date + ".pdf");
     //   }
     // });
-
+    var title = this.getTitle();
     html2canvas(this.el.nativeElement, { allowTaint: true, scale: 1.8 }).then(
       function (canvas) {
         const HTML_Width = canvas.width;
@@ -77,7 +78,8 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
           canvas_image_width,
           canvas_image_height
         );
-        pdf.save(date + ".pdf");
+        console.log(title);
+        pdf.save(title + "_" + date + ".pdf");
       }
     );
     ///Solution 2
@@ -95,6 +97,9 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   public setTitle(newTitle: string) {
     this.title = newTitle;
     this.titleService.setTitle(newTitle + " | CVRM");
+  }
+  public  getTitle(): string {
+    return this.title;
   }
   async cancelCreate() {
     this._location.back();

@@ -1,6 +1,7 @@
 import { Component, Injector, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
 import { TemplateService } from '../../../services/template.service';
+import {DomSanitizer} from "@angular/platform-browser";
 @Component({
   selector: 'app-base-template',
   templateUrl: './base-template.component.html',
@@ -11,7 +12,8 @@ export class BaseTemplateComponent extends AppComponentBase implements OnInit {
   templateHTML: any;
   styleUrl: any;
   @Input() dataCV: any;
-  constructor(injector: Injector, private templateService: TemplateService) {
+  constructor(injector: Injector, private templateService: TemplateService,
+    private sanitizer:DomSanitizer) {
     super(injector);
   }
 
@@ -20,6 +22,7 @@ export class BaseTemplateComponent extends AppComponentBase implements OnInit {
       this.templateHTML = res.result.templateURL;
       this.styleUrl = res.result.styleURL;
     })
+    // this.templateHTML = this.sanitizer.bypassSecurityTrustStyle(this.templateHTML);
   }
 
 }
