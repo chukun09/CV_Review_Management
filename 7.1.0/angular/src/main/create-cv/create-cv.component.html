@@ -47,7 +47,8 @@
                                             <div class="form-group col">
                                                 <label for="firstName" class="form-label">Họ</label>
                                                 <input type="text" class="form-control bg-gray-100"
-                                                    placeholder="Nhập họ và tên đệm của bạn" formControlName="firstName" [ngClass]="firstName.invalid
+                                                    placeholder="Nhập họ và tên đệm của bạn" formControlName="firstName"
+                                                    [ngClass]="firstName.invalid
                                                      && (firstName.dirty || firstName.touched) 
                                          ? 'border-danger' : ''" required>
                                                 <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
@@ -78,15 +79,15 @@
                                                 [ngClass]="email.invalid
                                                      && (email.dirty || email.touched) 
                                          ? 'border-danger' : ''" required>
-                                         <div *ngIf="email.invalid && (email.dirty || email.touched)"
-                                                    class="text-danger">
-                                                    <div *ngIf="email.errors?.['required']">
-                                                        Vui lòng nhập email của bạn.
-                                                    </div>
-                                                    <div *ngIf="email.errors?.['pattern']">
-                                                        Email không đúng định dạng.
-                                                    </div>
+                                            <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                                                class="text-danger">
+                                                <div *ngIf="email.errors?.['required']">
+                                                    Vui lòng nhập email của bạn.
                                                 </div>
+                                                <div *ngIf="email.errors?.['pattern']">
+                                                    Email không đúng định dạng.
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -116,8 +117,8 @@
                                 <div class="form-group">
                                     <label for="phoneNumber" class="form-label">Ngày sinh</label>
                                     <input type="text" placeholder="01/01/20"
-                                        class="form-control input-date bg-gray-100" formControlName="birthDate" #dp="bsDatepicker"
-                                        bsDatepicker
+                                        class="form-control input-date bg-gray-100" formControlName="birthDate"
+                                        #dp="bsDatepicker" bsDatepicker
                                         [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY',  returnFocusToInput: true, isAnimated: true }"
                                         required readonly>
                                 </div>
@@ -143,7 +144,31 @@
                                 <div class="form-group">
                                     <label for="Description" class="form-label">Mô tả</label>
                                     <input type="text" class="form-control bg-gray-100"
-                                        placeholder="Nhập địa chỉ của bạn" formControlName="description">
+                                        placeholder="Nhập đôi nét về bạn" formControlName="description">
+                                </div>
+                                <div class="form-group" formArrayName="skills">
+                                    <div class="mb-3">
+                                        <label for="Description" class="form-label">Kĩ năng</label>
+                                        <ul class="subjectList">
+                                          <li *ngFor="let item of skills.controls; let i = index">
+                                            <label for="Description" class="form-label">Kĩ năng {{i + 1}}</label>
+                                            <input type="text" class="form-control" [formControlName]="i">
+                                          </li>
+                                        </ul>
+                                        <button type="button" class="btn btn-sm btn-success mb-3 btn-block" (click)="addSectionsSkills()">Thêm kĩ năng</button>
+                                      </div>
+                                </div>
+                                <div class="form-group" formArrayName="hobbies">
+                                    <div class="mb-3">
+                                        <label for="Description" class="form-label">Sở thích</label>
+                                        <ul class="subjectList">
+                                          <li *ngFor="let item of hobbies.controls; let i = index">
+                                            <label for="Description" class="form-label">Sở thích {{i + 1}}</label>
+                                            <input type="text" class="form-control" [formControlName]="i">
+                                          </li>
+                                        </ul>
+                                        <button type="button" class="btn btn-sm btn-success mb-3 btn-block" (click)="addSectionsHobbies()">Thêm sở thích</button>
+                                      </div>
                                 </div>
                             </form>
                         </div>

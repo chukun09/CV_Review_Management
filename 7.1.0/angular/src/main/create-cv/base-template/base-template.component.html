@@ -521,28 +521,9 @@
                     </div>
                     <div class="skills">
                         <ul>
-                            <li>
+                            <li *ngFor="let skill of dataCV.value.skills">
                                 <div class="li_wrap">
-                                    <div class="icon"><i class="fab fa-html5"></i></div>
-                                    <div class="text">HTML</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="li_wrap">
-                                    <div class="icon"><i class="fab fa-css3-alt"></i></div>
-                                    <div class="text">CSS</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="li_wrap">
-                                    <div class="icon"><i class="fab fa-js"></i></div>
-                                    <div class="text">Javascript</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="li_wrap">
-                                    <div class="icon"><i class="fab fa-react"></i></div>
-                                    <div class="text">React.JS</div>
+                                    <div class="text">{{skill}}</div>
                                 </div>
                             </li>
                         </ul>
@@ -554,28 +535,9 @@
                     </div>
                     <div class="hobbies">
                         <ul>
-                            <li>
+                            <li *ngFor="let hobby of dataCV.value.hobbies">
                                 <div class="li_wrap">
-                                    <div class="icon"><i class="fas fa-book"></i></div>
-                                    <div class="text">Reading</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="li_wrap">
-                                    <div class="icon"><i class="fas fa-music"></i></div>
-                                    <div class="text">Music</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="li_wrap">
-                                    <div class="icon"><i class="fas fa-gamepad"></i></div>
-                                    <div class="text">Gaming</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="li_wrap">
-                                    <div class="icon"><i class="fas fa-tree"></i></div>
-                                    <div class="text">Gardening</div>
+                                    <div class="text">{{hobby}}</div>
                                 </div>
                             </li>
                         </ul>

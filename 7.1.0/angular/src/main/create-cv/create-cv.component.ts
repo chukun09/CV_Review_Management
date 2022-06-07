@@ -34,7 +34,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     private titleService: Title,
     private _location: Location,
     public fb: FormBuilder,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {
     super(injector);
     // this.test = require('html-loader!../../assets/template/ResponsiveCVResume/index.html');
@@ -136,7 +136,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     certificates: this.fb.array([]),
     educations: this.fb.array([]),
     experiences: this.fb.array([]),
-    hobbys: this.fb.array([]),
+    hobbies: this.fb.array([]),
     skills: this.fb.array([]),
   });
   get phoneNumber() {
@@ -215,12 +215,17 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   }
 
   /*############### Add Dynamic Elements ###############*/
-  addDynamicElement(addDynamicElement: string) {
-    return this.createCVForm.get(addDynamicElement) as FormArray;
+  get skills() {
+    return this.createCVForm.get('skills') as FormArray;
   }
-
-  addSuperPowers(addDynamicElement: string) {
-    this.addDynamicElement(addDynamicElement).push(this.fb.control(""));
+  get hobbies() {
+    return this.createCVForm.get('hobbies') as FormArray;
+  }
+  addSectionsSkills() {
+    this.skills.push(this.fb.control(""));
+  }
+  addSectionsHobbies() {
+    this.hobbies.push(this.fb.control(""));
   }
 
   // Submit Registration Form

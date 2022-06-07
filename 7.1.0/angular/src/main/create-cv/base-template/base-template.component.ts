@@ -20,7 +20,6 @@ export class BaseTemplateComponent extends AppComponentBase implements OnInit {
   async ngOnInit(): Promise<void> {
     (await this.templateService.getTemplateById(1)).subscribe((res) => {
       this.templateHTML = res.result.templateURL;
-      this.styleUrl = res.result.styleURL;
     })
     // this.templateHTML = this.sanitizer.bypassSecurityTrustStyle(this.templateHTML);
   }
