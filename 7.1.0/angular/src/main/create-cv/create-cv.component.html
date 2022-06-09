@@ -22,16 +22,16 @@
                         <div class="form d-flex" style="padding: 2rem 5rem;">
                             <form class="w-100" style="height:max-content" [formGroup]="createCVForm"
                                 (ngSubmit)="onSubmit()">
-                                <div class="form-row">
+                                <div class="form-row mb-2">
                                     <h3 class="font-weight-bold title-form">Thông tin cá nhân</h3>
-                                    <button type="button" class="btn bg-white ml-auto" style="border: 1px solid #D9D9D9;"
-                                        (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
-                                        aria-controls="collapseBasic">
+                                    <button type="button" class="btn bg-white ml-auto"
+                                        style="border: 1px solid #D9D9D9;"
+                                        (click)="isCollapsedProfile = !isCollapsedProfile"
+                                        [attr.aria-expanded]="!isCollapsedProfile" aria-controls="collapseBasic">
                                         <i class='fas fa-angle-down' style='font-size:30px;color:rgb(150 150 150)'></i>
                                     </button>
                                 </div>
-
-                                <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
+                                <div id="collapseBasic" [collapse]="isCollapsedProfile" [isAnimated]="true">
                                     <div class="form-group form-row">
                                         <!-- Upload image -->
                                         <div class="avatar-upload col-md-3">
@@ -156,47 +156,136 @@
                                             placeholder="Nhập đôi nét về bạn" formControlName="description">
                                     </div>
                                 </div>
+                                <!-- Skills -->
                                 <div class="mb-3">
-                                    <h3 class="font-weight-bold title-form">Kĩ năng</h3>
-                                    <div formArrayName="skills" *ngFor="let t of skills.controls; let i = index">
-                                        <div class="row sections" [formGroupName]="i">
-                                            <div class="col-md-2">
-                                                <li class="mb-3"><span class="text-info">Kĩ năng {{i+1}}</span></li>
-                                            </div>
-                                            <input formControlName='skillName' id="{{'skillName'+i}}" type="text"
-                                                class="form-control mb-4 bg-gray-100" placeholder="Nhập tên kĩ năng" />
-                                            <!-- <input formControlName='age' id="{{'age' + i}}" type="number" class="form-control mb-4"
+                                    <div class="form-row mb-2">
+                                        <h3 class="font-weight-bold title-form">Kĩ năng</h3>
+                                        <button type="button" class="btn bg-white ml-auto"
+                                            style="border: 1px solid #D9D9D9;"
+                                            (click)="isCollapsedSkills = !isCollapsedSkills"
+                                            [attr.aria-expanded]="!isCollapsedSkills" aria-controls="collapseBasic">
+                                            <i class='fas fa-angle-down'
+                                                style='font-size:30px;color:rgb(150 150 150)'></i>
+                                        </button>
+                                    </div>
+                                    <div id="collapseBasic" [collapse]="isCollapsedSkills" [isAnimated]="true">
+                                        <div formArrayName="skills" *ngFor="let t of skills.controls; let i = index">
+                                            <div class="row sections" [formGroupName]="i">
+                                                <div class="col-md-3">
+                                                    <li class="mb-3"><span class="text-info">Kĩ năng {{i+1}}</span></li>
+                                                </div>
+                                                <input formControlName='skillName' id="{{'skillName'+i}}" type="text"
+                                                    class="form-control mb-4 bg-gray-100"
+                                                    placeholder="Nhập tên kĩ năng" />
+                                                <!-- <input formControlName='age' id="{{'age' + i}}" type="number" class="form-control mb-4"
                                                 placeholder="Enter Age " /> -->
-                                            <ng-select [items]="skillLevels" class="form-control mb-4" bindLabel="name"
-                                                bindValue="id" formControlName="level" [searchable]="false"
-                                                placeholder="Chọn trình độ kĩ năng của bạn">
-                                            </ng-select>
-                                            <ng-select [items]="skillTypes" class="form-control mb-4" bindLabel="name"
-                                                bindValue="id" formControlName="skillType" [searchable]="false"
-                                                placeholder="Chọn loại kĩ năng của bạn">
-                                            </ng-select>
-                                            <button type="button" class="btn btn-danger ml-auto"
-                                                (click)="deleteSectionSkills(i)">Xóa kĩ năng</button>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-success mb-3 btn-lg btn-block"
-                                        (click)="addSectionsSkills()">Thêm kĩ năng</button>
-                                </div>
-                                <div class="mb-3">
-                                    <h3 class="font-weight-bold title-form">Sở thích</h3>
-                                    <div formArrayName="hobbies" *ngFor="let t of hobbies.controls; let i = index">
-                                        <div class="row sections">
-                                            <div class="col-md-2">
-                                                <li class="mb-3"><span class="text-info">Sở thích {{i+1}}</span></li>
+                                                <ng-select [items]="skillLevels" class="form-control mb-4"
+                                                    bindLabel="name" bindValue="id" formControlName="level"
+                                                    [searchable]="false" placeholder="Chọn trình độ kĩ năng của bạn">
+                                                </ng-select>
+                                                <ng-select [items]="skillTypes" class="form-control mb-4"
+                                                    bindLabel="name" bindValue="id" formControlName="skillType"
+                                                    [searchable]="false" placeholder="Chọn loại kĩ năng của bạn">
+                                                </ng-select>
+                                                <button type="button" class="btn btn-danger ml-auto"
+                                                    (click)="deleteSectionSkills(i)">Xóa kĩ năng</button>
                                             </div>
-                                            <input [formControlName]="i" id="{{'skillName'+i}}" type="text"
-                                                class="form-control mb-4 bg-gray-100" placeholder="Nhập tên sở thích" />
-                                            <button type="button" class="btn btn-danger ml-auto"
-                                                (click)="deleteSectionHobbies(i)">Xóa sở thích</button>
+                                        </div>
+                                        <button type="button" class="btn btn-success mb-3 btn-lg btn-block"
+                                            (click)="addSectionsSkills()">Thêm kĩ năng</button>
+                                    </div>
+                                    <!-- Hobbies -->
+                                    <div class="mb-3">
+                                        <div class="form-row mb-2">
+                                            <h3 class="font-weight-bold title-form">Sở thích</h3>
+                                            <button type="button" class="btn bg-white ml-auto"
+                                                style="border: 1px solid #D9D9D9;"
+                                                (click)="isCollapsedHobbies = !isCollapsedHobbies"
+                                                [attr.aria-expanded]="!isCollapsedHobbies"
+                                                aria-controls="collapseBasic">
+                                                <i class='fas fa-angle-down'
+                                                    style='font-size:30px;color:rgb(150 150 150)'></i>
+                                            </button>
+                                        </div>
+                                        <div id="collapseBasic" [collapse]="isCollapsedHobbies" [isAnimated]="true">
+                                            <div formArrayName="hobbies"
+                                                *ngFor="let t of hobbies.controls; let i = index">
+                                                <div class="row sections">
+                                                    <div class="col-md-3">
+                                                        <li class="mb-3"><span class="text-info">Sở thích {{i+1}}</span>
+                                                        </li>
+                                                    </div>
+                                                    <input [formControlName]="i" id="{{'skillName'+i}}" type="text"
+                                                        class="form-control mb-4 bg-gray-100"
+                                                        placeholder="Nhập tên sở thích" />
+                                                    <button type="button" class="btn btn-danger ml-auto"
+                                                        (click)="deleteSectionHobbies(i)">Xóa sở thích</button>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-success mb-3 btn-lg btn-block"
+                                                (click)="addSectionsHobbies()">Thêm sở thích</button>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-success mb-3 btn-lg btn-block"
-                                        (click)="addSectionsHobbies()">Thêm sở thích</button>
+                                    <!-- Experiences -->
+                                    <div class="mb-3">
+                                        <div class="form-row mb-2">
+                                            <h3 class="font-weight-bold title-form">Kinh nghiệm</h3>
+                                            <button type="button" class="btn bg-white ml-auto"
+                                                style="border: 1px solid #D9D9D9;"
+                                                (click)="isCollapsedExperiences = !isCollapsedExperiences"
+                                                [attr.aria-expanded]="!isCollapsedExperiences"
+                                                aria-controls="collapseBasic">
+                                                <i class='fas fa-angle-down'
+                                                    style='font-size:30px;color:rgb(150 150 150)'></i>
+                                            </button>
+                                        </div>
+                                        <div id="collapseBasic" [collapse]="isCollapsedExperiences" [isAnimated]="true">
+                                            <div formArrayName="experiences"
+                                                *ngFor="let t of experiences.controls; let i = index">
+                                                <div class="row sections" [formGroupName]="i">
+                                                    <div class="col-md-3">
+                                                        <li class="mb-3"><span class="text-info">Kinh nghiệm
+                                                                {{i+1}}</span>
+                                                        </li>
+                                                    </div>
+                                                    <input formControlName='position' id="{{'position'+i}}" type="text"
+                                                        class="form-control mb-4 bg-gray-100"
+                                                        placeholder="Nhập vị trí của bạn" />
+                                                    <input formControlName='company' id="{{'company'+i}}" type="text"
+                                                        class="form-control mb-4 bg-gray-100"
+                                                        placeholder="Nhập tên công ty của bạn" />
+                                                    <input formControlName='location' id="{{'location'+i}}" type="text"
+                                                        class="form-control mb-4 bg-gray-100"
+                                                        placeholder="Nhập địa chỉ công ty của bạn" />
+                                                    <!-- <input formControlName='age' id="{{'age' + i}}" type="number" class="form-control mb-4"
+                                                    placeholder="Enter Age " /> -->
+                                                    <ng-select [items]="employmentTypes" class="form-control mb-4"
+                                                        bindLabel="name" bindValue="id" formControlName="employmentType"
+                                                        [searchable]="false"
+                                                        placeholder="Chọn loại hình làm việc của bạn">
+                                                    </ng-select>
+                                                    <ng-select [items]="skillTypes" class="form-control mb-4"
+                                                        bindLabel="name" bindValue="id" formControlName="skillType"
+                                                        [searchable]="false" placeholder="Chọn loại kĩ năng của bạn">
+                                                    </ng-select>
+                                                    <input type="text" placeholder="01/01/20"
+                                                    class="form-control input-date bg-gray-100 mb-4" formControlName="startDate"
+                                                    #dp="bsDatepicker" bsDatepicker
+                                                    [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY',  returnFocusToInput: true, isAnimated: true }"
+                                                    required readonly>
+                                                    <input type="text" placeholder="01/01/20"
+                                                    class="form-control input-date bg-gray-100 mb-4" formControlName="endDate"
+                                                    #dp="bsDatepicker" bsDatepicker
+                                                    [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY',  returnFocusToInput: true, isAnimated: true }"
+                                                    required readonly>
+                                                    <button type="button" class="btn btn-danger ml-auto"
+                                                        (click)="deleteSectionExperiences(i)">Xóa kĩ năng</button>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-success mb-3 btn-lg btn-block"
+                                                (click)="addSectionExperiences()">Thêm kinh nghiệm</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>

@@ -29,7 +29,11 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   submitted = false;
   username: any;
   dataCV: any;
-  isCollapsed = false;
+  isCollapsedProfile = false;
+  isCollapsedSkills = false;
+  isCollapsedHobbies = false;
+  isCollapsedExperiences = false;
+  isCollapsedEducations = false;
   skillLevels = [
     { name: 'Tập sự', id: '0' },
     { name: 'Có kinh nghiệm', id: '1' },
@@ -40,6 +44,14 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     { name: 'Lập trình', id: '0' },
     { name: 'Ngoại ngữ', id: '1' },
     { name: 'Kĩ năng khác', id: '2' },
+  ]
+  employmentTypes = [
+    { name: 'Toàn thời gian', id: '0' },
+    { name: 'Bán thời gian', id: '1' },
+    { name: 'Tự kinh doanh', id: '2' },
+    { name: 'Làm tự do', id: '3' },
+    { name: 'Hợp đồng', id: '4' },
+    { name: 'Thực tập', id: '5' },
   ]
   constructor(
     injector: Injector,
@@ -181,6 +193,9 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   get skills(): FormArray {
     return <FormArray>this.createCVForm.get('skills');
   }
+  get experiences(): FormArray {
+    return <FormArray>this.createCVForm.get('experiences');
+  }
 
   /*########################## File Upload ########################*/
   @ViewChild("fileInput") el2!: ElementRef;
@@ -240,11 +255,27 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       skillType: [null, Validators.required]
     })
   }
+  createExperiences(): FormGroup {
+    return this.fb.group({
+      position: [null, Validators.required],
+      company: [null, Validators.required],
+      location: [null],
+      employmentType: [null, Validators.required],
+      startDate: [null],
+      endDate: [null],
+      Industry: [null, Validators.required],
+      Description: [null],
+      Skills: [null]
+    })
+  }
   deleteSectionSkills(i) {
     this.skills.removeAt(i);
   }
   deleteSectionHobbies(i) {
     this.hobbies.removeAt(i);
+  }
+  deleteSectionExperiences(i){
+    this.experiences.removeAt(i);
   }
   addSectionsSkills() {
     this.skills.push(this.createSkills());
@@ -252,6 +283,10 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   addSectionsHobbies() {
     this.hobbies.push(this.fb.control(""));
   }
+  addSectionExperiences(){
+    this.experiences.push(this.createExperiences());
+  }
+
 
   // Submit Registration Form
   onSubmit() {
