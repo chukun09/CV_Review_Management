@@ -521,9 +521,9 @@
                     </div>
                     <div class="skills">
                         <ul>
-                            <li *ngFor="let skill of dataCV.value.skills">
+                            <li *ngFor="let skill of dataCV.value.skills; let i = index">
                                 <div class="li_wrap">
-                                    <div class="text">{{skill}}</div>
+                                    <div class="text">{{skill.skillName}}</div>
                                 </div>
                             </li>
                         </ul>

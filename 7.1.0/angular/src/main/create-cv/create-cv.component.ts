@@ -12,7 +12,7 @@ import { AppComponentBase } from "@shared/app-component-base";
 import { Location } from "@angular/common";
 import { jsPDF } from "jspdf";
 import { ChangeDetectorRef } from "@angular/core";
-import { FormBuilder, FormArray, Validators } from "@angular/forms";
+import { FormBuilder, FormArray, Validators, FormGroup } from "@angular/forms";
 import html2canvas from "html2canvas";
 import { title } from "process";
 @Component({
@@ -29,6 +29,18 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   submitted = false;
   username: any;
   dataCV: any;
+  isCollapsed = false;
+  skillLevels = [
+    { name: 'Tập sự', id: '0' },
+    { name: 'Có kinh nghiệm', id: '1' },
+    { name: 'Tốt', id: '2' },
+    { name: 'Rất tốt', id: '3' },
+    { name: 'Xuất sắc, chuyên gia', id: '4' }]
+  skillTypes = [
+    { name: 'Lập trình', id: '0' },
+    { name: 'Ngoại ngữ', id: '1' },
+    { name: 'Kĩ năng khác', id: '2' },
+  ]
   constructor(
     injector: Injector,
     private titleService: Title,
@@ -98,7 +110,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     this.title = newTitle;
     this.titleService.setTitle(newTitle + " | CVRM");
   }
-  public  getTitle(): string {
+  public getTitle(): string {
     return this.title;
   }
   async cancelCreate() {
@@ -163,6 +175,12 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   get description() {
     return this.createCVForm.get("description");
   }
+  get hobbies() {
+    return this.createCVForm.get('hobbies') as FormArray;
+  }
+  get skills(): FormArray {
+    return <FormArray>this.createCVForm.get('skills');
+  }
 
   /*########################## File Upload ########################*/
   @ViewChild("fileInput") el2!: ElementRef;
@@ -215,14 +233,21 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   }
 
   /*############### Add Dynamic Elements ###############*/
-  get skills() {
-    return this.createCVForm.get('skills') as FormArray;
+  createSkills(): FormGroup {
+    return this.fb.group({
+      skillName: [null, Validators.required],
+      level: [null, Validators.required],
+      skillType: [null, Validators.required]
+    })
   }
-  get hobbies() {
-    return this.createCVForm.get('hobbies') as FormArray;
+  deleteSectionSkills(i) {
+    this.skills.removeAt(i);
+  }
+  deleteSectionHobbies(i) {
+    this.hobbies.removeAt(i);
   }
   addSectionsSkills() {
-    this.skills.push(this.fb.control(""));
+    this.skills.push(this.createSkills());
   }
   addSectionsHobbies() {
     this.hobbies.push(this.fb.control(""));

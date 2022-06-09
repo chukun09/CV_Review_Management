@@ -24,151 +24,179 @@
                                 (ngSubmit)="onSubmit()">
                                 <div class="form-row">
                                     <h3 class="font-weight-bold title-form">Thông tin cá nhân</h3>
+                                    <button type="button" class="btn bg-white ml-auto" style="border: 1px solid #D9D9D9;"
+                                        (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+                                        aria-controls="collapseBasic">
+                                        <i class='fas fa-angle-down' style='font-size:30px;color:rgb(150 150 150)'></i>
+                                    </button>
                                 </div>
-                                <div class="form-group form-row">
-                                    <!-- Upload image -->
-                                    <div class="avatar-upload col-md-3">
-                                        <label class="form-label">Ảnh đại diện</label>
-                                        <div class="avatar-edit">
-                                            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
-                                                (change)="uploadFile($event)" />
-                                            <label for="imageUpload" *ngIf="editFile"
-                                                [ngClass]="['custom-label', 'upload-image']"></label>
-                                            <label *ngIf="removeUpload" [ngClass]="['custom-label', 'remove-image']"
-                                                (click)="removeUploadedFile()"></label>
-                                        </div>
-                                        <div class="avatar-preview">
-                                            <div id="imagePreview" [style.backgroundImage]="'url('+ imageUrl +')'">
+
+                                <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
+                                    <div class="form-group form-row">
+                                        <!-- Upload image -->
+                                        <div class="avatar-upload col-md-3">
+                                            <label class="form-label">Ảnh đại diện</label>
+                                            <div class="avatar-edit">
+                                                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg"
+                                                    #fileInput (change)="uploadFile($event)" />
+                                                <label for="imageUpload" *ngIf="editFile"
+                                                    [ngClass]="['custom-label', 'upload-image']"></label>
+                                                <label *ngIf="removeUpload" [ngClass]="['custom-label', 'remove-image']"
+                                                    (click)="removeUploadedFile()"></label>
+                                            </div>
+                                            <div class="avatar-preview">
+                                                <div id="imagePreview" [style.backgroundImage]="'url('+ imageUrl +')'">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-row col-md-9">
-                                        <div class="w-100 d-flex">
-                                            <div class="form-group col">
-                                                <label for="firstName" class="form-label">Họ</label>
-                                                <input type="text" class="form-control bg-gray-100"
-                                                    placeholder="Nhập họ và tên đệm của bạn" formControlName="firstName"
-                                                    [ngClass]="firstName.invalid
+                                        <div class="form-row col-md-9">
+                                            <div class="w-100 d-flex">
+                                                <div class="form-group col">
+                                                    <label for="firstName" class="form-label">Họ</label>
+                                                    <input type="text" class="form-control bg-gray-100"
+                                                        placeholder="Nhập họ và tên đệm của bạn"
+                                                        formControlName="firstName" [ngClass]="firstName.invalid
                                                      && (firstName.dirty || firstName.touched) 
                                          ? 'border-danger' : ''" required>
-                                                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
-                                                    class="text-danger">
-                                                    <div *ngIf="firstName.errors?.['required']">
-                                                        Vui lòng nhập họ và tên đệm của bạn.
+                                                    <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                                                        class="text-danger">
+                                                        <div *ngIf="firstName.errors?.['required']">
+                                                            Vui lòng nhập họ và tên đệm của bạn.
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group col ml-3">
-                                                <label for="lastName" class="form-label">Tên</label>
-                                                <input type="text" class="form-control bg-gray-100"
-                                                    placeholder="Nhập tên của bạn" formControlName="lastName" [ngClass]="lastName.invalid
+                                                <div class="form-group col ml-3">
+                                                    <label for="lastName" class="form-label">Tên</label>
+                                                    <input type="text" class="form-control bg-gray-100"
+                                                        placeholder="Nhập tên của bạn" formControlName="lastName"
+                                                        [ngClass]="lastName.invalid
                                                      && (lastName.dirty || lastName.touched) 
                                          ? 'border-danger' : ''" required>
-                                                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                                                    <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                                                        class="text-danger">
+                                                        <div *ngIf="lastName.errors?.['required']">
+                                                            Vui lòng nhập tên của bạn.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="text" class="form-control bg-gray-100"
+                                                    placeholder="Nhập địa chỉ email của bạn" formControlName="email"
+                                                    [ngClass]="email.invalid
+                                                     && (email.dirty || email.touched) 
+                                         ? 'border-danger' : ''" required>
+                                                <div *ngIf="email.invalid && (email.dirty || email.touched)"
                                                     class="text-danger">
-                                                    <div *ngIf="lastName.errors?.['required']">
-                                                        Vui lòng nhập tên của bạn.
+                                                    <div *ngIf="email.errors?.['required']">
+                                                        Vui lòng nhập email của bạn.
+                                                    </div>
+                                                    <div *ngIf="email.errors?.['pattern']">
+                                                        Email không đúng định dạng.
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-12">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="text" class="form-control bg-gray-100"
-                                                placeholder="Nhập địa chỉ email của bạn" formControlName="email"
-                                                [ngClass]="email.invalid
-                                                     && (email.dirty || email.touched) 
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="headline" class="form-label">Tiêu đề</label>
+                                        <input type="text" class="form-control bg-gray-100"
+                                            placeholder="Nhập tiêu đề của CV" formControlName="headline">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                                        <input type="text" class="form-control bg-gray-100"
+                                            placeholder="Nhập số điện thoại của bạn" formControlName="phoneNumber"
+                                            [ngClass]="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched) 
                                          ? 'border-danger' : ''" required>
-                                            <div *ngIf="email.invalid && (email.dirty || email.touched)"
-                                                class="text-danger">
-                                                <div *ngIf="email.errors?.['required']">
-                                                    Vui lòng nhập email của bạn.
-                                                </div>
-                                                <div *ngIf="email.errors?.['pattern']">
-                                                    Email không đúng định dạng.
-                                                </div>
+                                        <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
+                                            class="text-danger">
+                                            <div *ngIf="phoneNumber.errors?.['required']">
+                                                Vui lòng nhập số điện thoại.
+                                            </div>
+                                            <div *ngIf="phoneNumber.errors?.['maxlength']
+                                         || phoneNumber.errors?.['minlength']
+                                         || phoneNumber.errors?.['pattern']">
+                                                Số điện thoại bắt buộc phải chứa mười số.
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="headline" class="form-label">Tiêu đề</label>
-                                    <input type="text" class="form-control bg-gray-100"
-                                        placeholder="Nhập tiêu đề của CV" formControlName="headline">
-                                </div>
-                                <div class="form-group">
-                                    <label for="phoneNumber" class="form-label">Số điện thoại</label>
-                                    <input type="text" class="form-control bg-gray-100"
-                                        placeholder="Nhập số điện thoại của bạn" formControlName="phoneNumber"
-                                        [ngClass]="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched) 
-                                         ? 'border-danger' : ''" required>
-                                    <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
-                                        class="text-danger">
-                                        <div *ngIf="phoneNumber.errors?.['required']">
-                                            Vui lòng nhập số điện thoại.
+                                    <div class="form-group">
+                                        <label for="phoneNumber" class="form-label">Ngày sinh</label>
+                                        <input type="text" placeholder="01/01/20"
+                                            class="form-control input-date bg-gray-100" formControlName="birthDate"
+                                            #dp="bsDatepicker" bsDatepicker
+                                            [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY',  returnFocusToInput: true, isAnimated: true }"
+                                            required readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Address" class="form-label">Địa chỉ</label>
+                                        <input type="text" class="form-control bg-gray-100"
+                                            placeholder="Nhập địa chỉ của bạn" name="Address">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="exampleInputAddress" class="form-label">Tỉnh / Thành Phố</label>
+                                            <ng-select bindLabel="name" bindValue="id" [searchable]="false"
+                                                placeholder="Select Filter">
+                                            </ng-select>
                                         </div>
-                                        <div *ngIf="phoneNumber.errors?.['maxlength']
-                                         || phoneNumber.errors?.['minlength']
-                                         || phoneNumber.errors?.['pattern']">
-                                            Số điện thoại bắt buộc phải chứa mười số.
+                                        <div class="form-group col-md-6">
+                                            <label for="exampleInputAddress" class="form-label">Quận / Huyện</label>
+                                            <ng-select bindLabel="name" bindValue="id" [searchable]="false"
+                                                placeholder="Select Filter">
+                                            </ng-select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="phoneNumber" class="form-label">Ngày sinh</label>
-                                    <input type="text" placeholder="01/01/20"
-                                        class="form-control input-date bg-gray-100" formControlName="birthDate"
-                                        #dp="bsDatepicker" bsDatepicker
-                                        [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY',  returnFocusToInput: true, isAnimated: true }"
-                                        required readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Address" class="form-label">Địa chỉ</label>
-                                    <input type="text" class="form-control bg-gray-100"
-                                        placeholder="Nhập địa chỉ của bạn" name="Address">
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleInputAddress" class="form-label">Tỉnh / Thành Phố</label>
-                                        <ng-select bindLabel="name" bindValue="id" [searchable]="false"
-                                            placeholder="Select Filter">
-                                        </ng-select>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleInputAddress" class="form-label">Quận / Huyện</label>
-                                        <ng-select bindLabel="name" bindValue="id" [searchable]="false"
-                                            placeholder="Select Filter">
-                                        </ng-select>
+                                    <div class="form-group">
+                                        <label for="Description" class="form-label">Mô tả</label>
+                                        <input type="text" class="form-control bg-gray-100"
+                                            placeholder="Nhập đôi nét về bạn" formControlName="description">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="Description" class="form-label">Mô tả</label>
-                                    <input type="text" class="form-control bg-gray-100"
-                                        placeholder="Nhập đôi nét về bạn" formControlName="description">
+                                <div class="mb-3">
+                                    <h3 class="font-weight-bold title-form">Kĩ năng</h3>
+                                    <div formArrayName="skills" *ngFor="let t of skills.controls; let i = index">
+                                        <div class="row sections" [formGroupName]="i">
+                                            <div class="col-md-2">
+                                                <li class="mb-3"><span class="text-info">Kĩ năng {{i+1}}</span></li>
+                                            </div>
+                                            <input formControlName='skillName' id="{{'skillName'+i}}" type="text"
+                                                class="form-control mb-4 bg-gray-100" placeholder="Nhập tên kĩ năng" />
+                                            <!-- <input formControlName='age' id="{{'age' + i}}" type="number" class="form-control mb-4"
+                                                placeholder="Enter Age " /> -->
+                                            <ng-select [items]="skillLevels" class="form-control mb-4" bindLabel="name"
+                                                bindValue="id" formControlName="level" [searchable]="false"
+                                                placeholder="Chọn trình độ kĩ năng của bạn">
+                                            </ng-select>
+                                            <ng-select [items]="skillTypes" class="form-control mb-4" bindLabel="name"
+                                                bindValue="id" formControlName="skillType" [searchable]="false"
+                                                placeholder="Chọn loại kĩ năng của bạn">
+                                            </ng-select>
+                                            <button type="button" class="btn btn-danger ml-auto"
+                                                (click)="deleteSectionSkills(i)">Xóa kĩ năng</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-success mb-3 btn-lg btn-block"
+                                        (click)="addSectionsSkills()">Thêm kĩ năng</button>
                                 </div>
-                                <div class="form-group" formArrayName="skills">
-                                    <div class="mb-3">
-                                        <label for="Description" class="form-label">Kĩ năng</label>
-                                        <ul class="subjectList">
-                                          <li *ngFor="let item of skills.controls; let i = index">
-                                            <label for="Description" class="form-label">Kĩ năng {{i + 1}}</label>
-                                            <input type="text" class="form-control" [formControlName]="i">
-                                          </li>
-                                        </ul>
-                                        <button type="button" class="btn btn-sm btn-success mb-3 btn-block" (click)="addSectionsSkills()">Thêm kĩ năng</button>
-                                      </div>
-                                </div>
-                                <div class="form-group" formArrayName="hobbies">
-                                    <div class="mb-3">
-                                        <label for="Description" class="form-label">Sở thích</label>
-                                        <ul class="subjectList">
-                                          <li *ngFor="let item of hobbies.controls; let i = index">
-                                            <label for="Description" class="form-label">Sở thích {{i + 1}}</label>
-                                            <input type="text" class="form-control" [formControlName]="i">
-                                          </li>
-                                        </ul>
-                                        <button type="button" class="btn btn-sm btn-success mb-3 btn-block" (click)="addSectionsHobbies()">Thêm sở thích</button>
-                                      </div>
+                                <div class="mb-3">
+                                    <h3 class="font-weight-bold title-form">Sở thích</h3>
+                                    <div formArrayName="hobbies" *ngFor="let t of hobbies.controls; let i = index">
+                                        <div class="row sections">
+                                            <div class="col-md-2">
+                                                <li class="mb-3"><span class="text-info">Sở thích {{i+1}}</span></li>
+                                            </div>
+                                            <input [formControlName]="i" id="{{'skillName'+i}}" type="text"
+                                                class="form-control mb-4 bg-gray-100" placeholder="Nhập tên sở thích" />
+                                            <button type="button" class="btn btn-danger ml-auto"
+                                                (click)="deleteSectionHobbies(i)">Xóa sở thích</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-success mb-3 btn-lg btn-block"
+                                        (click)="addSectionsHobbies()">Thêm sở thích</button>
                                 </div>
                             </form>
                         </div>
