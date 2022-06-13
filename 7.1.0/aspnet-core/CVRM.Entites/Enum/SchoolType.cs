@@ -2,6 +2,7 @@
 {
     public enum SchoolType
     {
+        SecondarySchool,
         HighSchool,
         University
     }

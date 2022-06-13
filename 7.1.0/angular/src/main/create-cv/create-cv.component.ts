@@ -53,6 +53,11 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     { name: 'Hợp đồng', id: '4' },
     { name: 'Thực tập', id: '5' },
   ]
+  schoolTypes = [
+    { name: 'Trường Cấp hai', id: '0' },
+    { name: 'Trường cấp ba', id: '1' },
+    { name: 'Trường Đại học', id: '2' },
+  ]
   constructor(
     injector: Injector,
     private titleService: Title,
@@ -196,6 +201,9 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   get experiences(): FormArray {
     return <FormArray>this.createCVForm.get('experiences');
   }
+  get educations(): FormArray {
+    return <FormArray>this.createCVForm.get('educations');
+  }
 
   /*########################## File Upload ########################*/
   @ViewChild("fileInput") el2!: ElementRef;
@@ -263,9 +271,21 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       employmentType: [null, Validators.required],
       startDate: [null],
       endDate: [null],
-      Industry: [null, Validators.required],
-      Description: [null],
-      Skills: [null]
+      industry: [null, Validators.required],
+      description: [null, Validators.required],
+      skills: [null]
+    })
+  }
+  createEducations(): FormGroup {
+    return this.fb.group({
+      schoolName: [null, Validators.required],
+      degree: [null],
+      activities: [null],
+      description: [null, Validators.required],
+      schoolType: [null, Validators.required],
+      startDate: [null],
+      endDate: [null],
+      major: [null],
     })
   }
   deleteSectionSkills(i) {
@@ -277,6 +297,9 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   deleteSectionExperiences(i){
     this.experiences.removeAt(i);
   }
+  deleteSectionEducations(i){
+    this.educations.removeAt(i);
+  }
   addSectionsSkills() {
     this.skills.push(this.createSkills());
   }
@@ -285,6 +308,9 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   }
   addSectionExperiences(){
     this.experiences.push(this.createExperiences());
+  }
+  addSectionEducations(){
+    this.educations.push(this.createEducations());
   }
 
 
