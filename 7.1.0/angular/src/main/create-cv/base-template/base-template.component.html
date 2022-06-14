@@ -489,7 +489,7 @@
                         <ul>
                             <li>
                                 <div class="li_wrap">
-                                    <div class="icon"><i class="fas fa-mobile-alt" aria-hidden="true"></i></div>
+                                    <div class="icon"><fa-icon icon="faCoffee"></fa-icon></div>
                                     <div class="text">{{dataCV.value.phoneNumber}}</div>
                                 </div>
                             </li>
@@ -575,13 +575,11 @@
                                             </p>
                                             <p class="info_com">
                                                {{experience.company}} - {{experience.location}}<br>
-                                                {{experience.industry ? ("Chuyên ngành : " + experience.industry) : ""}}<br>
-                                                {{experience.skills ? ("Kĩ năng sử dụng : " + experience.skills) : ""}}
                                             </p>
                                             <p class="info_cont">
-                                                {{experience.industry ? ("Chuyên ngành : " + experience.industry) : ""}}<br>
-                                                {{experience.skills ? ("Kĩ năng sử dụng : " + experience.skills) : ""}}<br>
-                                               {{experience.description}}
+                                                {{experience.industry ? ("- Chuyên ngành : " + experience.industry) : ""}}<br>
+                                                {{experience.skills ? ("- Kĩ năng sử dụng : " + experience.skills) : ""}}<br>
+                                                {{experience.description}}
                                             </p>
                                         </div>
                                     </div>
@@ -595,63 +593,24 @@
                         </div>
                         <div class="education_wrap">
                             <ul>
-                                <li>
+                                <li *ngFor="let education of dataCV.value.educations">
                                     <div class="li_wrap">
                                         <div class="date">
-                                            2010 - 2014
+                        {{education.startDate | date: 'yyyy'}} - {{education.endDate ? (education.endDate | date: 'yyyy') : "Present"}}
                                         </div>
                                         <div class="info">
                                             <p class="info_title">
-                                                Computer Science
+                                                {{education.major}}
                                             </p>
                                             <p class="info_com">
-                                                Israel University
+                                                {{education.schoolName}}
                                             </p>
                                             <p class="info_cont">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga
-                                                voluptatibus consequatur rem nostrum omnis! Architecto.
+                                               {{education.description}}
                                             </p>
                                         </div>
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="li_wrap">
-                                        <div class="date">
-                                            2008 - 2010
-                                        </div>
-                                        <div class="info">
-                                            <p class="info_title">
-                                                Computer Science
-                                            </p>
-                                            <p class="info_com">
-                                                Israel Junior College
-                                            </p>
-                                            <p class="info_cont">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga
-                                                voluptatibus consequatur rem nostrum omnis! Architecto.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="li_wrap">
-                                        <div class="date">
-                                            1998 - 2008
-                                        </div>
-                                        <div class="info">
-                                            <p class="info_title">
-                                                Schooling
-                                            </p>
-                                            <p class="info_com">
-                                                Israel School
-                                            </p>
-                                            <p class="info_cont">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga
-                                                voluptatibus consequatur rem nostrum omnis! Architecto.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
+                                </li>        
                             </ul>
                         </div>
                     </div>

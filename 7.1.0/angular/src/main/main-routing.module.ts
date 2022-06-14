@@ -16,7 +16,7 @@ import { WebViewComponent } from './web-view-pdf/web-view.component';
                 path: '',
                 component: MainComponent,
                 children: [
-                    { path: 'select-template', loadChildren: () => import('./select-template/select-template.module').then(m => m.SelectTemplateModule), data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard] },
+                    { path: 'select-template', component: SelectTemplateComponent, loadChildren: () => import('./select-template/select-template.module').then(m => m.SelectTemplateModule), data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard] },
                     { path: 'all-cv', component: AllCvComponent, data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard] },
                     {
                         path: 'user-information/:id',

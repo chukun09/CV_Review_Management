@@ -1,7 +1,7 @@
 #cv {
     /* width: 640px; */
-    position: fixed;
-    top: -15%;
+    position: absolute;
+    top: 0px;
     transform: scale(0.55);
 }
 

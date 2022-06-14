@@ -3,7 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import {BaseTemplateComponent} from './base-template.component'
 import { NgxDynamicContentModule } from 'ngx-dynamic-content';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'ngx-bootstrap/rating';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     BaseTemplateComponent
@@ -11,12 +11,12 @@ import { RatingModule } from 'ngx-bootstrap/rating';
   exports: [
     BaseTemplateComponent
   ],
-  providers: [DatePipe, CommonModule, RatingModule],
+  providers: [DatePipe, CommonModule,FontAwesomeModule],
   imports: [
     CommonModule,
     FormsModule,
+    FontAwesomeModule,
     NgxDynamicContentModule,
-    RatingModule.forRoot()
   ]
 })
 export class BaseTemplateModule { }

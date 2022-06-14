@@ -18,6 +18,7 @@ import { API_BASE_URL } from '@shared/service-proxies/service-proxies';
 
 import { RootComponent } from './root.component';
 import { AppInitializer } from './app-initializer';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function getCurrentLanguage(): string {
   if (abp.localization.currentLanguage.name) {
@@ -39,6 +40,7 @@ export function getCurrentLanguage(): string {
     CollapseModule.forRoot(),
     TabsModule.forRoot(),
     ServiceProxyModule,
+    FontAwesomeModule,
     RootRoutingModule,
   ],
   declarations: [RootComponent],

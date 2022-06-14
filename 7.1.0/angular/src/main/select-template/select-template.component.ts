@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/app-component-base';
 
@@ -11,11 +12,15 @@ import { AppComponentBase } from '@shared/app-component-base';
 })
 export class SelectTemplateComponent extends AppComponentBase implements OnInit  {
 
-  constructor(injector: Injector) {
+  constructor(injector: Injector,
+    private _router: Router,) {
     super(injector);
   }
 
   ngOnInit(): void {
   }
+  // routerToCreateCV(){
+  //   console.log(this.route.parent);
+  // }
 
 }
