@@ -233,7 +233,6 @@
             height: 90%;
             background: #9153c9;
         }
-
     </style>
     <div *dynamicComponent="templateHTML; context: {dataCV: dataCV};"></div>
 </div>
@@ -572,15 +571,17 @@
                                         </div>
                                         <div class="info">
                                             <p class="info_title">
-                                                {{experience.position}} - {{experience.company}}
+                                                {{experience.position}}
                                             </p>
                                             <p class="info_com">
-                                                {{experience.location}}<br>
-                                               {{experience.industry}} - {{experience.skills}}
+                                               {{experience.company}} - {{experience.location}}<br>
+                                                {{experience.industry ? ("Chuyên ngành : " + experience.industry) : ""}}<br>
+                                                {{experience.skills ? ("Kĩ năng sử dụng : " + experience.skills) : ""}}
                                             </p>
                                             <p class="info_cont">
-                                               {{experience.description}}<br>
-                                               
+                                                {{experience.industry ? ("Chuyên ngành : " + experience.industry) : ""}}<br>
+                                                {{experience.skills ? ("Kĩ năng sử dụng : " + experience.skills) : ""}}<br>
+                                               {{experience.description}}
                                             </p>
                                         </div>
                                     </div>
