@@ -32,6 +32,7 @@ import { FooterComponent } from './layout/footer.component';
 import { SelectTemplateModule } from './select-template/select-template.module';
 import { AllCvComponent } from './all-cv/all-cv.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { RatingModule } from 'ngx-bootstrap/rating';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 // Component
 import {WebViewComponent} from './web-view-pdf/web-view.component'
@@ -90,8 +91,8 @@ import { BrowserModule } from '@angular/platform-browser';
     NgxPaginationModule,
     SelectTemplateModule,
     NgSelectModule,
+    RatingModule,
     WebViewComponentModule
-   
   ],
   providers: [],
   entryComponents: [
