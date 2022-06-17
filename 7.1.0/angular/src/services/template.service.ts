@@ -12,11 +12,11 @@ export class TemplateService {
       'Content-Type': 'application/json'
     })
   };
-  async getTemplateById(id) {
+   getTemplateById(id) {
     return this.http.get<any>(environment.BASE_API_URL + API_CONSTS.TemplateEntity.GET_BY_ID + "?id=" + id);
   }
-   async getAllTemplate() {
-    return await this.http.get<any>(environment.BASE_API_URL + API_CONSTS.TemplateEntity.GET_ALL_TEMPLATE);
+    getAllTemplate() {
+    return  this.http.get<any>(environment.BASE_API_URL + API_CONSTS.TemplateEntity.GET_ALL_TEMPLATE);
   }
 
 }
