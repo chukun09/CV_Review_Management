@@ -1,5 +1,6 @@
 ﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using CVRM.CVEntites;
 using CVRM.CVRM.CV.Dto;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,6 @@ namespace CVRM.CVRM.CV
         CreateUpdateCVDto,
         CreateUpdateCVDto>
     {
+        Task<CVEntityResult> GetDetailCVEntityAsync(int id);
     }
 }

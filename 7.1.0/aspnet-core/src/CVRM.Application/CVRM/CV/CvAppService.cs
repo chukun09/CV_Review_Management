@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
+using CVRM.CVEntites;
 using CVRM.CVRM.CV.Dto;
 using CVRM.Entites;
 using System;
@@ -11,18 +12,23 @@ using System.Threading.Tasks;
 
 namespace CVRM.CVRM.CV
 {
-    public class CvAppService : AsyncCrudAppService<
+    public class CVAppService : AsyncCrudAppService<
         CVEntity,
         CvEntityDto,
         int,
         PagedAndSortedResultRequestDto,
         CreateUpdateCVDto>, ICvAppService
     {
-        private readonly IRepository<CVEntity> _iCvEntityRepository;
-        public CvAppService(IRepository<CVEntity, int> repository,
-            IRepository<CVEntity> _CvEntityRepository) : base(repository)
+        private readonly ICVEntityDomainService _cvEntityDomainService;
+        public CVAppService(IRepository<CVEntity, int> repository,
+            ICVEntityDomainService cvEntityDomainService) : base(repository)
         {
-            _iCvEntityRepository = _CvEntityRepository;
+            _cvEntityDomainService = cvEntityDomainService;
+        }
+
+        public Task<CVEntityResult> GetDetailCVEntityAsync(int id)
+        {
+            return _cvEntityDomainService.GetDetailCVByCVId(id);
         }
     }
 }
