@@ -13,7 +13,10 @@ export class TemplateService {
     })
   };
   async getTemplateById(id) {
-    return await this.http.get<any>(environment.BASE_API_URL + API_CONSTS.TemplateEntity.GET_BY_ID + "?id=" + id);
+    return this.http.get<any>(environment.BASE_API_URL + API_CONSTS.TemplateEntity.GET_BY_ID + "?id=" + id);
+  }
+   async getAllTemplate() {
+    return await this.http.get<any>(environment.BASE_API_URL + API_CONSTS.TemplateEntity.GET_ALL_TEMPLATE);
   }
 
 }

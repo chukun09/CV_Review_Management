@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/app-component-base';
-
+import { TemplateService } from 'services/template.service';
+import {Image} from './image';
 @Component({
   selector: 'app-select-template',
   templateUrl: './select-template.component.html',
@@ -13,12 +13,17 @@ import { AppComponentBase } from '@shared/app-component-base';
 export class SelectTemplateComponent extends AppComponentBase implements OnInit  {
 
   constructor(injector: Injector,
-    private _router: Router,) {
+    private templateService: TemplateService) {
     super(injector);
   }
-
-  ngOnInit(): void {
+  allTemplate!: Image[];
+  async ngOnInit(): Promise<void> {
+   (await this.templateService.getAllTemplate()).subscribe((res) =>{
+    this.allTemplate = res.result.items;
+    console.log(this.allTemplate);
+  });
   }
+  
   // routerToCreateCV(){
   //   console.log(this.route.parent);
   // }

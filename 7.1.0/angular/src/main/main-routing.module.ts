@@ -36,6 +36,18 @@ import { WebViewComponent } from './web-view-pdf/web-view.component';
                 loadChildren: () => import('./create-cv/base-template/base-template.module').then(m => m.BaseTemplateModule),
                 component: CreateCvComponent,
                 data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
+            },
+            {
+                path: 'create-cv/:id',
+                loadChildren: () => import('./create-cv/base-template/base-template.module').then(m => m.BaseTemplateModule),
+                component: CreateCvComponent,
+                data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
+            },
+            {
+                path: 'create-cv/edit/:id/:userId',
+                loadChildren: () => import('./create-cv/base-template/base-template.module').then(m => m.BaseTemplateModule),
+                component: CreateCvComponent,
+                data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
             }
         ])
     ],

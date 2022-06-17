@@ -28,7 +28,9 @@ export const API_CONSTS = {
         CREATE: "/PDFEntity/Create"
     },
     TemplateEntity:{
-        GET_BY_ID: "/CVTemplateEntity/Get"
+        GET_BY_ID: "/CVTemplateEntity/Get",
+        GET_ALL_TEMPLATE: "/CVTemplateEntity/GetAll",
+
     }
 
 }

@@ -4,6 +4,7 @@ import {BaseTemplateComponent} from './base-template.component'
 import { NgxDynamicContentModule } from 'ngx-dynamic-content';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedModule } from '@shared/shared.module';
 @NgModule({
   declarations: [
     BaseTemplateComponent
@@ -11,7 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   exports: [
     BaseTemplateComponent
   ],
-  providers: [DatePipe, CommonModule,FontAwesomeModule],
+  providers: [DatePipe, CommonModule,FontAwesomeModule, SharedModule],
   imports: [
     CommonModule,
     FormsModule,

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SelectTemplateRoutingModule } from './select-template-routing.module';
 import { SelectTemplateComponent } from './select-template.component';
 import { SharedModule } from '@shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SharedModule } from '@shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ]
 })
 export class SelectTemplateModule { }

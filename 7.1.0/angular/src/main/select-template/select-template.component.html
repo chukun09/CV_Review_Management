@@ -3,52 +3,17 @@
         <h1 class="text-center">Tạo cho mình một CV chuyên nghiệp</h1>
         <p class="text-center">Điền thông tin vào chỗ trống, chọn mẫu của chúng tôi và tải về chỉ trong vài phút.</p>
         <div class="container-fluid text-center">
-            <button type="button" class="btn btn-create" [routerLink]="['../create-cv']">Tạo CV</button>
+            <button class="btn btn-create" [routerLink]="['../create-cv']">Tạo CV</button>
         </div>
 
         <div class="container-fluid mt-4 mb-2">
             <div class="row">
-                <div class="col-md-2 ml-5 mb-5 mt-2 text-center">
+                <div class="col-md-2 ml-5 mb-5 mt-2 text-center" *ngFor="let template of allTemplate; let i = index">
                     <div class="card">
-                        <img src="./../../assets/img/template/template1.png" class="card-img-top" alt="...">
+                        <!-- <i class="fa fa-arrow-circle-left"></i> -->
+                        <!-- <img [src]="template.imageURL" class="card-img-top" loading="lazy" alt="picture"> -->
                     </div>
-                    <button type="button" class="btn btn-usetemplate">Dùng Mẫu</button>
-                </div>
-                <div class="col-md-2 ml-5 mb-5 mt-2 text-center">
-                    <div class="card">
-                        <img src="./../../assets/img/template/template1.png" class="card-img-top" alt="...">
-                    </div>
-                    <button type="button" class="btn btn-usetemplate">Dùng Mẫu</button>
-                </div>
-                <div class="col-md-2 ml-5 mb-5 mt-2 text-center">
-                    <div class="card">
-                        <img src="./../../assets/img/template/template1.png" class="card-img-top" alt="...">
-                    </div>
-                    <button type="button" class="btn btn-usetemplate">Dùng Mẫu</button>
-                </div>
-                <div class="col-md-2 ml-5 mb-5 mt-2 text-center">
-                    <div class="card">
-                        <img src="./../../assets/img/template/template1.png" class="card-img-top" alt="...">
-                    </div>
-                    <button type="button" class="btn btn-usetemplate">Dùng Mẫu</button>
-                </div>
-                <div class="col-md-2 ml-5 mb-5 mt-2 text-center">
-                    <div class="card">
-                        <img src="./../../assets/img/template/template1.png" class="card-img-top" alt="...">
-                    </div>
-                    <button type="button" class="btn btn-usetemplate">Dùng Mẫu</button>
-                </div>
-                <div class="col-md-2 ml-5 mb-5 mt-2 text-center">
-                    <div class="card">
-                        <img src="./../../assets/img/template/template1.png" class="card-img-top" alt="...">
-                    </div>
-                    <button type="button" class="btn btn-usetemplate">Dùng Mẫu</button>
-                </div>
-                <div class="col-md-2 ml-5 mb-5 mt-2 text-center">
-                    <div class="card">
-                        <img src="./../../assets/img/template/template1.png" class="card-img-top" alt="...">
-                    </div>
-                    <button type="button" class="btn btn-usetemplate">Dùng Mẫu</button>
+                    <button type="button" class="btn btn-usetemplate" [routerLink]="['../create-cv', template.id]">Dùng Mẫu</button>
                 </div>
             </div>
         </div>
