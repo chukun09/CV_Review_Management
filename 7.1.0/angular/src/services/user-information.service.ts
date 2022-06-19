@@ -12,7 +12,10 @@ export class UserInformationService {
       'Content-Type': 'application/json'
     })
   };
-  async getUserInformationByUserId(id) {
-    return await this.http.get<any>(environment.BASE_API_URL + API_CONSTS.UserEntity.GET_BY_USERID + "?id=" + id);
+   getUserInformationByUserId(id) {
+    return this.http.get<any>(environment.BASE_API_URL + API_CONSTS.UserEntity.GET_BY_USERID + "?id=" + id);
+  }
+   getUserId(id){
+    return this.http.get<any>(environment.BASE_API_URL + API_CONSTS.UserEntity.GET_USERID + "?id=" + id);
   }
 }

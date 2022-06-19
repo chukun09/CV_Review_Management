@@ -11,5 +11,6 @@ namespace CVRM.CVEntites
     public interface ICVEntityDomainService : IDomainService
     {
         Task<CVEntityResult> GetDetailCVByCVId(int id);
+        Task<List<CVEntityLikeResult>> GetAllCVByUserAsync(int userId);
     }
 }

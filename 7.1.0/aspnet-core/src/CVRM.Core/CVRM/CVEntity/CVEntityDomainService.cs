@@ -19,11 +19,13 @@ namespace CVRM.CVEntites
         private readonly IRepository<HobbyEntity> _hobbyEntityRepository;
         private readonly IRepository<CertificateEntity> _certificateEntityRepository;
         private readonly IRepository<CVTemplateEntity> _cvTemplateEntityRepository;
+        private readonly IRepository<CVLikeEntity> _cvLikeEntityRepository;
 
         public CVEntityDomainService(IRepository<CVEntity> cvEntityRepository,
             IRepository<EducationEntity> educationEntityRepository, IRepository<SkillEntity> skillEntityRepository,
             IRepository<ExperienceEntity> experienceEntityRepository, IRepository<HobbyEntity> hobbyEntityRepository,
-            IRepository<CertificateEntity> certificateEntityRepository, IRepository<CVTemplateEntity> cvTemplateEntityRepository)
+            IRepository<CertificateEntity> certificateEntityRepository, IRepository<CVTemplateEntity> cvTemplateEntityRepository,
+            IRepository<CVLikeEntity> cvLikeEntityRepository)
         {
             _cvEntityRepository = cvEntityRepository;
             _educationEntityRepository = educationEntityRepository;
@@ -32,6 +34,26 @@ namespace CVRM.CVEntites
             _hobbyEntityRepository = hobbyEntityRepository;
             _certificateEntityRepository = certificateEntityRepository;
             _cvTemplateEntityRepository = cvTemplateEntityRepository;
+            _cvLikeEntityRepository = cvLikeEntityRepository;
+        }
+
+        public async Task<List<CVEntityLikeResult>> GetAllCVByUserAsync(int userId)
+        {
+            var result = new List<CVEntityLikeResult>();
+            var allCV = await _cvEntityRepository.GetAllListAsync();
+            var listLike = await _cvLikeEntityRepository.GetAllListAsync();
+            foreach(var cv in allCV)
+            {
+               var obj = ObjectMapper.Map<CVEntityLikeResult>(cv);
+                obj.TotalLike = listLike.Count(p => p.CVId == obj.Id);
+                if (listLike.FirstOrDefault(p => p.UserId == userId && p.CVId == obj.Id) == null)
+                {
+                    obj.IsLike = false;
+                }
+                else obj.IsLike = true;
+                result.Add(obj);
+            }
+            return result;
         }
 
         public async Task<CVEntityResult> GetDetailCVByCVId(int id)

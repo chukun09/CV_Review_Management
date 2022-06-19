@@ -24,6 +24,7 @@ export class UserInformationComponent extends AppComponentBase implements OnInit
   async ngOnInit(): Promise<void> {
     this.userLogin = this.appSession.user;
     (await this.userInformationService.getUserInformationByUserId(this.userLogin.id)).subscribe((response) => {
+      console.log(this.userLogin.id);
       this.userInformation = response.result;
       this.fullName = this.userInformation.firstName + " " + this.userInformation.lastName;
     });

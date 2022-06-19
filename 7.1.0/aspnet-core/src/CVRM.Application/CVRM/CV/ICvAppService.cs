@@ -18,5 +18,6 @@ namespace CVRM.CVRM.CV
         CreateUpdateCVDto>
     {
         Task<CVEntityResult> GetDetailCVEntityAsync(int id);
+        Task<List<CVEntityLikeDto>> GetAllCVByUserAsync(int userId);
     }
 }

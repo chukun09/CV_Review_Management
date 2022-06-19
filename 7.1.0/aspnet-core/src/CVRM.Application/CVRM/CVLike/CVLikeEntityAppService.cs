@@ -4,6 +4,8 @@ using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
 using CVRM.CVRM.CVLike.Dto;
 using CVRM.Entites;
+using CVRM.SignalR;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,10 +23,13 @@ namespace CVRM.CVRM.CVLike
         CreateUpdateCVLikeEntityDto>, ICVLikeEntityAppService
     {
         private readonly IRepository<CVLikeEntity> _cvLikeRepository;
+        private IHubContext<LikeHub, ITypeHubClient> _hubContext;
         public CVLikeEntityAppService(IRepository<CVLikeEntity, int> repository,
-            IRepository<CVLikeEntity> cvLikeRepository) : base(repository)
+            IRepository<CVLikeEntity> cvLikeRepository,
+            IHubContext<LikeHub, ITypeHubClient> hubContext) : base(repository)
         {
             _cvLikeRepository = cvLikeRepository;
+            _hubContext = hubContext;
         }
 
         public async Task<List<CVLikeEntityDto>> GetListCVLikeByCVId(int CVId)
@@ -54,6 +59,7 @@ namespace CVRM.CVRM.CVLike
                     await _cvLikeRepository.UpdateAsync(cvLike);
                 }
             }
+            await _hubContext.Clients.All.BoardCastToogleLike();
             return ObjectMapper.Map<CVLikeEntityDto>(cvLike);
         }
     }

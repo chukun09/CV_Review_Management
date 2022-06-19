@@ -22,6 +22,7 @@ export const API_CONSTS = {
     UserEntity: {
         CREATE: "/UserEntity/Create",
         GET_BY_USERID: "/UserEntity/GetUserEntityByUserId",
+        GET_USERID: "/UserEntity/GetUserIdByLoginUser",
     },
     PDFEntity: {
         GET_PDF_JSON: "/PDFEntity/getPDFJsonByCVId",
@@ -31,6 +32,14 @@ export const API_CONSTS = {
         GET_BY_ID: "/CVTemplateEntity/Get",
         GET_ALL_TEMPLATE: "/CVTemplateEntity/GetAll",
 
+    },
+    CVEntity:{ 
+        GET_ALL_BY_USER_ID: "/CV/GetAllCVByUser",
+        GET_CV_DETAIL_BY_ID: "/CV/GetDetailCVEntity",
+        
+    },
+    CVLikeEntity:{
+        UPDATE_STATUS_LIKE: "/CVLikeEntity/UpdateStatusLike",
     }
 
 }

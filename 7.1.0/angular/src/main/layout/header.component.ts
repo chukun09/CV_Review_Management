@@ -17,6 +17,7 @@ export class HeaderComponent extends AppComponentBase {
     this.shownLoginName = this.appSession.getShownLoginName();
   }
   logout(): void {
+    localStorage.removeItem('userId');
     this._authService.logout();
   }
 }

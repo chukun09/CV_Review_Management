@@ -10,5 +10,6 @@ namespace CVRM.SignalR
     {
         Task BoardCastSomeThing(int jobID);
         Task BoardCastAnnotation();
+        Task BoardCastToogleLike();
     }
 }

@@ -3,6 +3,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/app-component-base';
 import { Observable } from 'rxjs';
 import { TemplateService } from 'services/template.service';
+import { UserInformationService } from 'services/user-information.service';
 import {Image} from './image';
 @Component({
   selector: 'app-select-template',
@@ -14,11 +15,15 @@ import {Image} from './image';
 export class SelectTemplateComponent extends AppComponentBase implements OnInit  {
 
   constructor(injector: Injector,
-    private templateService: TemplateService) {
+    private templateService: TemplateService,
+    private userService : UserInformationService) {
     super(injector);
   }
   allTemplate!: Observable<Image[]>;
     ngOnInit() {
+    this.userService.getUserId(this.appSession.userId).subscribe((res) =>{
+      localStorage.setItem('userId', res.result);
+    })
      this.generateData();
   }
    generateData(){

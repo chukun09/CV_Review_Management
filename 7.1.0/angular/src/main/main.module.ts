@@ -44,6 +44,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { BaseTemplateModule } from './create-cv/base-template/base-template.module';
 import { NgxDynamicContentModule } from 'ngx-dynamic-content';
 import { BrowserModule } from '@angular/platform-browser';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,7 @@ import { BrowserModule } from '@angular/platform-browser';
     HttpClientJsonpModule,
     ModalModule.forChild(),
     BsDatepickerModule.forRoot(),
-    NgxDynamicContentModule.forRoot({imports:[CommonModule, BrowserModule]}),
+    NgxDynamicContentModule.forRoot({imports:[CommonModule, BrowserModule, SharedModule, FontAwesomeModule]}),
     BsDropdownModule,
     CollapseModule,
     TabsModule,

@@ -1,7 +1,7 @@
 #cv {
     /* width: 640px; */
     position: fixed;
-    top: -15%;
+    top: -17.5vh;
     transform: scale(0.55);
 }
 
@@ -62,7 +62,16 @@
     border: 1px solid #5d25e7;
     border-radius: 5px;
 }
-
+.btn-success{
+    border-color: #0A2341;
+    background-color: #0A2341;
+}
+.btn-success:hover{
+    height: 102%;
+    transition-duration: 0.4s;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #0A2341;
+}
 .border-danger {
     border: 1px solid red !important;
 }

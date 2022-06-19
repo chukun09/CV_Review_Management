@@ -26,6 +26,12 @@ namespace CVRM.CVRM.CV
             _cvEntityDomainService = cvEntityDomainService;
         }
 
+        public async Task<List<CVEntityLikeDto>> GetAllCVByUserAsync(int userId)
+        {
+            var listCV = await _cvEntityDomainService.GetAllCVByUserAsync(userId);
+            return ObjectMapper.Map<List<CVEntityLikeDto>>(listCV);
+        }
+
         public Task<CVEntityResult> GetDetailCVEntityAsync(int id)
         {
             return _cvEntityDomainService.GetDetailCVByCVId(id);
