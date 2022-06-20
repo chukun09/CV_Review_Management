@@ -261,11 +261,9 @@
   }
   
   #cvTemplate2 .resume {
-    width: 900px;
     min-height: 1050px;
     height: auto;
     display: flex;
-    margin: 50px auto;
   }
   #cvTemplate2 .resume_hobby .li_wrap{
     height: 75px;
