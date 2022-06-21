@@ -12,5 +12,6 @@ namespace CVRM.CVEntites
     {
         Task<CVEntityResult> GetDetailCVByCVId(int id);
         Task<List<CVEntityLikeResult>> GetAllCVByUserAsync(int userId);
+        Task<bool> CreateNewCVAndAllInformation(CVEntityResult result);
     }
 }

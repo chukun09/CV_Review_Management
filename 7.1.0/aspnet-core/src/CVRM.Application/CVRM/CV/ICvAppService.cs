@@ -2,6 +2,7 @@
 using Abp.Application.Services.Dto;
 using CVRM.CVEntites;
 using CVRM.CVRM.CV.Dto;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,7 @@ namespace CVRM.CVRM.CV
     {
         Task<CVEntityResult> GetDetailCVEntityAsync(int id);
         Task<List<CVEntityLikeDto>> GetAllCVByUserAsync(int userId);
+        Task<IActionResult> CreateNewCVAndAllInformations(CVEntityResult input);
+
     }
 }

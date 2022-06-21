@@ -19,6 +19,10 @@ export class AppConsts {
     };
 }
 export const API_CONSTS = {
+    Address: {
+        GET_ALL_PROVINCE: "/Address/GetAllProvince",
+        GET_DISTRICT_BY_PROVINCE: "/Address/GetAllDistrictByProvince"
+    },
     UserEntity: {
         CREATE: "/UserEntity/Create",
         GET_BY_USERID: "/UserEntity/GetUserEntityByUserId",
@@ -36,6 +40,7 @@ export const API_CONSTS = {
     CVEntity:{ 
         GET_ALL_BY_USER_ID: "/CV/GetAllCVByUser",
         GET_CV_DETAIL_BY_ID: "/CV/GetDetailCVEntity",
+        CREATE_NEW_CV_DETAIL: "/CV/CreateNewCVAndAllInformations"
         
     },
     CVLikeEntity:{

@@ -4,6 +4,7 @@ using Abp.Domain.Repositories;
 using CVRM.CVEntites;
 using CVRM.CVRM.CV.Dto;
 using CVRM.Entites;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,16 @@ namespace CVRM.CVRM.CV
             ICVEntityDomainService cvEntityDomainService) : base(repository)
         {
             _cvEntityDomainService = cvEntityDomainService;
+        }
+
+        public async Task<IActionResult> CreateNewCVAndAllInformations(CVEntityResult input)
+        {
+            var isAddNewCV = await _cvEntityDomainService.CreateNewCVAndAllInformation(input);
+            if (isAddNewCV)
+            {
+                return new OkObjectResult("Thêm CV thành công");
+            }
+            return new BadRequestResult();
         }
 
         public async Task<List<CVEntityLikeDto>> GetAllCVByUserAsync(int userId)

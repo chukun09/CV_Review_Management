@@ -14,7 +14,8 @@ import { jsPDF } from "jspdf";
 import { ChangeDetectorRef } from "@angular/core";
 import { FormBuilder, FormArray, Validators, FormGroup } from "@angular/forms";
 import html2canvas from "html2canvas";
-import { title } from "process";
+import { CVInformationService } from "services/cv-information.service";
+import { AddressService } from "services/address.service";
 @Component({
   selector: "app-create-cv",
   templateUrl: "./create-cv.component.html",
@@ -58,34 +59,35 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     { name: 'Trường cấp ba', id: '1' },
     { name: 'Trường Đại học', id: '2' },
   ]
+  genders = [
+    {name: 'Nam', id: '0'},
+    {name: 'Nữ', id: '1'},
+    {name: 'Khác', id: '2'},
+  ]
+  provinces = [];
+  districts = [];
   constructor(
     injector: Injector,
     private titleService: Title,
     private _location: Location,
     public fb: FormBuilder,
     private cd: ChangeDetectorRef,
+    private cvInformationService: CVInformationService,
+    private addressService: AddressService
   ) {
     super(injector);
-    // this.test = require('html-loader!../../assets/template/ResponsiveCVResume/index.html');
-    // this.test = this.test.default;
   }
 
   ngOnInit(): void {
     this.userLogin = this.appSession.user;
     this.username = this.userLogin.name;
+    this.addressService.getAllProvinces().subscribe((res) => {
+      this.provinces = res.result;
+    })
     this.setTitle("CV " + this.userLogin.name + " " + this.userLogin.surname);
   }
   downloadPDFbyHTML() {
     let date: number = new Date().getTime();
-    // let pdf = new jsPDF('l', 'mm', [210, 297]);
-    // pdf.html(this.el.nativeElement, {
-    //   callback: (pdf) => {
-    //     if (!this.title || this.title === '') {
-    //       this.setTitle("CV " + this.userLogin.name + " " + this.userLogin.surname);
-    //     }
-    //     pdf.save(this.title + "_" + date + ".pdf");
-    //   }
-    // });
     var title = this.getTitle();
     html2canvas(this.el.nativeElement, { allowTaint: true, scale: 1.8 }).then(
       function (canvas) {
@@ -98,6 +100,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
         var canvas_image_height = HTML_Height;
         canvas.getContext("experimental-webgl");
         var imgData = canvas.toDataURL("image/jpeg", 1.0);
+        console.log(imgData);
         var pdf = new jsPDF("p", "pt", [PDF_Width, PDF_Height]);
         pdf.addImage(
           imgData,
@@ -107,21 +110,9 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
           canvas_image_width,
           canvas_image_height
         );
-        console.log(title);
-        pdf.save(title + "_" + date + ".pdf");
+        console.log(pdf.save(title + "_" + date + ".pdf"));
       }
     );
-    ///Solution 2
-    // return html2canvas(this.el.nativeElement).then((canvas) => {
-    //   let date: number = new Date().getTime();
-    //   const img = canvas.toDataURL("img/jpeg");
-    //   var imgWidth = (canvas.width * 60) / 240;
-    //   var imgHeight = (canvas.height * 60) / 240;
-    //   // jspdf changes
-    //   var pdf = new jsPDF("p", "mm", "a4");
-    //   pdf.addImage(img, "png", 15, 2, imgWidth, imgHeight); // 2: 19
-    //   pdf.save(this.title + "_" + date + ".pdf");
-    // });
   }
   public setTitle(newTitle: string) {
     this.title = newTitle;
@@ -157,10 +148,10 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     description: [""],
     address: this.fb.group({
       street: ["", [Validators.required]],
-      city: ["", [Validators.required]],
-      cityName: ["", [Validators.required]],
+      province: [, [Validators.required]],
+      district: [, [Validators.required]],
     }),
-    gender: ["Nam"],
+    gender: [],
     birthDate: [new Date()],
     certificates: this.fb.array([]),
     educations: this.fb.array([]),
@@ -179,6 +170,11 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   }
   get email() {
     return this.createCVForm.get("email");
+  }
+  get address() {
+    return this.createCVForm.get("address.street") + ", " 
+    + this.createCVForm.get("address.district") + ", "
+    + this.createCVForm.get("address.province");
   }
   get gender() {
     return this.createCVForm.get("gender");
@@ -246,13 +242,6 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   // Getter method to access formcontrols
   get myForm() {
     return this.createCVForm.controls;
-  }
-
-  // Choose city using select dropdown
-  changeCity(e) {
-    this.createCVForm.get("address.cityName").setValue(e.target.value, {
-      onlySelf: true,
-    });
   }
 
   /*############### Add Dynamic Elements ###############*/
@@ -323,5 +312,12 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     } else {
       console.log(this.createCVForm.value);
     }
+  }
+  getDistrictsByProvince(id){
+    if(id == null) this.districts = [];
+    this.addressService.getDistrictsByProvince(id).subscribe((res) => {
+      this.createCVForm.get('address.district').setValue(null);
+      this.districts = res.result;
+    });
   }
 }

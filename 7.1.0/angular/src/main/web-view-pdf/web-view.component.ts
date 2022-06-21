@@ -108,9 +108,9 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
         baseUrl: location.protocol + "//" + location.host + "/assets/",
         instantJSON: instantJSON,
         document: "../../assets/pdf/webviewer-demo-annotated.pdf",
-        container: "#pspdfkit-container",
+        container: "#container",
         toolbarItems: PSPDFKit.defaultToolbarItems.concat(item),
-        autoSaveMode: PSPDFKit.AutoSaveMode.INTELLIGENT,
+        // autoSaveMode: PSPDFKit.AutoSaveMode.INTELLIGENT,
         isEditableAnnotation: (annotation) => annotation.creatorName === this.fullName
         // initialViewState: new PSPDFKit.ViewState({ readOnly: true })
       }).then(async instance => {

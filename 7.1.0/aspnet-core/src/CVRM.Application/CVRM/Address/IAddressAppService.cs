@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using CVRM.CVRM.Address.Dto;
+using CVRM.Entites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace CVRM.CVRM.Address
         CreateUpdateUserAddressDto,
         CreateUpdateUserAddressDto>
     {
+        public Task<List<Province>> GetAllProvince();
+        public Task<List<District>> GetAllDistrictByProvince(int id);
     }
 }

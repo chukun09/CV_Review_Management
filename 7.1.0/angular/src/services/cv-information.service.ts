@@ -23,4 +23,7 @@ export class CVInformationService {
   toogleLikeCV(userId, CVId){
     return this.http.put<any>(environment.BASE_API_URL + API_CONSTS.CVLikeEntity.UPDATE_STATUS_LIKE + "?UserId=" + userId + "&CVId=" + CVId, this.headers);
   }
+  CreateNewCVAndAllInformations(body :any){
+    return this.http.post<any>(environment.BASE_API_URL + API_CONSTS.CVEntity.CREATE_NEW_CV_DETAIL, body, this.headers);
+  }
 }

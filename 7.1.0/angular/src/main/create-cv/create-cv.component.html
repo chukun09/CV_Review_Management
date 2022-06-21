@@ -1,6 +1,6 @@
 <div [@routerTransition]>
     <div class="container-fluid pl-0 pr-0">
-        <div class="col-12 p-0" style="height: 100vh;">
+        <div class="col-12 p-0" style="overflow-x: hidden">
             <div class="row bg-black d-flex create-cv-header">
                 <button type="button" class="btn btn-outline-dark mr-auto ml-3" (click)="cancelCreate()">Trở về</button>
                 <input type="text"
@@ -16,9 +16,9 @@
                             clip-rule="evenodd"></path>
                     </svg> Tải xuống</button>
             </div>
-            <div class="container-fluid p-0 w-100 h-100">
-                <div class="row h-100 d-flex">
-                    <div class="col p-0">
+            <div class="container-fluid p-0 w-100">
+                <div class="row d-flex">
+                    <div class="col p-0" style="overflow: auto; height: calc(100vh - 4rem)">
                         <div class="form d-flex" style="padding: 2rem 5rem;">
                             <form class="w-100" style="height:max-content" [formGroup]="createCVForm"
                                 (ngSubmit)="onSubmit()">
@@ -124,6 +124,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label for="gender" class="form-label">Giới tính</label>
+                                        <ng-select [items]="genders" class="form-control mb-4" bindLabel="name"
+                                            bindValue="id" formControlName="gender" placeholder="Chọn giới tính của bạn"
+                                            [searchable]="false">
+                                        </ng-select>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="phoneNumber" class="form-label">Ngày sinh</label>
                                         <input type="text" placeholder="01/01/20"
                                             class="form-control input-date bg-gray-100" formControlName="birthDate"
@@ -131,23 +138,29 @@
                                             [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY',  returnFocusToInput: true, isAnimated: true }"
                                             required readonly>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="Address" class="form-label">Địa chỉ</label>
-                                        <input type="text" class="form-control bg-gray-100"
-                                            placeholder="Nhập địa chỉ của bạn" name="Address">
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="exampleInputAddress" class="form-label">Tỉnh / Thành Phố</label>
-                                            <ng-select bindLabel="name" bindValue="id" [searchable]="false"
-                                                placeholder="Select Filter">
-                                            </ng-select>
+                                    <div formGroupName="address">
+                                        <div class="form-group">
+                                            <label for="Address" class="form-label">Địa chỉ</label>
+                                            <input type="text" class="form-control bg-gray-100" formControlName="street"
+                                                placeholder="Nhập địa chỉ của bạn" name="Address">
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="exampleInputAddress" class="form-label">Quận / Huyện</label>
-                                            <ng-select bindLabel="name" bindValue="id" [searchable]="false"
-                                                placeholder="Select Filter">
-                                            </ng-select>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="exampleInputAddress" class="form-label">Tỉnh / Thành
+                                                    Phố</label>
+                                                <ng-select bindLabel="name" bindValue="id" [searchable]="false"
+                                                    [items]="provinces" (change)="getDistrictsByProvince($event.id)"
+                                                    formControlName="province"
+                                                    placeholder="Chọn Tỉnh / Thành Phố của bạn">
+                                                </ng-select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="exampleInputAddress" class="form-label">Quận / Huyện</label>
+                                                <ng-select bindLabel="districtName" bindValue="id" [searchable]="false"
+                                                    [items]="districts" formControlName="district"
+                                                    placeholder="Chọn Quận / Huyện của bạn">
+                                                </ng-select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -281,7 +294,7 @@
                                                     <input formControlName='industry' id="{{'industry'+i}}" type="text"
                                                         class="form-control mb-4 bg-gray-100"
                                                         placeholder="Nhập ngành nghề của bạn" />
-                                                        <input formControlName='skills' id="{{'skills'+i}}" type="text"
+                                                    <input formControlName='skills' id="{{'skills'+i}}" type="text"
                                                         class="form-control mb-4 bg-gray-100"
                                                         placeholder="Nhập các kĩ năng trong quá trình làm việc của bạn" />
                                                     <textarea class="form-control bg-gray-100 mb-4"
@@ -317,17 +330,17 @@
                                                                 {{i+1}}</span>
                                                         </li>
                                                     </div>
-                                                    <input formControlName='schoolName' id="{{'schoolName'+i}}" type="text"
-                                                        class="form-control mb-4 bg-gray-100"
+                                                    <input formControlName='schoolName' id="{{'schoolName'+i}}"
+                                                        type="text" class="form-control mb-4 bg-gray-100"
                                                         placeholder="Nhập tên trường của bạn" />
                                                     <input formControlName='degree' id="{{'degree'+i}}" type="text"
                                                         class="form-control mb-4 bg-gray-100"
                                                         placeholder="Nhập bằng bạn được cấp" />
-                                                        <input formControlName='major' id="{{'major'+i}}" type="text"
+                                                    <input formControlName='major' id="{{'major'+i}}" type="text"
                                                         class="form-control mb-4 bg-gray-100"
                                                         placeholder="Nhập chuyên ngành bạn học nếu có" />
-                                                    <textarea formControlName='activities' id="{{'activities'+i}}" rows="3"
-                                                        class="form-control mb-4 bg-gray-100"
+                                                    <textarea formControlName='activities' id="{{'activities'+i}}"
+                                                        rows="3" class="form-control mb-4 bg-gray-100"
                                                         placeholder="Nhập các hoạt động của bạn"></textarea>
                                                     <ng-select [items]="schoolTypes" class="form-control mb-4"
                                                         bindLabel="name" bindValue="id" formControlName="schoolType"

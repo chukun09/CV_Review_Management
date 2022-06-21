@@ -18,8 +18,25 @@ namespace CVRM.CVRM.Address
         PagedAndSortedResultRequestDto,
         CreateUpdateUserAddressDto>, IAddressAppService
     {
-        public AddressAppService(IRepository<AddressEntity, int> repository) : base(repository)
+        private readonly IRepository<Province> _provinceRepository;
+        private readonly IRepository<District> _districtRepository;
+        public AddressAppService(IRepository<AddressEntity, int> repository,
+            IRepository<Province> provinceRepository,
+            IRepository<District> districtRepository) : base(repository)
         {
+            _provinceRepository = provinceRepository;
+            _districtRepository = districtRepository;
+        }
+
+        public async Task<List<District>> GetAllDistrictByProvince(int id)
+        {
+            return await _districtRepository.GetAllListAsync(p => p.Province.Id == id);
+        }
+
+        public async Task<List<Province>> GetAllProvince()
+        {
+            var listProvinces = await _provinceRepository.GetAllListAsync();
+            return listProvinces;
         }
     }
 }
