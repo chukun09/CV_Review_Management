@@ -9,6 +9,8 @@ using CVRM.Entites;
 using CVRM.Entites;
 using Abp.Domain.Uow;
 using Abp.EntityFrameworkCore.Repositories;
+using System.Net.Http;
+using System.Net.Http.Json;
 
 namespace CVRM.CVEntites
 {
@@ -43,9 +45,9 @@ namespace CVRM.CVEntites
             var result = new List<CVEntityLikeResult>();
             var allCV = await _cvEntityRepository.GetAllListAsync();
             var listLike = await _cvLikeEntityRepository.GetAllListAsync();
-            foreach(var cv in allCV)
+            foreach (var cv in allCV)
             {
-               var obj = ObjectMapper.Map<CVEntityLikeResult>(cv);
+                var obj = ObjectMapper.Map<CVEntityLikeResult>(cv);
                 obj.TotalLike = listLike.Count(p => p.CVId == obj.Id);
                 if (listLike.FirstOrDefault(p => p.UserId == userId && p.CVId == obj.Id) == null)
                 {
@@ -78,36 +80,60 @@ namespace CVRM.CVEntites
             return result;
         }
         [UnitOfWork]
-        public async Task<bool> CreateNewCVAndAllInformation(CVEntityResult input)
+        public async Task<bool> CreateNewCVAndAllInformation(CVEntityAllInformationsInput input)
         {
             var cvEntity = ObjectMapper.Map<CVEntity>(input);
-            if(cvEntity != null)
+            if (cvEntity != null)
             {
-                var idCV =await _cvEntityRepository.InsertAndGetIdAsync(cvEntity);
-                if(input.ListEducations != null || input.ListEducations.Count != 0)
+                using (HttpClient client = new HttpClient())
                 {
-                    input.ListEducations.ForEach(x => x.CVId = idCV);
-                   await _educationEntityRepository.GetDbContext().AddRangeAsync(input.ListEducations);
+                    IDictionary<string, string> form =
+             new Dictionary<string, string>();
+                    form.Add("image", input.Avatar);
+                    HttpResponseMessage response = await client.PostAsJsonAsync("https://api.imgbb.com/1/upload?expiration=600000&key=e7be8b9b1a748dffe6515478ac88a22f", form["image"]);
+                    response.EnsureSuccessStatusCode();
                 }
-                if (input.ListSkills != null || input.ListSkills.Count != 0)
+
+                var idCV = await _cvEntityRepository.InsertAndGetIdAsync(cvEntity);
+                if (input.ListEducations != null)
                 {
-                    input.ListSkills.ForEach(x => x.CVId = idCV);
-                    await _skillEntityRepository.GetDbContext().AddRangeAsync(input.ListSkills);
+                    if (input.ListEducations.Count != 0)
+                    {
+                        input.ListEducations.ForEach(x => x.CVId = idCV);
+                        await _educationEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<EducationEntity>>(input.ListEducations));
+                    };
                 }
-                if (input.ListCertificates != null || input.ListCertificates.Count != 0)
+                if (input.ListSkills != null)
                 {
-                    input.ListCertificates.ForEach(x => x.CVId = idCV);
-                    await _certificateEntityRepository.GetDbContext().AddRangeAsync(input.ListCertificates);
+                    if (input.ListSkills.Count != 0)
+                    {
+                        input.ListSkills.ForEach(x => x.CVId = idCV);
+                        await _skillEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<SkillEntity>>(input.ListSkills));
+                    };
                 }
-                if (input.ListExperiences != null || input.ListExperiences.Count != 0)
+                if (input.ListCertificates != null)
                 {
-                    input.ListExperiences.ForEach(x => x.CVId = idCV);
-                    await _experienceEntityRepository.GetDbContext().AddRangeAsync(input.ListExperiences);
+                    if (input.ListCertificates.Count != 0)
+                    {
+                        input.ListCertificates.ForEach(x => x.CVId = idCV);
+                        await _certificateEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<CertificateEntity>>(input.ListCertificates));
+                    };
                 }
-                if (input.ListHobbies != null || input.ListHobbies.Count != 0)
+                if (input.ListExperiences != null)
                 {
-                    input.ListHobbies.ForEach(x => x.CVId = idCV);
-                    await _educationEntityRepository.GetDbContext().AddRangeAsync(input.ListHobbies);
+                    if (input.ListExperiences.Count != 0)
+                    {
+                        input.ListExperiences.ForEach(x => x.CVId = idCV);
+                        await _experienceEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<ExperienceEntity>>(input.ListExperiences));
+                    }
+                }
+                if (input.ListHobbies != null)
+                {
+                    if (input.ListHobbies.Count != 0)
+                    {
+                        input.ListHobbies.ForEach(x => x.CVId = idCV);
+                        await _educationEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<HobbyEntity>>(input.ListHobbies));
+                    }
                 }
                 return true;
             }

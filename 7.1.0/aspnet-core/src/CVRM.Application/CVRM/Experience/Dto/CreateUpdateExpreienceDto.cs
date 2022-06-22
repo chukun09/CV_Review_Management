@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using CVRM.Entites;
+using CVRM.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,9 +18,14 @@ namespace CVRM.CVRM.Experience.Dto
         public string Position { get; set; }
         [Required]
         public string Company { get; set; }
+        public string? Location { get; set; }
+        public EmploymentType EmploymentType { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public string Description { get; set; }
+        [Required]
+        public string? Industry { get; set; }
+        public string? Description { get; set; }
+        public string? Skills { get; set; }
         public int CVId { get; set; }
     }
 }

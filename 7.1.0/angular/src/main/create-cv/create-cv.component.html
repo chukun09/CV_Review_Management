@@ -333,15 +333,9 @@
                                                     <input formControlName='schoolName' id="{{'schoolName'+i}}"
                                                         type="text" class="form-control mb-4 bg-gray-100"
                                                         placeholder="Nhập tên trường của bạn" />
-                                                    <input formControlName='degree' id="{{'degree'+i}}" type="text"
-                                                        class="form-control mb-4 bg-gray-100"
-                                                        placeholder="Nhập bằng bạn được cấp" />
                                                     <input formControlName='major' id="{{'major'+i}}" type="text"
                                                         class="form-control mb-4 bg-gray-100"
                                                         placeholder="Nhập chuyên ngành bạn học nếu có" />
-                                                    <textarea formControlName='activities' id="{{'activities'+i}}"
-                                                        rows="3" class="form-control mb-4 bg-gray-100"
-                                                        placeholder="Nhập các hoạt động của bạn"></textarea>
                                                     <ng-select [items]="schoolTypes" class="form-control mb-4"
                                                         bindLabel="name" bindValue="id" formControlName="schoolType"
                                                         [searchable]="false"
@@ -368,6 +362,10 @@
                                                 (click)="addSectionEducations()">Thêm học vấn</button>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-row">
+                                    <button type="button" class="btn btn-primary btn-lg ml-auto"
+                                        (click)="createNewCVAndAllInformations()">Lưu thông tin</button>
                                 </div>
                             </form>
                         </div>

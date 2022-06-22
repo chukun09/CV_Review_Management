@@ -20,7 +20,7 @@ namespace CVRM.CVRM.CV
     {
         Task<CVEntityResult> GetDetailCVEntityAsync(int id);
         Task<List<CVEntityLikeDto>> GetAllCVByUserAsync(int userId);
-        Task<IActionResult> CreateNewCVAndAllInformations(CVEntityResult input);
+        Task<IActionResult> CreateNewCVAndAllInformations(CVEntityAllInformationsInput input);
 
     }
 }

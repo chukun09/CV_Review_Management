@@ -30,7 +30,7 @@ namespace CVRM.CVEntites
         public DateTime? BirthDate { get; set; }
         public int UserId { get; set; }
         public int? TemplateId { get; set; }
-        public CVTemplateEntity? CVTemplateEntity { get; set; }
+        //public CVTemplateEntity? CVTemplateEntity { get; set; }
         public List<EducationEntity> ListEducations { get; set; }
         public List<HobbyEntity> ListHobbies { get; set; }
         public List<ExperienceEntity> ListExperiences { get; set; }

@@ -16,6 +16,9 @@ import { FormBuilder, FormArray, Validators, FormGroup } from "@angular/forms";
 import html2canvas from "html2canvas";
 import { CVInformationService } from "services/cv-information.service";
 import { AddressService } from "services/address.service";
+import { isBuffer } from "lodash-es";
+import { ActivatedRoute } from "@angular/router";
+import * as moment from "moment";
 @Component({
   selector: "app-create-cv",
   templateUrl: "./create-cv.component.html",
@@ -30,6 +33,8 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   submitted = false;
   username: any;
   dataCV: any;
+  cvId: any = 1;
+  newCV: any = {};
   isCollapsedProfile = false;
   isCollapsedSkills = false;
   isCollapsedHobbies = false;
@@ -73,12 +78,19 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     public fb: FormBuilder,
     private cd: ChangeDetectorRef,
     private cvInformationService: CVInformationService,
-    private addressService: AddressService
+    private addressService: AddressService,
+    private route: ActivatedRoute
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.cvId = params["id"];
+    });
+    if(!this.cvId){
+      this.cvId = 1;
+    }
     this.userLogin = this.appSession.user;
     this.username = this.userLogin.name;
     this.addressService.getAllProvinces().subscribe((res) => {
@@ -249,7 +261,8 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     return this.fb.group({
       skillName: [null, Validators.required],
       level: [null, Validators.required],
-      skillType: [null, Validators.required]
+      skillType: [null, Validators.required],
+      cvId : this.cvId
     })
   }
   createExperiences(): FormGroup {
@@ -262,19 +275,19 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       endDate: [null],
       industry: [null, Validators.required],
       description: [null, Validators.required],
-      skills: [null]
+      skills: [null],
+      cvId: this.cvId
     })
   }
   createEducations(): FormGroup {
     return this.fb.group({
       schoolName: [null, Validators.required],
-      degree: [null],
-      activities: [null],
-      description: [null, Validators.required],
       schoolType: [null, Validators.required],
       startDate: [null],
       endDate: [null],
       major: [null],
+      description: [null],
+      cvId: this.cvId
     })
   }
   deleteSectionSkills(i) {
@@ -319,5 +332,55 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       this.createCVForm.get('address.district').setValue(null);
       this.districts = res.result;
     });
+  }
+  createNewCVAndAllInformations(){
+    this.newCV.avatar = this.createCVForm.get('file').value;
+    this.newCV.firstName = this.createCVForm.get('firstName').value;
+    this.newCV.lastName = this.createCVForm.get("lastName").value;
+    this.newCV.email = this.createCVForm.get("email").value;
+    this.newCV.phoneNumber = this.createCVForm.get("phoneNumber").value;
+    this.newCV.headline = this.createCVForm.get("headline").value;
+    this.newCV.description = this.createCVForm.get("description").value;
+    this.newCV.address = this.createCVForm.get("address.street").value + ", " + this.handleAddress();
+    this.newCV.birthDate = moment(this.createCVForm.get("birthDate").value).format('MM/DD/YYYY');
+    this.newCV.userId = localStorage.getItem('userId');
+    this.newCV.templateId = this.cvId;
+    let listEducations = this.createCVForm.get('educations').value;
+    listEducations.forEach(element => {
+      element.startDate = moment(element.startDate).format('MM/DD/YYYY');
+      element.endDate = moment(element.endDate).format('MM/DD/YYYY');
+    });
+    this.newCV.listEducations = listEducations;
+    let listExperiences = this.createCVForm.get('experiences').value;
+    listExperiences.forEach(element => {
+      element.startDate = moment(element.startDate).format('MM/DD/YYYY');
+      element.endDate = moment(element.endDate).format('MM/DD/YYYY');
+    });
+    this.newCV.listExperiences = listExperiences;
+    this.newCV.listSkills = this.createCVForm.get('skills').value;
+    let listHobbies = this.createCVForm.get('hobbies').value;
+    listHobbies = listHobbies.map((element) => ({
+      nameHobby: element,
+      cvId: this.cvId
+    }));
+    this.newCV.listHobbies = listHobbies;
+    var form = new FormData();
+    form.append("image", this.newCV.avatar);
+    this.cvInformationService.uploadFileAndReturnURL(form).subscribe(res => {
+      console.log(res);
+    })
+    this.cvInformationService.CreateNewCVAndAllInformations(this.newCV).subscribe(res => {
+      console.log(res);
+    })
+    console.log(this.newCV);
+  }
+  handleAddress(){
+    if(this.createCVForm.get("address.district").value && this.createCVForm.get("address.province").value){
+      let districtId = this.createCVForm.get("address.district").value;
+      let provinceId = this.createCVForm.get("address.province").value;
+      let districtName = this.districts.find(x => x.id == districtId).districtName;
+      let provinceName = this.provinces.find(x => x.id == provinceId).name;
+      return districtName + ", " + provinceName;
+    }
   }
 }

@@ -27,7 +27,7 @@ namespace CVRM.CVRM.CV
             _cvEntityDomainService = cvEntityDomainService;
         }
 
-        public async Task<IActionResult> CreateNewCVAndAllInformations(CVEntityResult input)
+        public async Task<IActionResult> CreateNewCVAndAllInformations(CVEntityAllInformationsInput input)
         {
             var isAddNewCV = await _cvEntityDomainService.CreateNewCVAndAllInformation(input);
             if (isAddNewCV)

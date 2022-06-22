@@ -18,6 +18,7 @@ namespace CVRM.CVRM.Education.Dto
         public string SchoolName { get; set; }
         public SchoolType SchoolType { get; set; }
         public string Major { get; set; }
+        public string? Description { get; set; }
         public int CVId { get; set; }
     }
 }

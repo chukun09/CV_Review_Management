@@ -26,4 +26,7 @@ export class CVInformationService {
   CreateNewCVAndAllInformations(body :any){
     return this.http.post<any>(environment.BASE_API_URL + API_CONSTS.CVEntity.CREATE_NEW_CV_DETAIL, body, this.headers);
   }
+  uploadFileAndReturnURL(file){
+    return this.http.post<any>("https://api.imgbb.com/1/upload?key=e7be8b9b1a748dffe6515478ac88a22f", file, this.headers);
+  }
 }
