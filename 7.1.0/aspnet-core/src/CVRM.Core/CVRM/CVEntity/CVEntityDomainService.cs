@@ -6,11 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CVRM.Entites;
-using CVRM.Entites;
 using Abp.Domain.Uow;
 using Abp.EntityFrameworkCore.Repositories;
 using System.Net.Http;
 using System.Net.Http.Json;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CVRM.CVEntites
 {
@@ -85,15 +87,11 @@ namespace CVRM.CVEntites
             var cvEntity = ObjectMapper.Map<CVEntity>(input);
             if (cvEntity != null)
             {
-                using (HttpClient client = new HttpClient())
+                var avatarObject = uploadImage(input.Avatar);
+                if (avatarObject != null)
                 {
-                    IDictionary<string, string> form =
-             new Dictionary<string, string>();
-                    form.Add("image", input.Avatar);
-                    HttpResponseMessage response = await client.PostAsJsonAsync("https://api.imgbb.com/1/upload?expiration=600000&key=e7be8b9b1a748dffe6515478ac88a22f", form["image"]);
-                    response.EnsureSuccessStatusCode();
+                    cvEntity.Avatar = avatarObject.Result;
                 }
-
                 var idCV = await _cvEntityRepository.InsertAndGetIdAsync(cvEntity);
                 if (input.ListEducations != null)
                 {
@@ -138,6 +136,24 @@ namespace CVRM.CVEntites
                 return true;
             }
             return false;
+        }
+        public async Task<string> uploadImage(string input)
+        {
+            HttpClient client = new HttpClient();
+            input = input.Split("base64,").Last();
+            //var data = "{" +
+            //        "\"image\": \"" + input + "\"" +
+            //        "}";
+            var formVariables = new List<KeyValuePair<string, string>>();
+            formVariables.Add(new KeyValuePair<string, string>("image", input));
+            var formContent = new FormUrlEncodedContent(formVariables);
+            //var content = new StringContent(daformContentta, Encoding.UTF8, "application/x-www-form-urlencoded");
+            var response = await client.PostAsync("https://api.imgbb.com/1/upload?key=e7be8b9b1a748dffe6515478ac88a22f", formContent);
+            var result = await response.Content.ReadAsStringAsync();
+            var avatarObject = JsonConvert.DeserializeObject(result.ToString());
+            var avatarPath = (JObject)avatarObject;
+            var path = avatarPath["data"].SelectToken("url").ToString();
+            return path;
         }
     }
 }

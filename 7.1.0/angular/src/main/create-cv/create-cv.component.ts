@@ -364,11 +364,11 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       cvId: this.cvId
     }));
     this.newCV.listHobbies = listHobbies;
-    var form = new FormData();
-    form.append("image", this.newCV.avatar);
-    this.cvInformationService.uploadFileAndReturnURL(form).subscribe(res => {
-      console.log(res);
-    })
+    let imageFile : any = {};
+    imageFile.imageFile = this.newCV.avatar;
+    // this.cvInformationService.uploadFileAndReturnURL(this.newCV.avatar.toString()).subscribe(res => {
+    //   console.log(res);
+    // })
     this.cvInformationService.CreateNewCVAndAllInformations(this.newCV).subscribe(res => {
       console.log(res);
     })

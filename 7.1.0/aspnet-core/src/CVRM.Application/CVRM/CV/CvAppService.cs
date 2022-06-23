@@ -47,5 +47,13 @@ namespace CVRM.CVRM.CV
         {
             return _cvEntityDomainService.GetDetailCVByCVId(id);
         }
+        //public async Task<IActionResult> uploadImage(ImageUpload input)
+        //{
+        //    return await _cvEntityDomainService.uploadImage(input.ImageFile);
+        //}
+    }
+    public class ImageUpload
+    {
+        public string ImageFile { get; set; }
     }
 }

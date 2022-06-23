@@ -11,22 +11,22 @@ export class CVInformationService {
       'Content-Type': 'application/json'
     })
   };
-  GetALLCV(){
-    
+  GetALLCV() {
+
   }
   getCVInformationByUserId(id) {
     return this.http.get<any>(environment.BASE_API_URL + API_CONSTS.CVEntity.GET_ALL_BY_USER_ID + "?userId=" + id);
   }
-   getDetailCVById(id){
+  getDetailCVById(id) {
     return this.http.get<any>(environment.BASE_API_URL + API_CONSTS.CVEntity.GET_CV_DETAIL_BY_ID + "?id=" + id);
   }
-  toogleLikeCV(userId, CVId){
+  toogleLikeCV(userId, CVId) {
     return this.http.put<any>(environment.BASE_API_URL + API_CONSTS.CVLikeEntity.UPDATE_STATUS_LIKE + "?UserId=" + userId + "&CVId=" + CVId, this.headers);
   }
-  CreateNewCVAndAllInformations(body :any){
+  CreateNewCVAndAllInformations(body: any) {
     return this.http.post<any>(environment.BASE_API_URL + API_CONSTS.CVEntity.CREATE_NEW_CV_DETAIL, body, this.headers);
   }
-  uploadFileAndReturnURL(file){
-    return this.http.post<any>("https://api.imgbb.com/1/upload?key=e7be8b9b1a748dffe6515478ac88a22f", file, this.headers);
+  uploadFileAndReturnURL(file) {
+    return this.http.post<any>("https://localhost:44311/api/services/app/CV/uploadImage", file, this.headers);
   }
 }
