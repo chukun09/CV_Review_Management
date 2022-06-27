@@ -13,6 +13,12 @@ using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.IO;
+using Syncfusion.Pdf.Graphics;
+using Syncfusion.Pdf;
+using Syncfusion.Drawing;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CVRM.CVEntites
 {
@@ -26,12 +32,15 @@ namespace CVRM.CVEntites
         private readonly IRepository<CertificateEntity> _certificateEntityRepository;
         private readonly IRepository<CVTemplateEntity> _cvTemplateEntityRepository;
         private readonly IRepository<CVLikeEntity> _cvLikeEntityRepository;
+        private readonly IHostingEnvironment _environment;
 
         public CVEntityDomainService(IRepository<CVEntity> cvEntityRepository,
             IRepository<EducationEntity> educationEntityRepository, IRepository<SkillEntity> skillEntityRepository,
             IRepository<ExperienceEntity> experienceEntityRepository, IRepository<HobbyEntity> hobbyEntityRepository,
             IRepository<CertificateEntity> certificateEntityRepository, IRepository<CVTemplateEntity> cvTemplateEntityRepository,
-            IRepository<CVLikeEntity> cvLikeEntityRepository)
+            IRepository<CVLikeEntity> cvLikeEntityRepository,
+            IHostingEnvironment environment
+            )
         {
             _cvEntityRepository = cvEntityRepository;
             _educationEntityRepository = educationEntityRepository;
@@ -41,6 +50,7 @@ namespace CVRM.CVEntites
             _certificateEntityRepository = certificateEntityRepository;
             _cvTemplateEntityRepository = cvTemplateEntityRepository;
             _cvLikeEntityRepository = cvLikeEntityRepository;
+            _environment = environment;
         }
         public async Task<List<CVEntityLikeResult>> GetAllCVByUserAsync(int userId)
         {
@@ -87,7 +97,7 @@ namespace CVRM.CVEntites
             var cvEntity = ObjectMapper.Map<CVEntity>(input);
             if (cvEntity != null)
             {
-                var avatarObject = uploadImage(input.Avatar);
+                var avatarObject = UploadImage(input.Avatar);
                 if (avatarObject != null)
                 {
                     cvEntity.Avatar = avatarObject.Result;
@@ -137,7 +147,7 @@ namespace CVRM.CVEntites
             }
             return false;
         }
-        public async Task<string> uploadImage(string input)
+        public async Task<string> UploadImage(string input)
         {
             HttpClient client = new HttpClient();
             input = input.Split("base64,").Last();
@@ -154,6 +164,67 @@ namespace CVRM.CVEntites
             var avatarPath = (JObject)avatarObject;
             var path = avatarPath["data"].SelectToken("url").ToString();
             return path;
+        }
+        public async Task<IActionResult> ConvertImageToPDF(string input)
+        {
+            input = input.Split("base64,").Last();
+            //Creating the new PDF document
+            PdfDocument document = new PdfDocument();
+            MemoryStream file = new MemoryStream();
+            var outputStream = new MemoryStream(Convert.FromBase64String(input));
+            outputStream.CopyTo(file);
+            //Loading the image
+            PdfImage image = PdfImage.FromStream(file);
+            //Adding new page
+            document.PageSettings.Margins.All = 0;
+            PdfSection section = document.Sections.Add();
+            section.PageSettings.Width = image.PhysicalDimension.Width;
+            section.PageSettings.Height = image.PhysicalDimension.Height;
+            PdfPage page = section.Pages.Add();
+
+            //Drawing image to the PDF page
+            page.Graphics.DrawImage(image, new PointF(0, 0), new SizeF(page.Size.Width, page.Size.Height));
+            file.Dispose();
+            //Saving the PDF to the MemoryStream
+            MemoryStream stream = new MemoryStream();
+
+            document.Save(stream);
+
+            //Set the position as '0'.
+            stream.Position = 0;
+
+            document.Save(stream);
+
+            //Set the position as '0'.
+            stream.Position = 0;
+            byte[] bytes;
+            using (var memoryStream = new MemoryStream())
+            {
+                stream.CopyTo(memoryStream);
+                bytes = memoryStream.ToArray();
+            }
+
+            string base64 = Convert.ToBase64String(bytes);
+            string wwwPath = _environment.WebRootPath;
+            string contentPath = _environment.ContentRootPath;
+
+            string path = Path.Combine(wwwPath, "PDF");
+
+            //Check if directory exist
+            if (!System.IO.Directory.Exists(path))
+            {
+                System.IO.Directory.CreateDirectory(path); 
+            }
+
+            string imageName = "test" + ".pdf";
+
+            //set the image path
+            string imgPath = Path.Combine(path, imageName);
+
+            byte[] imageBytes = Convert.FromBase64String(base64);
+
+            File.WriteAllBytes(imgPath, imageBytes);
+            return new OkResult();
         }
     }
 }

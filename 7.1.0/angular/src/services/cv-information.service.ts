@@ -27,6 +27,9 @@ export class CVInformationService {
     return this.http.post<any>(environment.BASE_API_URL + API_CONSTS.CVEntity.CREATE_NEW_CV_DETAIL, body, this.headers);
   }
   uploadFileAndReturnURL(file) {
-    return this.http.post<any>("https://localhost:44311/api/services/app/CV/uploadImage", file, this.headers);
+    return this.http.post<any>(environment.BASE_API_URL + API_CONSTS.CVFile.UPLOAD_FILE_AND_RETURN_URL, file, this.headers);
+  }
+  convertImageToPDFServer(file){
+    return this.http.post<any>(environment.BASE_API_URL + API_CONSTS.CVFile.CONVERT_IMAGE_TO_PDF, file, this.headers);
   }
 }

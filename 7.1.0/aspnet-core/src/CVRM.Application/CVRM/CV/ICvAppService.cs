@@ -22,6 +22,6 @@ namespace CVRM.CVRM.CV
         Task<List<CVEntityLikeDto>> GetAllCVByUserAsync(int userId);
         Task<IActionResult> CreateNewCVAndAllInformations(CVEntityAllInformationsInput input);
         //Task<IActionResult> uploadImage(ImageUpload input);
-
+        Task<IActionResult> ConvertImageToPDF(ImageUpload input);
     }
 }

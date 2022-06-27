@@ -14,6 +14,7 @@ namespace CVRM.CVEntites
         Task<CVEntityResult> GetDetailCVByCVId(int id);
         Task<List<CVEntityLikeResult>> GetAllCVByUserAsync(int userId);
         Task<bool> CreateNewCVAndAllInformation(CVEntityAllInformationsInput result);
-        Task<string> uploadImage(string input);
+        Task<string> UploadImage(string input);
+        Task<IActionResult> ConvertImageToPDF(string input);
     }
 }

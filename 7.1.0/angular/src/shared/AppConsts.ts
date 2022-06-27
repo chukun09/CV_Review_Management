@@ -45,6 +45,10 @@ export const API_CONSTS = {
     },
     CVLikeEntity:{
         UPDATE_STATUS_LIKE: "/CVLikeEntity/UpdateStatusLike",
+    },
+    CVFile:{
+        UPLOAD_FILE_AND_RETURN_URL: "/CV/uploadImage", 
+        CONVERT_IMAGE_TO_PDF: "/CV/ConvertImageToPDF"
     }
 
 }

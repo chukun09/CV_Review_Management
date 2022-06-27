@@ -35,40 +35,42 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   dataCV: any;
   cvId: any = 1;
   newCV: any = {};
+  pdfFile: any = {};
   isCollapsedProfile = false;
   isCollapsedSkills = false;
   isCollapsedHobbies = false;
   isCollapsedExperiences = false;
   isCollapsedEducations = false;
   skillLevels = [
-    { name: 'Tập sự', id: '0' },
-    { name: 'Có kinh nghiệm', id: '1' },
-    { name: 'Tốt', id: '2' },
-    { name: 'Rất tốt', id: '3' },
-    { name: 'Xuất sắc, chuyên gia', id: '4' }]
+    { name: "Tập sự", id: "0" },
+    { name: "Có kinh nghiệm", id: "1" },
+    { name: "Tốt", id: "2" },
+    { name: "Rất tốt", id: "3" },
+    { name: "Xuất sắc, chuyên gia", id: "4" },
+  ];
   skillTypes = [
-    { name: 'Lập trình', id: '0' },
-    { name: 'Ngoại ngữ', id: '1' },
-    { name: 'Kĩ năng khác', id: '2' },
-  ]
+    { name: "Lập trình", id: "0" },
+    { name: "Ngoại ngữ", id: "1" },
+    { name: "Kĩ năng khác", id: "2" },
+  ];
   employmentTypes = [
-    { name: 'Toàn thời gian', id: '0' },
-    { name: 'Bán thời gian', id: '1' },
-    { name: 'Tự kinh doanh', id: '2' },
-    { name: 'Làm tự do', id: '3' },
-    { name: 'Hợp đồng', id: '4' },
-    { name: 'Thực tập', id: '5' },
-  ]
+    { name: "Toàn thời gian", id: "0" },
+    { name: "Bán thời gian", id: "1" },
+    { name: "Tự kinh doanh", id: "2" },
+    { name: "Làm tự do", id: "3" },
+    { name: "Hợp đồng", id: "4" },
+    { name: "Thực tập", id: "5" },
+  ];
   schoolTypes = [
-    { name: 'Trường Cấp hai', id: '0' },
-    { name: 'Trường cấp ba', id: '1' },
-    { name: 'Trường Đại học', id: '2' },
-  ]
+    { name: "Trường Cấp hai", id: "0" },
+    { name: "Trường cấp ba", id: "1" },
+    { name: "Trường Đại học", id: "2" },
+  ];
   genders = [
-    {name: 'Nam', id: '0'},
-    {name: 'Nữ', id: '1'},
-    {name: 'Khác', id: '2'},
-  ]
+    { name: "Nam", id: "0" },
+    { name: "Nữ", id: "1" },
+    { name: "Khác", id: "2" },
+  ];
   provinces = [];
   districts = [];
   constructor(
@@ -88,15 +90,29 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     this.route.params.subscribe((params) => {
       this.cvId = params["id"];
     });
-    if(!this.cvId){
+    if (!this.cvId) {
       this.cvId = 1;
     }
     this.userLogin = this.appSession.user;
     this.username = this.userLogin.name;
     this.addressService.getAllProvinces().subscribe((res) => {
       this.provinces = res.result;
-    })
+    });
     this.setTitle("CV " + this.userLogin.name + " " + this.userLogin.surname);
+  }
+  saveFilePDFServer() {
+    html2canvas(this.el.nativeElement, { allowTaint: true, scale: 1.8 }).then(
+       (canvas) =>{
+        canvas.getContext("experimental-webgl");
+       var imageData = canvas.toDataURL("image/jpeg", 1.0);
+       this.pdfFile.imageFile = imageData;
+        this.cvInformationService
+      .convertImageToPDFServer(this.pdfFile)
+      .subscribe((res) => {
+        console.log(res);
+      });
+      }
+    );
   }
   downloadPDFbyHTML() {
     let date: number = new Date().getTime();
@@ -122,7 +138,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
           canvas_image_width,
           canvas_image_height
         );
-        console.log(pdf.save(title + "_" + date + ".pdf"));
+        pdf.save(title + "_" + date + ".pdf");
       }
     );
   }
@@ -184,9 +200,13 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     return this.createCVForm.get("email");
   }
   get address() {
-    return this.createCVForm.get("address.street") + ", " 
-    + this.createCVForm.get("address.district") + ", "
-    + this.createCVForm.get("address.province");
+    return (
+      this.createCVForm.get("address.street") +
+      ", " +
+      this.createCVForm.get("address.district") +
+      ", " +
+      this.createCVForm.get("address.province")
+    );
   }
   get gender() {
     return this.createCVForm.get("gender");
@@ -201,16 +221,16 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     return this.createCVForm.get("description");
   }
   get hobbies() {
-    return this.createCVForm.get('hobbies') as FormArray;
+    return this.createCVForm.get("hobbies") as FormArray;
   }
   get skills(): FormArray {
-    return <FormArray>this.createCVForm.get('skills');
+    return <FormArray>this.createCVForm.get("skills");
   }
   get experiences(): FormArray {
-    return <FormArray>this.createCVForm.get('experiences');
+    return <FormArray>this.createCVForm.get("experiences");
   }
   get educations(): FormArray {
-    return <FormArray>this.createCVForm.get('educations');
+    return <FormArray>this.createCVForm.get("educations");
   }
 
   /*########################## File Upload ########################*/
@@ -262,8 +282,8 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       skillName: [null, Validators.required],
       level: [null, Validators.required],
       skillType: [null, Validators.required],
-      cvId : this.cvId
-    })
+      cvId: this.cvId,
+    });
   }
   createExperiences(): FormGroup {
     return this.fb.group({
@@ -276,8 +296,8 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       industry: [null, Validators.required],
       description: [null, Validators.required],
       skills: [null],
-      cvId: this.cvId
-    })
+      cvId: this.cvId,
+    });
   }
   createEducations(): FormGroup {
     return this.fb.group({
@@ -287,8 +307,8 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       endDate: [null],
       major: [null],
       description: [null],
-      cvId: this.cvId
-    })
+      cvId: this.cvId,
+    });
   }
   deleteSectionSkills(i) {
     this.skills.removeAt(i);
@@ -296,10 +316,10 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   deleteSectionHobbies(i) {
     this.hobbies.removeAt(i);
   }
-  deleteSectionExperiences(i){
+  deleteSectionExperiences(i) {
     this.experiences.removeAt(i);
   }
-  deleteSectionEducations(i){
+  deleteSectionEducations(i) {
     this.educations.removeAt(i);
   }
   addSectionsSkills() {
@@ -308,13 +328,12 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   addSectionsHobbies() {
     this.hobbies.push(this.fb.control(""));
   }
-  addSectionExperiences(){
+  addSectionExperiences() {
     this.experiences.push(this.createExperiences());
   }
-  addSectionEducations(){
+  addSectionEducations() {
     this.educations.push(this.createEducations());
   }
-
 
   // Submit Registration Form
   onSubmit() {
@@ -326,60 +345,78 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       console.log(this.createCVForm.value);
     }
   }
-  getDistrictsByProvince(id){
-    if(id == null) this.districts = [];
+  getDistrictsByProvince(id) {
+    if (id == null) this.districts = [];
     this.addressService.getDistrictsByProvince(id).subscribe((res) => {
-      this.createCVForm.get('address.district').setValue(null);
+      this.createCVForm.get("address.district").setValue(null);
       this.districts = res.result;
     });
   }
-  createNewCVAndAllInformations(){
-    this.newCV.avatar = this.createCVForm.get('file').value;
-    this.newCV.firstName = this.createCVForm.get('firstName').value;
+  createNewCVAndAllInformations() {
+    this.newCV.avatar = this.createCVForm.get("file").value;
+    this.newCV.firstName = this.createCVForm.get("firstName").value;
     this.newCV.lastName = this.createCVForm.get("lastName").value;
     this.newCV.email = this.createCVForm.get("email").value;
     this.newCV.phoneNumber = this.createCVForm.get("phoneNumber").value;
     this.newCV.headline = this.createCVForm.get("headline").value;
     this.newCV.description = this.createCVForm.get("description").value;
-    this.newCV.address = this.createCVForm.get("address.street").value + ", " + this.handleAddress();
-    this.newCV.birthDate = moment(this.createCVForm.get("birthDate").value).format('MM/DD/YYYY');
-    this.newCV.userId = localStorage.getItem('userId');
+    this.newCV.address =
+      this.createCVForm.get("address.street").value +
+      ", " +
+      this.handleAddress();
+    this.newCV.birthDate = moment(
+      this.createCVForm.get("birthDate").value
+    ).format("MM/DD/YYYY");
+    this.newCV.userId = localStorage.getItem("userId");
     this.newCV.templateId = this.cvId;
-    let listEducations = this.createCVForm.get('educations').value;
-    listEducations.forEach(element => {
-      element.startDate = moment(element.startDate).format('MM/DD/YYYY');
-      element.endDate = moment(element.endDate).format('MM/DD/YYYY');
+    let listEducations = this.createCVForm.get("educations").value;
+    listEducations.forEach((element) => {
+      element.startDate = moment(element.startDate).format("MM/DD/YYYY");
+      element.endDate = moment(element.endDate).format("MM/DD/YYYY");
     });
     this.newCV.listEducations = listEducations;
-    let listExperiences = this.createCVForm.get('experiences').value;
-    listExperiences.forEach(element => {
-      element.startDate = moment(element.startDate).format('MM/DD/YYYY');
-      element.endDate = moment(element.endDate).format('MM/DD/YYYY');
+    let listExperiences = this.createCVForm.get("experiences").value;
+    listExperiences.forEach((element) => {
+      element.startDate = moment(element.startDate).format("MM/DD/YYYY");
+      element.endDate = moment(element.endDate).format("MM/DD/YYYY");
     });
     this.newCV.listExperiences = listExperiences;
-    this.newCV.listSkills = this.createCVForm.get('skills').value;
-    let listHobbies = this.createCVForm.get('hobbies').value;
+    this.newCV.listSkills = this.createCVForm.get("skills").value;
+    let listHobbies = this.createCVForm.get("hobbies").value;
     listHobbies = listHobbies.map((element) => ({
       nameHobby: element,
-      cvId: this.cvId
+      cvId: this.cvId,
     }));
     this.newCV.listHobbies = listHobbies;
-    let imageFile : any = {};
+    let imageFile: any = {};
     imageFile.imageFile = this.newCV.avatar;
     // this.cvInformationService.uploadFileAndReturnURL(this.newCV.avatar.toString()).subscribe(res => {
     //   console.log(res);
     // })
-    this.cvInformationService.CreateNewCVAndAllInformations(this.newCV).subscribe(res => {
-      console.log(res);
-    })
+    this.saveFilePDFServer();
+    this.cvInformationService
+      .CreateNewCVAndAllInformations(this.newCV)
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (error) => {
+          this.message.error("Vui lòng điền thông tin đầy đủ!");
+        }
+      );
     console.log(this.newCV);
   }
-  handleAddress(){
-    if(this.createCVForm.get("address.district").value && this.createCVForm.get("address.province").value){
+  handleAddress() {
+    if (
+      this.createCVForm.get("address.district").value &&
+      this.createCVForm.get("address.province").value
+    ) {
       let districtId = this.createCVForm.get("address.district").value;
       let provinceId = this.createCVForm.get("address.province").value;
-      let districtName = this.districts.find(x => x.id == districtId).districtName;
-      let provinceName = this.provinces.find(x => x.id == provinceId).name;
+      let districtName = this.districts.find(
+        (x) => x.id == districtId
+      ).districtName;
+      let provinceName = this.provinces.find((x) => x.id == provinceId).name;
       return districtName + ", " + provinceName;
     }
   }
