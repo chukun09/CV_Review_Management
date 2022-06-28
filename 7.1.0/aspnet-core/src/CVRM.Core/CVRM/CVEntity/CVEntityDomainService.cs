@@ -165,7 +165,7 @@ namespace CVRM.CVEntites
             var path = avatarPath["data"].SelectToken("url").ToString();
             return path;
         }
-        public async Task<IActionResult> ConvertImageToPDF(string input)
+        public async Task<IActionResult> ConvertImageToPDF(string input, string pdfName)
         {
             input = input.Split("base64,").Last();
             //Creating the new PDF document
@@ -216,7 +216,7 @@ namespace CVRM.CVEntites
                 System.IO.Directory.CreateDirectory(path); 
             }
 
-            string imageName = "test" + ".pdf";
+            string imageName = pdfName + ".pdf";
 
             //set the image path
             string imgPath = Path.Combine(path, imageName);

@@ -105,7 +105,9 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
        (canvas) =>{
         canvas.getContext("experimental-webgl");
        var imageData = canvas.toDataURL("image/jpeg", 1.0);
+       let date: number = new Date().getTime();
        this.pdfFile.imageFile = imageData;
+       this.pdfFile.imageName = this.getTitle() + "_" + date.toString();
         this.cvInformationService
       .convertImageToPDFServer(this.pdfFile)
       .subscribe((res) => {
@@ -393,11 +395,12 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     // this.cvInformationService.uploadFileAndReturnURL(this.newCV.avatar.toString()).subscribe(res => {
     //   console.log(res);
     // })
-    this.saveFilePDFServer();
+
     this.cvInformationService
       .CreateNewCVAndAllInformations(this.newCV)
       .subscribe(
         (res) => {
+          this.saveFilePDFServer();
           console.log(res);
         },
         (error) => {

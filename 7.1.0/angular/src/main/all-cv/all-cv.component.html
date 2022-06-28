@@ -36,16 +36,16 @@
                                     </div>
                                 </div>
                                 <div class="card-link mr-3 mb-2">
-                                    <a href="#" id="basic-link" class="float-right">
+                                    <a id="basic-link" class="float-right" style="cursor: pointer;">
                                         <img src="./../../assets/img/bxs_comment-edit.svg" height="40"
                                             alt="Notifications" loading="lazy"
                                             [routerLink]="['../web-view', item.id]" />
                                     </a>
-                                    <a href="#" id="basic-link" class="float-right mr-2">
+                                    <a  id="basic-link" class="float-right mr-2" style="cursor: pointer;">
                                         <img src="./../../assets/img/bxs_comment-edit.svg" height="40"
                                             alt="Notifications" loading="lazy" />
                                     </a>
-                                    <button href="#" id="basic-link" class="float-right bg-white border-0"
+                                    <button id="basic-link" class="float-right bg-white border-0"
                                         (click)="updateLikeStatus(item.id)">
                                         <img *ngIf="!item.isLike" src="./../../assets/img/akar-icons_heart.svg"
                                             height="40" alt="Heart" loading="lazy" />

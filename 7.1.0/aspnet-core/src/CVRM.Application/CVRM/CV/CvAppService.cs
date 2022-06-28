@@ -29,7 +29,7 @@ namespace CVRM.CVRM.CV
 
         public Task<IActionResult> ConvertImageToPDF(ImageUpload input)
         {
-           return _cvEntityDomainService.ConvertImageToPDF(input.ImageFile);
+           return _cvEntityDomainService.ConvertImageToPDF(input.ImageFile, input.ImageName);
         }
 
         public async Task<IActionResult> CreateNewCVAndAllInformations(CVEntityAllInformationsInput input)
@@ -60,5 +60,6 @@ namespace CVRM.CVRM.CV
     public class ImageUpload
     {
         public string ImageFile { get; set; }
+        public string ImageName { get; set; }
     }
 }
