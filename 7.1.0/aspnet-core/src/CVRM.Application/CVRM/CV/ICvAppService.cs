@@ -23,5 +23,6 @@ namespace CVRM.CVRM.CV
         Task<IActionResult> CreateNewCVAndAllInformations(CVEntityAllInformationsInput input);
         //Task<IActionResult> uploadImage(ImageUpload input);
         Task<IActionResult> ConvertImageToPDF(ImageUpload input);
+        Task<IActionResult> EditCVAndAllInformations(CVEntityAllInformationsInput input);
     }
 }

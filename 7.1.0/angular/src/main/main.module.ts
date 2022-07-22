@@ -45,6 +45,7 @@ import { BaseTemplateModule } from './create-cv/base-template/base-template.modu
 import { NgxDynamicContentModule } from 'ngx-dynamic-content';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CvManagementComponent } from './cv-management/cv-management.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     UserInformationComponent,
     CreateCvComponent,
     ResetPasswordComponent,
+    CvManagementComponent,
   ],
   imports: [
     CommonModule,

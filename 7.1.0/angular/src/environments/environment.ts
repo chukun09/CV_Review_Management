@@ -8,4 +8,5 @@ export const environment = {
     hmr: false,
     appConfig: 'appconfig.json',
     BASE_API_URL: 'https://localhost:44311/api/services/app',
+    BASE_PDF_URL: 'https://localhost:44311/PDF/'
 };

@@ -24,6 +24,7 @@ namespace CVRM.CVEntites
         [Phone, StringLength(10)]
         public string? PhoneNumber { get; set; }
         public string? Headline { get; set; }
+        public string? PDFFile { get; set; }
         public string? Description { get; set; }
         public string? Address { get; set; }
         public Gender Gender { get; set; }

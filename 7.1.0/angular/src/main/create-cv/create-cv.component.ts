@@ -17,7 +17,7 @@ import html2canvas from "html2canvas";
 import { CVInformationService } from "services/cv-information.service";
 import { AddressService } from "services/address.service";
 import { isBuffer } from "lodash-es";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import * as moment from "moment";
 @Component({
   selector: "app-create-cv",
@@ -81,7 +81,8 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     private cd: ChangeDetectorRef,
     private cvInformationService: CVInformationService,
     private addressService: AddressService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _router: Router,
   ) {
     super(injector);
   }
@@ -100,7 +101,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     });
     this.setTitle("CV " + this.userLogin.name + " " + this.userLogin.surname);
   }
-  saveFilePDFServer() {
+  saveFilePDFServer(newCVId) {
     html2canvas(this.el.nativeElement, { allowTaint: true, scale: 1.8 }).then(
        (canvas) =>{
         canvas.getContext("experimental-webgl");
@@ -108,10 +109,13 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
        let date: number = new Date().getTime();
        this.pdfFile.imageFile = imageData;
        this.pdfFile.imageName = this.getTitle() + "_" + date.toString();
+       this.pdfFile.cVId = newCVId;
         this.cvInformationService
       .convertImageToPDFServer(this.pdfFile)
       .subscribe((res) => {
         console.log(res);
+        this.message.success("Chúc mừng bạn đã tạo CV thành công, CV của bạn đã được tạo và lưu vào hệ thống!");
+        // this._router.navigate(['/main/all-cv']);
       });
       }
     );
@@ -400,14 +404,13 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       .CreateNewCVAndAllInformations(this.newCV)
       .subscribe(
         (res) => {
-          this.saveFilePDFServer();
           console.log(res);
+          this.saveFilePDFServer(res.result);
         },
         (error) => {
           this.message.error("Vui lòng điền thông tin đầy đủ!");
         }
       );
-    console.log(this.newCV);
   }
   handleAddress() {
     if (

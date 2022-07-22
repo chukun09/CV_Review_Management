@@ -7,6 +7,8 @@ import { AppComponentBase } from '@shared/app-component-base';
 import { UserInformationService } from 'services/user-information.service';
 import { Location } from '@angular/common';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
+import { environment } from 'environments/environment';
+import { CVInformationService } from 'services/cv-information.service';
 @Component({
   selector: 'web-view',
   templateUrl: './web-view.component.html',
@@ -20,6 +22,7 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
   userLogin: any;
   id: number;
   fullName: string;
+  pdfPath: string;
   // SignalR
   private hubConnection: HubConnection;
   // -------------SignalR Service-------------
@@ -43,6 +46,7 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
   constructor(private webViewService: WebViewService,
     private _router: Router,
     private userInformationService: UserInformationService,
+    private cvService: CVInformationService,
     private route: ActivatedRoute,
     private _location: Location,
     injector: Injector) {
@@ -58,6 +62,9 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
       this.userInformation = response.result;
       this.fullName = this.userInformation.firstName + ' ' + this.userInformation.lastName;
     });
+    await this.cvService.getDetailCVById(this.id).subscribe((response) => {
+      this.pdfPath = response.result.pdfFile;
+    })
     this.startConnection();
     this.addTransferChartDataListener();
     this.initialState();
@@ -106,8 +113,8 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
       PSPDFKit.load({
         // Use the assets directory URL as a base URL. PSPDFKit will download its library assets from here.
         baseUrl: location.protocol + "//" + location.host + "/assets/",
-        instantJSON: instantJSON,
-        document: "../../assets/pdf/webviewer-demo-annotated.pdf",
+        // instantJSON: instantJSON,
+        document: environment.BASE_PDF_URL + "CV Trần Long_1657720947204.pdf",
         container: "#container",
         toolbarItems: PSPDFKit.defaultToolbarItems.concat(item),
         // autoSaveMode: PSPDFKit.AutoSaveMode.INTELLIGENT,

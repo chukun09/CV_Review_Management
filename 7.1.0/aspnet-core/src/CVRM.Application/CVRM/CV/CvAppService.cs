@@ -29,17 +29,17 @@ namespace CVRM.CVRM.CV
 
         public Task<IActionResult> ConvertImageToPDF(ImageUpload input)
         {
-           return _cvEntityDomainService.ConvertImageToPDF(input.ImageFile, input.ImageName);
+           return _cvEntityDomainService.ConvertImageToPDF(input.ImageFile, input.ImageName, input.CVId);
         }
 
         public async Task<IActionResult> CreateNewCVAndAllInformations(CVEntityAllInformationsInput input)
         {
-            var isAddNewCV = await _cvEntityDomainService.CreateNewCVAndAllInformation(input);
-            if (isAddNewCV)
-            {
-                return new OkObjectResult("Thêm CV thành công");
-            }
-            return new BadRequestResult();
+            return await _cvEntityDomainService.CreateNewCVAndAllInformation(input);
+        }
+
+        public Task<IActionResult> EditCVAndAllInformations(CVEntityAllInformationsInput input)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<List<CVEntityLikeDto>> GetAllCVByUserAsync(int userId)
@@ -59,6 +59,7 @@ namespace CVRM.CVRM.CV
     }
     public class ImageUpload
     {
+        public int CVId { get; set; }
         public string ImageFile { get; set; }
         public string ImageName { get; set; }
     }
