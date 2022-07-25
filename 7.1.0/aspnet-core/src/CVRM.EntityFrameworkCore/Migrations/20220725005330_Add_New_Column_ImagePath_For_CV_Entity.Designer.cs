@@ -3,6 +3,7 @@ using System;
 using CVRM.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CVRM.Migrations
 {
     [DbContext(typeof(CVRMDbContext))]
-    partial class CVRMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220725005330_Add_New_Column_ImagePath_For_CV_Entity")]
+    partial class Add_New_Column_ImagePath_For_CV_Entity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

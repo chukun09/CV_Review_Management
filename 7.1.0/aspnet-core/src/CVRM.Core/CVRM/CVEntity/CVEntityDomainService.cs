@@ -168,6 +168,7 @@ namespace CVRM.CVEntites
         }
         public async Task<IActionResult> ConvertImageToPDF(string input, string pdfName, int cvId)
         {
+            var inputImageBase64 = input;
             input = input.Split("base64,").Last();
             //Creating the new PDF document
             PdfDocument document = new PdfDocument();
@@ -227,99 +228,108 @@ namespace CVRM.CVEntites
             File.WriteAllBytes(imgPath, imageBytes);
             var cvEntity = await _cvEntityRepository.FirstOrDefaultAsync(p => p.Id == cvId);
             cvEntity.PDFFile = imageName;
+            var imagePDFObject = UploadImage(inputImageBase64);
+            if (imagePDFObject != null)
+            {
+                cvEntity.ImagePath = imagePDFObject.Result;
+            }
             await _cvEntityRepository.UpdateAsync(cvEntity);
             return new OkObjectResult(imgPath);
         }
         [UnitOfWork]
         public async Task<bool> EditCVAndAllInformation(CVEntityAllInformationsInput input)
         {
-            if (input.Id == null) return false;
-            var cvEntity = await _cvEntityRepository.FirstOrDefaultAsync(p => p.Id == input.Id);
-            if (cvEntity == null)
+            if (input.Id != null)
             {
-                return false;
-            }
-            else
-            {
-                var cvEntityUpdate = ObjectMapper.Map<CVEntity>(input);
-                var avatarObject = UploadImage(input.Avatar);
-                if (avatarObject != null)
+                var cvEntity = await _cvEntityRepository.FirstOrDefaultAsync(p => p.Id == input.Id);
+                if (cvEntity == null)
                 {
-                    cvEntityUpdate.Avatar = avatarObject.Result;
+                    return false;
                 }
-                await _cvEntityRepository.UpdateAsync(cvEntityUpdate);
-                if (input.ListEducations != null)
+                else
                 {
-                    if (input.ListEducations.Count != 0)
+                    var cvEntityUpdate = ObjectMapper.Map<CVEntity>(input);
+                    var avatarObject = UploadImage(input.Avatar);
+                    if (avatarObject != null)
                     {
-                        input.ListEducations.ForEach(x => x.CVId = input.Id);
-                        var listEducationsRemove = await _educationEntityRepository.GetAllListAsync(p => p.CVId == input.Id);
-                        if (listEducationsRemove != null)
-                        {
-                            _educationEntityRepository.GetDbContext().RemoveRange(listEducationsRemove);
-                        }
-                        await _educationEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<EducationEntity>>(input.ListEducations));
-                        await _educationEntityRepository.GetDbContext().SaveChangesAsync();
-                    };
-                }
-                if (input.ListSkills != null)
-                {
-                    if (input.ListSkills.Count != 0)
-                    {
-                        input.ListSkills.ForEach(x => x.CVId = input.Id);
-                        var listSkillsRemove = await _skillEntityRepository.GetAllListAsync(p => p.CVId == input.Id);
-                        if (listSkillsRemove != null)
-                        {
-                            _skillEntityRepository.GetDbContext().RemoveRange(listSkillsRemove);
-                        }
-                        await _skillEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<SkillEntity>>(input.ListSkills));
-                        await _skillEntityRepository.GetDbContext().SaveChangesAsync();
-                    };
-                }
-                if (input.ListCertificates != null)
-                {
-                    if (input.ListCertificates.Count != 0)
-                    {
-                        input.ListCertificates.ForEach(x => x.CVId = input.Id);
-                        var listCertificatesRemove = await _certificateEntityRepository.GetAllListAsync(p => p.CVId == input.Id);
-                        if (listCertificatesRemove != null)
-                        {
-                            _certificateEntityRepository.GetDbContext().RemoveRange(listCertificatesRemove);
-                        }
-                        await _certificateEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<CertificateEntity>>(input.ListCertificates));
-                        await _certificateEntityRepository.GetDbContext().SaveChangesAsync();
-                    };
-                }
-                if (input.ListExperiences != null)
-                {
-                    if (input.ListExperiences.Count != 0)
-                    {
-                        input.ListExperiences.ForEach(x => x.CVId = input.Id);
-                        var listExperiencesRemove = await _experienceEntityRepository.GetAllListAsync(p => p.CVId == input.Id);
-                        if (listExperiencesRemove != null)
-                        {
-                            _experienceEntityRepository.GetDbContext().RemoveRange(listExperiencesRemove);
-                        }
-                        await _experienceEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<ExperienceEntity>>(input.ListExperiences));
-                        await _experienceEntityRepository.GetDbContext().SaveChangesAsync();
+                        cvEntityUpdate.Avatar = avatarObject.Result;
                     }
-                }
-                if (input.ListHobbies != null)
-                {
-                    if (input.ListHobbies.Count != 0)
+                    await _cvEntityRepository.UpdateAsync(cvEntityUpdate);
+                    if (input.ListEducations != null)
                     {
-                        input.ListHobbies.ForEach(x => x.CVId = input.Id);
-                        var listHobbiesRemove = await _hobbyEntityRepository.GetAllListAsync(p => p.CVId == input.Id);
-                        if (listHobbiesRemove != null)
+                        if (input.ListEducations.Count != 0)
                         {
-                            _educationEntityRepository.GetDbContext().RemoveRange(listHobbiesRemove);
-                        }
-                        await _educationEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<HobbyEntity>>(input.ListHobbies));
-                        await _educationEntityRepository.GetDbContext().SaveChangesAsync();
+                            input.ListEducations.ForEach(x => x.CVId = input.Id);
+                            var listEducationsRemove = await _educationEntityRepository.GetAllListAsync(p => p.CVId == input.Id);
+                            if (listEducationsRemove != null)
+                            {
+                                _educationEntityRepository.GetDbContext().RemoveRange(listEducationsRemove);
+                            }
+                            await _educationEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<EducationEntity>>(input.ListEducations));
+                            await _educationEntityRepository.GetDbContext().SaveChangesAsync();
+                        };
                     }
+                    if (input.ListSkills != null)
+                    {
+                        if (input.ListSkills.Count != 0)
+                        {
+                            input.ListSkills.ForEach(x => x.CVId = input.Id);
+                            var listSkillsRemove = await _skillEntityRepository.GetAllListAsync(p => p.CVId == input.Id);
+                            if (listSkillsRemove != null)
+                            {
+                                _skillEntityRepository.GetDbContext().RemoveRange(listSkillsRemove);
+                            }
+                            await _skillEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<SkillEntity>>(input.ListSkills));
+                            await _skillEntityRepository.GetDbContext().SaveChangesAsync();
+                        };
+                    }
+                    if (input.ListCertificates != null)
+                    {
+                        if (input.ListCertificates.Count != 0)
+                        {
+                            input.ListCertificates.ForEach(x => x.CVId = input.Id);
+                            var listCertificatesRemove = await _certificateEntityRepository.GetAllListAsync(p => p.CVId == input.Id);
+                            if (listCertificatesRemove != null)
+                            {
+                                _certificateEntityRepository.GetDbContext().RemoveRange(listCertificatesRemove);
+                            }
+                            await _certificateEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<CertificateEntity>>(input.ListCertificates));
+                            await _certificateEntityRepository.GetDbContext().SaveChangesAsync();
+                        };
+                    }
+                    if (input.ListExperiences != null)
+                    {
+                        if (input.ListExperiences.Count != 0)
+                        {
+                            input.ListExperiences.ForEach(x => x.CVId = input.Id);
+                            var listExperiencesRemove = await _experienceEntityRepository.GetAllListAsync(p => p.CVId == input.Id);
+                            if (listExperiencesRemove != null)
+                            {
+                                _experienceEntityRepository.GetDbContext().RemoveRange(listExperiencesRemove);
+                            }
+                            await _experienceEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<ExperienceEntity>>(input.ListExperiences));
+                            await _experienceEntityRepository.GetDbContext().SaveChangesAsync();
+                        }
+                    }
+                    if (input.ListHobbies != null)
+                    {
+                        if (input.ListHobbies.Count != 0)
+                        {
+                            input.ListHobbies.ForEach(x => x.CVId = input.Id);
+                            var listHobbiesRemove = await _hobbyEntityRepository.GetAllListAsync(p => p.CVId == input.Id);
+                            if (listHobbiesRemove != null)
+                            {
+                                _educationEntityRepository.GetDbContext().RemoveRange(listHobbiesRemove);
+                            }
+                            await _educationEntityRepository.GetDbContext().AddRangeAsync(ObjectMapper.Map<List<HobbyEntity>>(input.ListHobbies));
+                            await _educationEntityRepository.GetDbContext().SaveChangesAsync();
+                        }
+                    }
+                    return true;
                 }
-                return true;
             }
+
+            return false;
         }
     }
 }

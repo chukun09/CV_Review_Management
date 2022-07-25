@@ -29,6 +29,7 @@ namespace CVRM.Entites
         public string? Address { get; set; }
         public Gender Gender { get; set; }
         public DateTime? BirthDate { get; set; }
+        public string? ImagePath { get; set; }
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public UserEntity UserEntity { get; set; }
