@@ -7,23 +7,18 @@ import { LayoutStoreService } from '../shared/layout/layout-store.service';
   templateUrl: './main.component.html'
 })
 export class MainComponent extends AppComponentBase implements OnInit {
-  sidebarExpanded: boolean;
-
   constructor(
     injector: Injector,
-    private renderer: Renderer2,
-    private _layoutStore: LayoutStoreService
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
-    this.renderer.addClass(document.body, 'sidebar-mini');
-
     SignalRAspNetCoreHelper.initSignalR();
 
     abp.event.on('abp.notifications.received', (userNotification) => {
       abp.notifications.showUiNotifyForUserNotification(userNotification);
+      console.log(userNotification);
 
       // Desktop notification
       Push.create('AbpZeroTemplate', {
@@ -36,13 +31,5 @@ export class MainComponent extends AppComponentBase implements OnInit {
         }
       });
     });
-
-    this._layoutStore.sidebarExpanded.subscribe((value) => {
-      this.sidebarExpanded = value;
-    });
-  }
-
-  toggleSidebar(): void {
-    this._layoutStore.setSidebarExpanded(!this.sidebarExpanded);
-  }
+}
 }

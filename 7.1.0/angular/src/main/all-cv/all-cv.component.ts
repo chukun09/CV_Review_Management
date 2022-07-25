@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/c
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/app-component-base';
+import { finalize } from 'rxjs/operators';
 import {CVInformationService} from '../../services/cv-information.service';
 @Component({
   selector: 'app-all-cv',
@@ -50,7 +51,7 @@ export class AllCvComponent extends AppComponentBase implements OnInit {
     })
   }
   loadListCV(){
-    this.cVInformationService.getCVInformationByUserId(localStorage.getItem('userId')).subscribe((res) => {
+    this.cVInformationService.getCVInformationByUserId(localStorage.getItem('userId')).then((res) => {
       this.listCV = res.result;
     });
   }

@@ -24,6 +24,7 @@ export class AppComponent extends AppComponentBase implements OnInit {
 
     abp.event.on('abp.notifications.received', (userNotification) => {
       abp.notifications.showUiNotifyForUserNotification(userNotification);
+      console.log(userNotification);
 
       // Desktop notification
       Push.create('AbpZeroTemplate', {

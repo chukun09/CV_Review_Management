@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientJsonpModule } from '@angular/common/http';
+import { HttpClientJsonpModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -46,7 +46,7 @@ import { NgxDynamicContentModule } from 'ngx-dynamic-content';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CvManagementComponent } from './cv-management/cv-management.component';
-
+import  {MyErrorHandler} from './errors/global-error-handler';
 @NgModule({
   declarations: [
     MainComponent,
@@ -97,7 +97,7 @@ import { CvManagementComponent } from './cv-management/cv-management.component';
     RatingModule,
     WebViewComponentModule
   ],
-  providers: [],
+  providers: [{provide: ErrorHandler, useClass: MyErrorHandler}],
   entryComponents: [
     // tenants
     CreateTenantDialogComponent,

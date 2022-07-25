@@ -1,6 +1,8 @@
 ﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
+using CVRM.Authorization;
 using CVRM.CVEntites;
 using CVRM.CVRM.CV.Dto;
 using CVRM.Entites;
@@ -13,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace CVRM.CVRM.CV
 {
+    [AbpAuthorize(PermissionNames.Pages_Users)]
     public class CVAppService : AsyncCrudAppService<
         CVEntity,
         CvEntityDto,
