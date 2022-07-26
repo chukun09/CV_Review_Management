@@ -22,7 +22,6 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
   userLogin: any;
   id: number;
   fullName: string;
-  pdfPath: string;
   // SignalR
   private hubConnection: HubConnection;
   // -------------SignalR Service-------------
@@ -58,13 +57,10 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
       this.id = params["id"];
     });
     this.userLogin = this.appSession.user;
-    (await this.userInformationService.getUserInformationByUserId(this.userLogin.id)).subscribe((response) => {
+    (this.userInformationService.getUserInformationByUserId(this.userLogin.id)).subscribe((response) => {
       this.userInformation = response.result;
       this.fullName = this.userInformation.firstName + ' ' + this.userInformation.lastName;
     });
-    await this.cvService.getDetailCVById(this.id).subscribe((response) => {
-      this.pdfPath = response.result.pdfFile;
-    })
     this.startConnection();
     this.addTransferChartDataListener();
     this.initialState();
@@ -87,13 +83,15 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
   async initialState() {
     var instantJSON: any;
     var instant: any;
+    var pdfPath : any;
     let response = await this.webViewService.getJsonPDFbyCVId(this.id);
-    response.subscribe((data) => {
+    let responsePDF = await this.cvService.getDetailCVById(this.id);
+    response.toPromise().then((data) => {
       instantJSON = data.result;
       instantJSON = JSON.parse(instantJSON);
       instant = {
-        annotations: instantJSON.annotations,
-        format: instantJSON.format
+        annotations: instantJSON?.annotations,
+        format: instantJSON?.format
       };
       const item: any = [{
         type: "custom",
@@ -110,36 +108,40 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
           this.cancelEdit();
         }
       }];
-      PSPDFKit.load({
-        // Use the assets directory URL as a base URL. PSPDFKit will download its library assets from here.
-        baseUrl: location.protocol + "//" + location.host + "/assets/",
-        // instantJSON: instantJSON,
-        document: environment.BASE_PDF_URL + "CV Trần Long_1657720947204.pdf",
-        container: "#container",
-        toolbarItems: PSPDFKit.defaultToolbarItems.concat(item),
-        // autoSaveMode: PSPDFKit.AutoSaveMode.INTELLIGENT,
-        isEditableAnnotation: (annotation) => annotation.creatorName === this.fullName
-        // initialViewState: new PSPDFKit.ViewState({ readOnly: true })
-      }).then(async instance => {
-        (window as any).instance = instance;
-        instance.setAnnotationCreatorName(this.fullName);
-        this.instanceNew = instance;
-        // instance.addEventListener("annotations.didSave", async () => {
-        //   const instantJSON = await instance.exportInstantJSON();
-        //   // This saves the Instant JSON to your server, which in turn stores it in a database.
-        //   let annotations = {
-        //     jsonPDF: JSON.stringify(instantJSON),
-        //     cvId: 11
-        //   }
-        //   this.webViewService.addNewAnnotation(annotations).subscribe(res => {
-        //     console.log(res);
-        //   });
-        // });
+      responsePDF.toPromise().then((res) => {
+        pdfPath = res.result.pdfFile;
+        PSPDFKit.load({
+          // Use the assets directory URL as a base URL. PSPDFKit will download its library assets from here.
+          baseUrl: location.protocol + "//" + location.host + "/assets/",
+          instantJSON: instantJSON,
+          document: environment.BASE_PDF_URL + pdfPath,
+          container: "#container",
+          toolbarItems: PSPDFKit.defaultToolbarItems.concat(item),
+          // autoSaveMode: PSPDFKit.AutoSaveMode.INTELLIGENT,
+          isEditableAnnotation: (annotation) => annotation.creatorName === this.fullName + "_" + this.id,
+          // initialViewState: new PSPDFKit.ViewState({ readOnly: true })
+          
+        }).then(async instance => {
+          (window as any).instance = instance;
+          instance.setAnnotationCreatorName(this.fullName + "_" + this.id);
+          this.instanceNew = instance;
+          // instance.addEventListener("annotations.didSave", async () => {
+          //   const instantJSON = await instance.exportInstantJSON();
+          //   // This saves the Instant JSON to your server, which in turn stores it in a database.
+          //   let annotations = {
+          //     jsonPDF: JSON.stringify(instantJSON),
+          //     cvId: 11
+          //   }
+          //   this.webViewService.addNewAnnotation(annotations).subscribe(res => {
+          //     console.log(res);
+          //   });
+          // });
+        });
+      }, error => {
+        this.message.error("Vui lòng kiểm tra lại URL, không thể tìm thấy CV !", "Lỗi đường dẫn");
+        console.log(error);
+        this._router.navigate(['/main/all-cv']);
       });
-    }, error => {
-      this.message.error("Vui lòng kiểm tra lại URL, không thể tìm thấy CV !", "Lỗi đường dẫn");
-      console.log(error);
-      this._router.navigate(['/main/all-cv']);
-    });
+      })
   }
 }

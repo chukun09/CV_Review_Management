@@ -36,6 +36,6 @@ namespace CVRM.CVRM.PDF
             await _hubContext.Clients.All.BoardCastAnnotation();
             return ObjectMapper.Map<PDFEntityDto>(result.Result);
         }
-        public async Task<string> getPDFJsonByCVId(int id) =>  _iPDFRepository.GetAll().OrderByDescending(p => p.CreationTime).FirstOrDefault(p => p.CVId == id).JsonPDF;
+        public async Task<string> getPDFJsonByCVId(int id) =>  _iPDFRepository.GetAll().OrderByDescending(p => p.CreationTime).FirstOrDefault(p => p.CVId == id)?.JsonPDF;
     }
 }

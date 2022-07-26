@@ -51,7 +51,7 @@ export class AllCvComponent extends AppComponentBase implements OnInit {
     })
   }
   loadListCV(){
-    this.cVInformationService.getCVInformationByUserId(localStorage.getItem('userId')).then((res) => {
+    this.cVInformationService.getCVInformationByUserId(localStorage.getItem('userId')).subscribe((res) => {
       this.listCV = res.result;
     });
   }

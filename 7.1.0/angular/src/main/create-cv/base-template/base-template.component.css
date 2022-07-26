@@ -8,7 +8,9 @@
     box-sizing: border-box;
     font-family: 'Ubuntu', sans-serif;
 }
-
+.fa, .fas, .far, .fab{
+  font-family: "Font Awesome 5 Free" !important;
+}
 #cvTemplate body {
     background: linear-gradient(to right, #3525af, #9153c9);
 }

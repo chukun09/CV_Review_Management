@@ -46,27 +46,12 @@ import { NgxDynamicContentModule } from 'ngx-dynamic-content';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CvManagementComponent } from './cv-management/cv-management.component';
-import  {MyErrorHandler} from './errors/global-error-handler';
+import { AbpHttpInterceptor } from 'abp-ng2-module';
+import { CVInformationService } from 'services/cv-information.service';
+import {CustomInteceptorService} from 'main/custom-inteceptor.service'
 @NgModule({
   declarations: [
     MainComponent,
-    // HomeComponent,
-    // AboutComponent,
-    // // tenants
-    // TenantsComponent,
-    // CreateTenantDialogComponent,
-    // EditTenantDialogComponent,
-    // // roles
-    // RolesComponent,
-    // CreateRoleDialogComponent,
-    // EditRoleDialogComponent,
-    // // users
-    // UsersComponent,
-    // CreateUserDialogComponent,
-    // EditUserDialogComponent,
-    // ChangePasswordComponent,
-    // ResetPasswordDialogComponent,
-    // layout
     HeaderComponent,
     FooterComponent,
     AllCvComponent,
@@ -95,20 +80,15 @@ import  {MyErrorHandler} from './errors/global-error-handler';
     SelectTemplateModule,
     NgSelectModule,
     RatingModule,
-    WebViewComponentModule
+    WebViewComponentModule,
   ],
-  providers: [{provide: ErrorHandler, useClass: MyErrorHandler}],
+  providers: [
+    CVInformationService,
+    { provide: HTTP_INTERCEPTORS, useClass: CustomInteceptorService, multi: true },
+    
+  ],
   entryComponents: [
-    // tenants
-    CreateTenantDialogComponent,
-    EditTenantDialogComponent,
-    // roles
-    CreateRoleDialogComponent,
-    EditRoleDialogComponent,
-    // users
-    CreateUserDialogComponent,
-    EditUserDialogComponent,
-    ResetPasswordDialogComponent,
+
   ],
 })
 export class MainModule {}

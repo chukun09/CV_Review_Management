@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-base-template',
   templateUrl: './base-template.component.html',
   styleUrls: ['./base-template.component.css'],
-  encapsulation: ViewEncapsulation.ShadowDom,
+  encapsulation: ViewEncapsulation.None,
 })
 export class BaseTemplateComponent extends AppComponentBase implements OnInit {
   templateHTML: any;
