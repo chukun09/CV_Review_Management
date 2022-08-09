@@ -34,4 +34,8 @@ export class CvManagementComponent extends AppComponentBase implements OnInit {
     this.cvId = id;
     this.modalRef = this.modalService.show(template, { class: 'modal-dialog-centered' });
 }
+  delete(){
+    this.modalRef.hide();
+    this.message.success("Xóa bản ghi thành công", "Thông báo xóa");
+  }
 }

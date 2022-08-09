@@ -10,3 +10,35 @@ a.icon-permistion {
     cursor: pointer;
     display: block;
 }
+.confirm-delete {
+    padding: 28px 0px 14px;
+
+    #btn-cancel-change-status {
+        width: 100px;
+        height: 40px;
+        color: #ffffff;
+        background: #ff5f5f;
+        border: none;
+        margin-right: 6px;
+    }
+
+    #btn-yes-change-status {
+        width: 100px;
+        height: 40px;
+        color: #ffffff;
+        background: #47a954;
+        border: none;
+    }
+
+    p {
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 24px;
+        color: #000000;
+    }
+
+    .btn-group {
+        margin-top: 10px;
+        display: block;
+    }
+}

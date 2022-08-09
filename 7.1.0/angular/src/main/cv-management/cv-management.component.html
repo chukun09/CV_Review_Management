@@ -5,45 +5,54 @@
     <div class="container-fluid mt-4 mb-2">
         <div class="row">
             <!-- <div *ngIf="allTemplate"> -->
-            <div class="col-md-2 ml-5 mb-5 mt-2 text-center" *ngFor="let template of allTemplate; let i = index">
+            <div class="col-md-2 ml-5 mb-5 mt-2 text-center" *ngFor="let element of allTemplate; let i = index">
                 <div class="card">
                     <!-- <i class="fa fa-arrow-circle-left"></i> -->
-                    <img [src]="template.imageURL" class="card-img-top img-fluid img-thumbnail" loading="lazy" style="height: 23vw; object-fit: cover;" alt="picture">
+                    <img [src]="element.imageURL" class="card-img-top img-fluid img-thumbnail" loading="lazy"
+                        style="height: 23vw; object-fit: cover;" alt="picture">
                 </div>
                 <div class="row d-flex justify-content-center">
-                    <span class="btn-edit">
-                        <a class="icon-permistion" [routerLink]="['edit',template.id]"><img src="../../assets/icons/Edit.svg"></a>
-                      </span>
-                      <span class="btn-delete">
-                        <a class="icon-permistion"  (click)="openModal(template, template.id)"><img src="../../assets/icons/Trash.svg"></a>
-                      </span>
+                    <!-- <span class="btn-edit">
+                        <a class="icon-permistion" [routerLink]="['edit',element.id]"><img
+                                src="../../assets/icons/Edit.svg"></a>
+                    </span> -->
+                    <button class="btn btn-primary mr-3 btn-sm rounded-0" type="button" data-toggle="tooltip"
+                    data-placement="top" title="View" ><i class="fa fa-eye"></i></button>
+                    <button class="btn btn-success mr-3 btn-sm rounded-0" type="button" data-toggle="tooltip"
+                        data-placement="top" title="Edit" [routerLink]="['edit',element.id]"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                        data-placement="top" title="Delete" (click)="openModal(template, element.id)"><i class="fa fa-trash"></i></button>
+                    <!-- <span class="btn-delete">
+                        <a class="icon-permistion" (click)="openModal(template, element.id)"><img
+                                src="../../assets/icons/Trash.svg"></a>
+                    </span> -->
                 </div>
             </div>
-        <!-- </div> -->
+            <!-- </div> -->
         </div>
     </div>
-    
-  <!-- confirm delete modal -->
-  <ng-template #template>
-    <div class="modal-header">
-      <h4 class="modal-title pull-left">Xóa CV</h4>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body confirm-delete">
-      <div class="form-group row">
-        <div class="col text-center">
-          <p>Bạn có chắc chắn muốn xóa CV này không ?</p>
+
+    <!-- confirm delete modal -->
+    <ng-template #template>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Xóa CV</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-      </div>
-      <div class="form-group row">
-        <div class="col text-center">
-          <button type="button" aria-label="Close" (click)="modalRef.hide()"
-            id="btn-cancel-change-status">Hủy</button>
-          <button type="button" id="btn-yes-change-status" (click)="delete()">Xác nhận xóa</button>
+        <div class="modal-body confirm-delete">
+            <div class="form-group row">
+                <div class="col text-center">
+                    <p>Bạn có chắc chắn muốn xóa CV này không ?</p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col text-center">
+                    <button type="button" aria-label="Close" (click)="modalRef.hide()"
+                        id="btn-cancel-change-status">Hủy</button>
+                    <button type="button" id="btn-yes-change-status" (click)="delete()">Xác nhận xóa</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </ng-template>
+    </ng-template>
 </div>

@@ -66,7 +66,7 @@ import {CustomInteceptorService} from 'main/custom-inteceptor.service'
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    ModalModule.forChild(),
+    ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     NgxDynamicContentModule.forRoot({imports:[CommonModule, BrowserModule, SharedModule, FontAwesomeModule]}),
     BsDropdownModule,
