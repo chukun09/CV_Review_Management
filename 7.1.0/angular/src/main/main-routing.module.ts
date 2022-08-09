@@ -24,17 +24,17 @@ import { WebViewComponent } from './web-view-pdf/web-view.component';
                         component: UserInformationComponent,
                         data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
                     },
-                    { path: 'reset-password', component: ResetPasswordComponent, data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard] }
+                    { path: 'reset-password', component: ResetPasswordComponent, data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard] },
+                    {
+                        path: 'cv-management/:id',
+                        component: CvManagementComponent,
+                        data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
+                    },
                 ],
             },
             {
                 path: 'web-view/:id',
                 loadChildren: () => import('./web-view-pdf/web-view.module').then(m => m.WebViewComponentModule),
-                data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
-            },
-            {
-                path: 'cv-management',
-                component: CvManagementComponent,
                 data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard]
             },
             {

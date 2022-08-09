@@ -9,12 +9,14 @@ import { AppAuthService } from '@shared/auth/app-auth.service';
 })
 export class HeaderComponent extends AppComponentBase {
   shownLoginName = '';
+  userId : number;
   constructor(injector: Injector, private _authService: AppAuthService) {
     super(injector);
   }
 
   ngOnInit() {
     this.shownLoginName = this.appSession.getShownLoginName();
+    this.userId = parseInt(localStorage.getItem('userId'));
   }
   logout(): void {
     localStorage.removeItem('userId');

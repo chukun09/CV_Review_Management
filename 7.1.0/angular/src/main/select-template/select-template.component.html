@@ -12,7 +12,7 @@
                 <div class="col-md-2 ml-5 mb-5 mt-2 text-center" *ngFor="let template of allTemplate; let i = index">
                     <div class="card">
                         <!-- <i class="fa fa-arrow-circle-left"></i> -->
-                        <img [src]="template.imageURL" class="card-img-top" loading="lazy" with="300" height="446" alt="picture">
+                        <img [src]="template.imageURL" class="card-img-top img-fluid img-thumbnail" loading="lazy" style="height: 23vw; object-fit: cover;" alt="picture">
                     </div>
                     <button type="button" class="btn btn-usetemplate" [routerLink]="['../create-cv', template.id]">Dùng Mẫu</button>
                 </div>
