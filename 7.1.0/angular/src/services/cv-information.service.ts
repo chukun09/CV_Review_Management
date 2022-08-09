@@ -17,7 +17,10 @@ export class CVInformationService {
    getCVInformationByUserId(id) {
     return this.http.get<any>(environment.BASE_API_URL + API_CONSTS.CVEntity.GET_ALL_BY_USER_ID + "?userId=" + id);
   }
-  async getDetailCVById(id) {
+  deleteCV(id){
+    return this.http.delete<any>(environment.BASE_API_URL + API_CONSTS.CVEntity.DELETE_CV + "?Id=" + id);
+  }
+   getDetailCVById(id) {
     return this.http.get<any>(environment.BASE_API_URL + API_CONSTS.CVEntity.GET_CV_DETAIL_BY_ID + "?id=" + id);
   }
   toogleLikeCV(userId, CVId) {

@@ -5,10 +5,10 @@
     <div class="container-fluid mt-4 mb-2">
         <div class="row">
             <!-- <div *ngIf="allTemplate"> -->
-            <div class="col-md-2 ml-5 mb-5 mt-2 text-center" *ngFor="let element of allTemplate; let i = index">
+            <div class="col-md-2 ml-5 mb-5 mt-2 text-center" *ngFor="let element of allCV; let i = index">
                 <div class="card">
                     <!-- <i class="fa fa-arrow-circle-left"></i> -->
-                    <img [src]="element.imageURL" class="card-img-top img-fluid img-thumbnail" loading="lazy"
+                    <img [src]="element.imagePath" class="card-img-top img-fluid img-thumbnail" loading="lazy"
                         style="height: 23vw; object-fit: cover;" alt="picture">
                 </div>
                 <div class="row d-flex justify-content-center">
@@ -19,7 +19,7 @@
                     <button class="btn btn-primary mr-3 btn-sm rounded-0" type="button" data-toggle="tooltip"
                     data-placement="top" title="View" ><i class="fa fa-eye"></i></button>
                     <button class="btn btn-success mr-3 btn-sm rounded-0" type="button" data-toggle="tooltip"
-                        data-placement="top" title="Edit" [routerLink]="['edit',element.id]"><i class="fa fa-edit"></i></button>
+                        data-placement="top" title="Edit" [routerLink]="['../../create-cv/edit',element.id, userId]"><i class="fa fa-edit"></i></button>
                     <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
                         data-placement="top" title="Delete" (click)="openModal(template, element.id)"><i class="fa fa-trash"></i></button>
                     <!-- <span class="btn-delete">

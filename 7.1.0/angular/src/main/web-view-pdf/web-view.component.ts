@@ -110,6 +110,11 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
       }];
       responsePDF.toPromise().then((res) => {
         pdfPath = res.result.pdfFile;
+        if(!pdfPath){
+          this.message.error("Vui lòng kiểm tra lại, không tìm thấy file !", "Lỗi File");
+          setTimeout(() =>{this._router.navigate(['/main/all-cv']);}, 1000);
+          return;
+        }
         PSPDFKit.load({
           // Use the assets directory URL as a base URL. PSPDFKit will download its library assets from here.
           baseUrl: location.protocol + "//" + location.host + "/assets/",

@@ -27,13 +27,14 @@ import * as moment from "moment";
 })
 export class CreateCvComponent extends AppComponentBase implements OnInit {
   @ViewChild("cv", { static: false }) el!: ElementRef;
-  test: any;
   userLogin: any;
   title: any = "";
   submitted = false;
   username: any;
   dataCV: any;
+  templateId!: any;
   cvId: any = 1;
+  userId!: any;
   newCV: any = {};
   pdfFile: any = {};
   isCollapsedProfile = false;
@@ -82,7 +83,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     private cvInformationService: CVInformationService,
     private addressService: AddressService,
     private route: ActivatedRoute,
-    private _router: Router,
+    private _router: Router
   ) {
     super(injector);
   }
@@ -90,8 +91,15 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.cvId = params["id"];
+      this.userId = params["userId"];
     });
-    if (!this.cvId) {
+    if (this.userId) {
+      this.cvInformationService.getDetailCVById(this.cvId).subscribe((res) => {
+        this.cvId = res.result.templateId;
+        this.templateId = res.result.templateId;
+        this.generateDataEditCV(res.result);
+      });
+    } else if (!this.cvId) {
       this.cvId = 1;
     }
     this.userLogin = this.appSession.user;
@@ -103,20 +111,22 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   }
   saveFilePDFServer(newCVId) {
     html2canvas(this.el.nativeElement, { allowTaint: true, scale: 1.8 }).then(
-       (canvas) =>{
+      (canvas) => {
         canvas.getContext("experimental-webgl");
-       var imageData = canvas.toDataURL("image/jpeg", 1.0);
-       let date: number = new Date().getTime();
-       this.pdfFile.imageFile = imageData;
-       this.pdfFile.imageName = this.getTitle() + "_" + date.toString();
-       this.pdfFile.cVId = newCVId;
+        var imageData = canvas.toDataURL("image/jpeg", 1.0);
+        let date: number = new Date().getTime();
+        this.pdfFile.imageFile = imageData;
+        this.pdfFile.imageName = this.getTitle() + "_" + date.toString();
+        this.pdfFile.cVId = newCVId;
         this.cvInformationService
-      .convertImageToPDFServer(this.pdfFile)
-      .subscribe((res) => {
-        console.log(res);
-        this.message.success("Chúc mừng bạn đã tạo CV thành công, CV của bạn đã được tạo và lưu vào hệ thống!");
-        // this._router.navigate(['/main/all-cv']);
-      });
+          .convertImageToPDFServer(this.pdfFile)
+          .subscribe((res) => {
+            console.log(res);
+            this.message.success(
+              "Chúc mừng bạn đã tạo CV thành công, CV của bạn đã được tạo và lưu vào hệ thống!"
+            );
+            // this._router.navigate(['/main/all-cv']);
+          });
       }
     );
   }
@@ -357,6 +367,15 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       this.createCVForm.get("address.district").setValue(null);
       this.districts = res.result;
     });
+  }
+  generateDataEditCV(data: any) {
+    this.createCVForm.get("file").setValue(data.avatar);
+    this.createCVForm.get("firstName").setValue(data.firstName);
+    this.createCVForm.get("lastName").setValue(data.lastName);
+    this.createCVForm.get("email").setValue(data.email);
+    this.createCVForm.get("phoneNumber").setValue(data.phoneNumber);
+    this.createCVForm.get("headline").setValue(data.headline);
+    this.createCVForm.get("description").setValue(data.description);
   }
   createNewCVAndAllInformations() {
     this.newCV.avatar = this.createCVForm.get("file").value;

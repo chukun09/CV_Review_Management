@@ -40,7 +40,8 @@ export const API_CONSTS = {
     CVEntity:{ 
         GET_ALL_BY_USER_ID: "/CV/GetAllCVByUser",
         GET_CV_DETAIL_BY_ID: "/CV/GetDetailCVEntity",
-        CREATE_NEW_CV_DETAIL: "/CV/CreateNewCVAndAllInformations"
+        CREATE_NEW_CV_DETAIL: "/CV/CreateNewCVAndAllInformations",
+        DELETE_CV: "/CV/Delete"
         
     },
     CVLikeEntity:{
