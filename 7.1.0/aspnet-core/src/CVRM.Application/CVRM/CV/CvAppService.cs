@@ -40,9 +40,9 @@ namespace CVRM.CVRM.CV
             return await _cvEntityDomainService.CreateNewCVAndAllInformation(input);
         }
 
-        public Task<IActionResult> EditCVAndAllInformations(CVEntityAllInformationsInput input)
+        public async Task<IActionResult> EditCVAndAllInformations(CVEntityAllInformationsInput input)
         {
-            throw new NotImplementedException();
+            return await _cvEntityDomainService.EditCVAndAllInformation(input);
         }
 
         public async Task<List<CVEntityLikeDto>> GetAllCVByUserAsync(int userId)

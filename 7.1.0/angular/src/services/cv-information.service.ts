@@ -29,6 +29,9 @@ export class CVInformationService {
   CreateNewCVAndAllInformations(body: any) {
     return this.http.post<any>(environment.BASE_API_URL + API_CONSTS.CVEntity.CREATE_NEW_CV_DETAIL, body, this.headers);
   }
+  UpdateCVAndInformations(body: any){
+    return this.http.post<any>(environment.BASE_API_URL + API_CONSTS.CVEntity.UPDATE_CV_AND_INFORMATION, body, this.headers);
+  }
   uploadFileAndReturnURL(file) {
     return this.http.post<any>(environment.BASE_API_URL + API_CONSTS.CVFile.UPLOAD_FILE_AND_RETURN_URL, file, this.headers);
   }

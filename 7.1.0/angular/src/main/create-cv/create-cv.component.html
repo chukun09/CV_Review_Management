@@ -1,5 +1,6 @@
 <div [@routerTransition]>
     <div class="container-fluid pl-0 pr-0">
+        <ngx-spinner type="ball-clip-rotate"></ngx-spinner>
         <div class="col-12 p-0" style="overflow-x: hidden">
             <div class="row bg-black d-flex create-cv-header">
                 <button type="button" class="btn btn-outline-dark mr-auto ml-3" (click)="cancelCreate()">Trở về</button>
@@ -365,14 +366,14 @@
                                 </div>
                                 <div class="form-row">
                                     <button type="button" class="btn btn-primary btn-lg ml-auto"
-                                        (click)="createNewCVAndAllInformations()">Lưu thông tin</button>
+                                        (click)="createOrUpdateNewCVAndAllInformations()">Lưu thông tin</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="col p-0 d-flex justify-content-center align-items-center"
                         style="background-color: #F5F5F5;">
-                        <div id="cv" #cv>
+                        <div id="cv" #cv crossOrigin="anonymous">
                             <app-base-template [dataCV]="createCVForm" [teamplateId]="templateId"></app-base-template>
                         </div>
                     </div>

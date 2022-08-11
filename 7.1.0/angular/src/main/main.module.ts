@@ -48,7 +48,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CvManagementComponent } from './cv-management/cv-management.component';
 import { AbpHttpInterceptor } from 'abp-ng2-module';
 import { CVInformationService } from 'services/cv-information.service';
-import {CustomInteceptorService} from 'main/custom-inteceptor.service'
+import {CustomInteceptorService} from 'main/custom-inteceptor.service';
+import { NgxSpinnerModule } from "ngx-spinner"; 
 @NgModule({
   declarations: [
     MainComponent,
@@ -81,6 +82,7 @@ import {CustomInteceptorService} from 'main/custom-inteceptor.service'
     NgSelectModule,
     RatingModule,
     WebViewComponentModule,
+    NgxSpinnerModule 
   ],
   providers: [
     CVInformationService,

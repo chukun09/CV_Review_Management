@@ -237,24 +237,24 @@ namespace CVRM.CVEntites
             return new OkObjectResult(imgPath);
         }
         [UnitOfWork]
-        public async Task<bool> EditCVAndAllInformation(CVEntityAllInformationsInput input)
+        public async Task<IActionResult> EditCVAndAllInformation(CVEntityAllInformationsInput input)
         {
             if (input.Id != null)
             {
                 var cvEntity = await _cvEntityRepository.FirstOrDefaultAsync(p => p.Id == input.Id);
                 if (cvEntity == null)
                 {
-                    return false;
+                    return new BadRequestResult();
                 }
                 else
                 {
-                    var cvEntityUpdate = ObjectMapper.Map<CVEntity>(input);
+                    ObjectMapper.Map(input, cvEntity);
                     var avatarObject = UploadImage(input.Avatar);
                     if (avatarObject != null)
                     {
-                        cvEntityUpdate.Avatar = avatarObject.Result;
+                        cvEntity.Avatar = avatarObject.Result;
                     }
-                    await _cvEntityRepository.UpdateAsync(cvEntityUpdate);
+                    await _cvEntityRepository.UpdateAsync(cvEntity);
                     if (input.ListEducations != null)
                     {
                         if (input.ListEducations.Count != 0)
@@ -325,11 +325,11 @@ namespace CVRM.CVEntites
                             await _educationEntityRepository.GetDbContext().SaveChangesAsync();
                         }
                     }
-                    return true;
+                    return new OkResult();
                 }
             }
 
-            return false;
+            return new BadRequestResult();
         }
     }
 }

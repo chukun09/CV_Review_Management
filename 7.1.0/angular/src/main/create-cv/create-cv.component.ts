@@ -12,13 +12,20 @@ import { AppComponentBase } from "@shared/app-component-base";
 import { Location } from "@angular/common";
 import { jsPDF } from "jspdf";
 import { ChangeDetectorRef } from "@angular/core";
-import { FormBuilder, FormArray, Validators, FormGroup } from "@angular/forms";
+import {
+  FormBuilder,
+  FormArray,
+  Validators,
+  FormGroup,
+  FormControl,
+} from "@angular/forms";
 import html2canvas from "html2canvas";
 import { CVInformationService } from "services/cv-information.service";
 import { AddressService } from "services/address.service";
 import { isBuffer } from "lodash-es";
 import { ActivatedRoute, Router } from "@angular/router";
 import * as moment from "moment";
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: "app-create-cv",
   templateUrl: "./create-cv.component.html",
@@ -34,6 +41,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   dataCV: any;
   templateId!: any;
   cvId: any = 1;
+  cvRouterId: any;
   userId!: any;
   newCV: any = {};
   pdfFile: any = {};
@@ -83,7 +91,8 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     private cvInformationService: CVInformationService,
     private addressService: AddressService,
     private route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private SpinnerService: NgxSpinnerService
   ) {
     super(injector);
   }
@@ -91,6 +100,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.cvId = params["id"];
+      this.cvRouterId = this.cvId;
       this.userId = params["userId"];
     });
     if (this.userId) {
@@ -110,25 +120,32 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     this.setTitle("CV " + this.userLogin.name + " " + this.userLogin.surname);
   }
   saveFilePDFServer(newCVId) {
-    html2canvas(this.el.nativeElement, { allowTaint: true, scale: 1.8 }).then(
-      (canvas) => {
-        canvas.getContext("experimental-webgl");
-        var imageData = canvas.toDataURL("image/jpeg", 1.0);
-        let date: number = new Date().getTime();
-        this.pdfFile.imageFile = imageData;
-        this.pdfFile.imageName = this.getTitle() + "_" + date.toString();
-        this.pdfFile.cVId = newCVId;
-        this.cvInformationService
-          .convertImageToPDFServer(this.pdfFile)
-          .subscribe((res) => {
-            console.log(res);
+    html2canvas(this.el.nativeElement, {
+      allowTaint: true,
+      scale: 1.8,
+      useCORS: true,
+    }).then((canvas) => {
+      canvas.getContext("experimental-webgl");
+      var imageData = canvas.toDataURL("image/jpeg", 1.0);
+      let date: number = new Date().getTime();
+      this.pdfFile.imageFile = imageData;
+      this.pdfFile.imageName = this.getTitle() + "_" + date.toString();
+      this.pdfFile.cVId = newCVId;
+      this.cvInformationService
+        .convertImageToPDFServer(this.pdfFile)
+        .subscribe((res) => {
+          if (this.userId) this.message.success("Bạn đã sửa CV thành công");
+          else
             this.message.success(
               "Chúc mừng bạn đã tạo CV thành công, CV của bạn đã được tạo và lưu vào hệ thống!"
             );
-            // this._router.navigate(['/main/all-cv']);
-          });
-      }
-    );
+          this.SpinnerService.hide();
+          this._router.navigate([
+            "/main/cv-management",
+            localStorage.getItem("userId"),
+          ]);
+        });
+    });
   }
   downloadPDFbyHTML() {
     let date: number = new Date().getTime();
@@ -369,6 +386,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     });
   }
   generateDataEditCV(data: any) {
+    this.imageUrl = data.avatar;
     this.createCVForm.get("file").setValue(data.avatar);
     this.createCVForm.get("firstName").setValue(data.firstName);
     this.createCVForm.get("lastName").setValue(data.lastName);
@@ -376,8 +394,55 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     this.createCVForm.get("phoneNumber").setValue(data.phoneNumber);
     this.createCVForm.get("headline").setValue(data.headline);
     this.createCVForm.get("description").setValue(data.description);
+    this.createCVForm.get("birthDate").setValue(new Date(data.birthDate));
+    setTimeout(() => {
+      this.createCVForm.controls["gender"].setValue(data.gender.toString());
+    }, 1000);
+    data.listExperiences.map((element) => {
+      this.experiences.push(
+        this.fb.group({
+          position: element.position,
+          company: element.company,
+          location: element.location,
+          employmentType: element.employmentType.toString(),
+          startDate: new Date(element.startDate),
+          endDate: new Date(element.endDate),
+          industry: element.industry,
+          description: element.description,
+          skills: element.skills,
+          cvId: this.cvId,
+        })
+      );
+    });
+    data.listEducations.map((element) => {
+      this.educations.push(
+        this.fb.group({
+          schoolName: element.schoolName,
+          schoolType: element.schoolType.toString(),
+          startDate: new Date(element.startDate),
+          endDate: new Date(element.endDate),
+          major: element.major,
+          description: element.description,
+          cvId: this.cvId,
+        })
+      );
+    });
+    data.listSkills.map((element) => {
+      this.skills.push(
+        this.fb.group({
+          skillName: element.skillName,
+          level: element.level.toString(),
+          skillType: element.skillType.toString(),
+          cvId: this.cvId,
+        })
+      );
+    });
+    data.listHobbies.map((element) => {
+      this.hobbies.push(this.fb.control(element.nameHobby.toString()));
+    });
   }
-  createNewCVAndAllInformations() {
+
+  createOrUpdateNewCVAndAllInformations() {
     this.newCV.avatar = this.createCVForm.get("file").value;
     this.newCV.firstName = this.createCVForm.get("firstName").value;
     this.newCV.lastName = this.createCVForm.get("lastName").value;
@@ -385,6 +450,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     this.newCV.phoneNumber = this.createCVForm.get("phoneNumber").value;
     this.newCV.headline = this.createCVForm.get("headline").value;
     this.newCV.description = this.createCVForm.get("description").value;
+    this.newCV.gender = this.createCVForm.get("gender").value;
     this.newCV.address =
       this.createCVForm.get("address.street").value +
       ", " +
@@ -415,21 +481,30 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     this.newCV.listHobbies = listHobbies;
     let imageFile: any = {};
     imageFile.imageFile = this.newCV.avatar;
-    // this.cvInformationService.uploadFileAndReturnURL(this.newCV.avatar.toString()).subscribe(res => {
-    //   console.log(res);
-    // })
-
-    this.cvInformationService
-      .CreateNewCVAndAllInformations(this.newCV)
-      .subscribe(
+    this.SpinnerService.show();
+    if (this.userId) {
+      this.newCV.id = this.cvRouterId;
+      this.cvInformationService.UpdateCVAndInformations(this.newCV).subscribe(
         (res) => {
-          console.log(res);
-          this.saveFilePDFServer(res.result);
+          this.saveFilePDFServer(this.cvRouterId);
         },
         (error) => {
-          this.message.error("Vui lòng điền thông tin đầy đủ!");
+          this.message.error("Vui lòng kiểm tra lại !");
         }
       );
+    } else {
+      this.cvInformationService
+        .CreateNewCVAndAllInformations(this.newCV)
+        .subscribe(
+          (res) => {
+            console.log(res);
+            this.saveFilePDFServer(res.result);
+          },
+          (error) => {
+            this.message.error("Vui lòng điền thông tin đầy đủ!");
+          }
+        );
+    }
   }
   handleAddress() {
     if (

@@ -10,6 +10,14 @@ a.icon-permistion {
     cursor: pointer;
     display: block;
 }
+.col-md-2{
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+.card-img-top{
+    height: 23vw;
+    object-fit: cover;
+}
 .confirm-delete {
     padding: 28px 0px 14px;
 

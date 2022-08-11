@@ -15,15 +15,12 @@ import {Image} from './image';
 export class SelectTemplateComponent extends AppComponentBase implements OnInit  {
 
   constructor(injector: Injector,
-    private templateService: TemplateService,
-    private userService : UserInformationService) {
+    private templateService: TemplateService
+    ) {
     super(injector);
   }
   allTemplate!: Observable<Image[]>;
     ngOnInit() {
-    this.userService.getUserId(this.appSession.userId).subscribe((res) =>{
-      localStorage.setItem('userId', res.result);
-    })
      this.generateData();
   }
    generateData(){

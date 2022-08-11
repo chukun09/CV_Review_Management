@@ -1,0 +1,78 @@
+// @import url('http://fonts.cdnfonts.com/css/inter');
+.text-title {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+    text-align: center;
+
+    /* 3 */
+
+    color: #6D6D6E;
+}
+
+.header-form {
+    display: flex;
+    margin-bottom: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.label-form {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 24px;
+    line-height: 29px;
+    color: #6D6D6E;
+}
+
+.form-control {
+    border-radius: 5px;
+    min-width: 200px;
+    width: 500px;
+    height: 4rem;
+}
+
+.eye-close {
+    right: 0;
+    top: 12px;
+    margin-right: 1rem;
+    position: absolute;
+}
+
+.btn-custom {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #6D6D6E;
+    border-radius: 5px;
+    min-width: 200px;
+    width: 500px;
+    height: 4rem;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.25);
+}
+.form-group{
+    margin-bottom: 2rem !important;
+}
+.form-link{
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+text-decoration-line: underline;
+color: #6D6D6E;
+
+}

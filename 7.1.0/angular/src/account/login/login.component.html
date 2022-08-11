@@ -1,54 +1,43 @@
 ﻿<div [@routerTransition]>
-  <h4 class="text-center mb-3">{{ "Đăng Nhập" | localize }}</h4>
+  <div class="header-form">
+    <!-- <img src="../../assets/img/logo_CBVTV.svg" height="80" alt="Logo Cục bảo vệ thực vật"> -->
+    <h3 class="text-center text-title mt-0">Hệ Thống Quản Lý Và Đánh Giá CV</h3>
+  </div>
   <form novalidate autocomplete="off" #loginForm="ngForm" (ngSubmit)="login()">
     <div class="form-group">
+      <label for="userNameOrEmailAddress" class="label-form">Tên tài khoản</label>
       <div class="input-group">
         <input type="text" class="form-control" name="userNameOrEmailAddress"
-          [(ngModel)]="authService.authenticateModel.userNameOrEmailAddress"
-          [placeholder]="'UserNameOrEmail' | localize" required maxlength="256" #userNameOrEmailAddressModel="ngModel"
-          #userNameOrEmailAddressEl />
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <span class="fas fa-user"></span>
-          </div>
-        </div>
+          [(ngModel)]="authService.authenticateModel.userNameOrEmailAddress" placeholder="Tên đăng nhập" required
+          maxlength="256" #userNameOrEmailAddressModel="ngModel" #userNameOrEmailAddressEl />
       </div>
       <abp-validation-summary [control]="userNameOrEmailAddressModel" [controlEl]="userNameOrEmailAddressEl">
       </abp-validation-summary>
     </div>
     <div class="form-group">
+      <label for="password" class="label-form">Mật khẩu</label>
       <div class="input-group">
-        <input type="password" class="form-control" name="password" [(ngModel)]="authService.authenticateModel.password"
-          [placeholder]="'Password' | localize" required maxlength="32" #passwordModel="ngModel" #passwordEl />
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <span class="fas fa-lock"></span>
-          </div>
-        </div>
+        <input type="password" class="form-control" name="password" placeholder="Mật khẩu"
+          [(ngModel)]="authService.authenticateModel.password" required maxlength="32" #passwordModel="ngModel"
+          #passwordEl />
       </div>
       <abp-validation-summary [control]="passwordModel" [controlEl]="passwordEl"></abp-validation-summary>
     </div>
-    <div class="form-group row">
-      <div class="col-md-8">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe"
-            [(ngModel)]="authService.rememberMe" />
-          <label for="rememberMe" class="custom-control-label">
-            {{ "Nhớ mật khẩu" | localize }}
-          </label>
-        </div>
-      </div>
-      <div class="col-md-12 mt-3">
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="!loginForm.form.valid || submitting">
-          {{ "Đăng nhập" | localize }}
+    <div class="form-group">
+      <div>
+        <button type="submit" class="btn btn-custom " [disabled]="!loginForm.form.valid || submitting">
+          Đăng nhập
         </button>
       </div>
-      <div *ngIf="isSelfRegistrationAllowed" class="col-md-12 mb-1">
-        <div class="mt-3" [routerLink]="['../register']">
-          <button type="button" class="btn btn-danger btn-block"> {{ "Đăng ký" | localize }}</button>
-        </div>
+    </div>
+    <!-- <div class="form-group d-flex">
+      <a class="form-link">Đổi mật khẩu</a>
+      <a class="ml-auto form-link">Quên mật khẩu</a>
+    </div> -->
+    <div *ngIf="isSelfRegistrationAllowed" class="form-group">
+      <div class="mt-3" [routerLink]="['../register']">
+        <button type="button" class="btn btn-custom"> {{ "Đăng ký" | localize }}</button>
       </div>
     </div>
   </form>
-
 </div>
