@@ -1,21 +1,143 @@
-<div class="container">
-    <h3 class="p-5 text-center text-decoration-underline">I am coming from test.component.html file:</h3>
-    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-      <div class="col">
-        <div class="p-3 border bg-light">Row column</div>
+<div class="wrapper">
+  <div class="resume">
+      <div class="left">
+          <div class="img_holder">
+              <img [src]="dataCV.value.file" crossorigin="anonymous" alt="picture">
+          </div>
+          <div class="contact_wrap pb">
+              <div class="title">
+                  Liên Hệ
+              </div>
+              <div class="contact">
+                  <ul>
+                      <li>
+                          <div class="li_wrap">
+                              <div class="icon"> <i class="fas fa-phone"></i></div>
+                              <div class="text">{{dataCV.value.phoneNumber}}</div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="li_wrap">
+                              <div class="icon"><i class="fas fa-envelope" ></i></div>
+                              <div class="text">{{dataCV.value.email}}</div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="li_wrap">
+                              <div class="icon"><i class="fas fa-calendar" ></i></div>
+                              <div class="text">{{dataCV.value.birthDate | date: 'dd/MM/yyyy'}}</div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="li_wrap">
+                              <div class="icon"><i class="fas fa-map-signs" ></i></div>
+                              <div class="text">{{address}}</div>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          <div class="skills_wrap pb">
+              <div class="title">
+                  Kĩ Năng
+              </div>
+              <div class="skills">
+                  <ul>
+                      <li *ngFor="let skill of dataCV.value.skills; let i = index">
+                          <div class="li_wrap">
+                              <div class="text">{{skill.skillName}}</div>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          <div class="hobbies_wrap pb">
+              <div class="title">
+                  Sở Thích
+              </div>
+              <div class="hobbies">
+                  <ul>
+                      <li *ngFor="let hobby of dataCV.value.hobbies">
+                          <div class="li_wrap">
+                              <div class="text">{{hobby}}</div>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
       </div>
-      <div class="col">
-        <div class="p-3 border bg-light">Row column</div>
+      <div class="right">
+          <div class="header">
+              <div class="name_role">
+                  <div class="name">
+                      {{dataCV.value.firstName}} {{dataCV.value.lastName}}
+                  </div>
+                  <div class="role">
+                      {{dataCV.value.headline}}
+                  </div>
+              </div>
+              <div class="about">
+                  {{dataCV.value.description}}
+              </div>
+          </div>
+          <div class="right_inner">
+              <div class="exp">
+                  <div class="title">
+                      Kinh nghiệm
+                  </div>
+                  <div class="exp_wrap">
+                      <ul>
+                          <li *ngFor="let experience of dataCV.value.experiences">
+                              <div class="li_wrap">
+                                  <div class="date">
+                                      {{experience.startDate | date: 'yyyy'}} - {{experience.endDate ? (experience.endDate | date: 'yyyy') : "Nay"}}
+                                  </div>
+                                  <div class="info">
+                                      <p class="info_title">
+                                          {{experience.position}}
+                                      </p>
+                                      <p class="info_com">
+                                         {{experience.company}} - {{experience.location}}<br>
+                                      </p>
+                                      <p class="info_cont">
+                                          {{experience.industry ? ("- Chuyên ngành : " + experience.industry) : ""}}<br>
+                                          {{experience.skills ? ("- Kĩ năng sử dụng : " + experience.skills) : ""}}<br>
+                                          {{experience.description}}
+                                      </p>
+                                  </div>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="education">
+                  <div class="title">
+                      Học Vấn
+                  </div>
+                  <div class="education_wrap">
+                      <ul>
+                          <li *ngFor="let education of dataCV.value.educations">
+                              <div class="li_wrap">
+                                  <div class="date">
+                  {{education.startDate | date: 'yyyy'}} - {{education.endDate ? (education.endDate | date: 'yyyy') : "Nay"}}
+                                  </div>
+                                  <div class="info">
+                                      <p class="info_title">
+                                          {{education.major}}
+                                      </p>
+                                      <p class="info_com">
+                                          {{education.schoolName}}
+                                      </p>
+                                      <p class="info_cont">
+                                         {{education.description}}
+                                      </p>
+                                  </div>
+                              </div>
+                          </li>        
+                      </ul>
+                  </div>
+              </div>
+          </div>
       </div>
-      <div class="col">
-        <div class="p-3 border bg-light">Row column</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border bg-light">Row column</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border bg-light">Row column</div>
-      </div>
-      
-    </div>
   </div>
+</div>

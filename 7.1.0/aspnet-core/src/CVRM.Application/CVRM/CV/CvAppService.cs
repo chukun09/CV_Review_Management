@@ -32,7 +32,7 @@ namespace CVRM.CVRM.CV
 
         public Task<IActionResult> ConvertImageToPDF(ImageUpload input)
         {
-           return _cvEntityDomainService.ConvertImageToPDF(input.ImageFile, input.ImageName, input.CVId);
+            return _cvEntityDomainService.ConvertImageToPDF(input.ImageFile, input.ImageName, input.CVId);
         }
 
         public async Task<IActionResult> CreateNewCVAndAllInformations(CVEntityAllInformationsInput input)
@@ -49,6 +49,22 @@ namespace CVRM.CVRM.CV
         {
             var listCV = await _cvEntityDomainService.GetAllCVByUserAsync(userId);
             return ObjectMapper.Map<List<CVEntityLikeDto>>(listCV);
+        }
+
+        public async Task<PagedResultDto<CVEntityLikeDto>> GetAllDataByPageAsync(GetCVByPageInput input)
+        {
+            try
+            {
+                var listCV = await _cvEntityDomainService.GetAllDataByPageAsync(input);
+                var result = new PagedResultDto<CVEntityLikeDto>();
+                result.TotalCount = listCV.TotalCount;
+                result.Items = ObjectMapper.Map<IReadOnlyList<CVEntityLikeDto>>(listCV.Items);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public Task<CVEntityResult> GetDetailCVEntityAsync(int id)

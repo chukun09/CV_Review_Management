@@ -24,6 +24,7 @@ export class BaseTemplateComponent extends AppComponentBase implements OnInit {
   cvId: any;
   @Input() dataCV: any;
   @Input() teamplateId: any;
+  @Input() address: any;
   constructor(
     injector: Injector,
     private templateService: TemplateService,

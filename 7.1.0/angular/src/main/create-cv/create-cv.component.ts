@@ -43,6 +43,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   cvId: any = 1;
   cvRouterId: any;
   userId!: any;
+  addressNow: any;
   newCV: any = {};
   pdfFile: any = {};
   isCollapsedProfile = false;
@@ -150,30 +151,32 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   downloadPDFbyHTML() {
     let date: number = new Date().getTime();
     var title = this.getTitle();
-    html2canvas(this.el.nativeElement, { allowTaint: true, scale: 1.8 }).then(
-      function (canvas) {
-        const HTML_Width = canvas.width;
-        const HTML_Height = canvas.height;
-        var top_left_margin = 0;
-        var PDF_Width = HTML_Width;
-        var PDF_Height = HTML_Height;
-        var canvas_image_width = HTML_Width;
-        var canvas_image_height = HTML_Height;
-        canvas.getContext("experimental-webgl");
-        var imgData = canvas.toDataURL("image/jpeg", 1.0);
-        console.log(imgData);
-        var pdf = new jsPDF("p", "pt", [PDF_Width, PDF_Height]);
-        pdf.addImage(
-          imgData,
-          "JPG",
-          top_left_margin,
-          top_left_margin,
-          canvas_image_width,
-          canvas_image_height
-        );
-        pdf.save(title + "_" + date + ".pdf");
-      }
-    );
+    html2canvas(this.el.nativeElement, {
+      allowTaint: true,
+      scale: 1.8,
+      useCORS: true,
+    }).then(function (canvas) {
+      const HTML_Width = canvas.width;
+      const HTML_Height = canvas.height;
+      var top_left_margin = 0;
+      var PDF_Width = HTML_Width;
+      var PDF_Height = HTML_Height;
+      var canvas_image_width = HTML_Width;
+      var canvas_image_height = HTML_Height;
+      canvas.getContext("experimental-webgl");
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+      console.log(imgData);
+      var pdf = new jsPDF("p", "pt", [PDF_Width, PDF_Height]);
+      pdf.addImage(
+        imgData,
+        "JPG",
+        top_left_margin,
+        top_left_margin,
+        canvas_image_width,
+        canvas_image_height
+      );
+      pdf.save(title + "_" + date + ".pdf");
+    });
   }
   public setTitle(newTitle: string) {
     this.title = newTitle;
@@ -234,12 +237,16 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
   }
   get address() {
     return (
-      this.createCVForm.get("address.street") +
+      this.createCVForm.get("address.street").value +
       ", " +
-      this.createCVForm.get("address.district") +
-      ", " +
-      this.createCVForm.get("address.province")
+      this.handleAddress()
     );
+  }
+  changeAddress() {
+    this.addressNow =
+      this.createCVForm.get("address.street").value +
+      ", " +
+      this.handleAddress();
   }
   get gender() {
     return this.createCVForm.get("gender");
@@ -406,7 +413,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
           location: element.location,
           employmentType: element.employmentType.toString(),
           startDate: new Date(element.startDate),
-          endDate: new Date(element.endDate),
+          endDate: element.endDate ?  new Date(element.endDate) : new Date(),
           industry: element.industry,
           description: element.description,
           skills: element.skills,
@@ -420,7 +427,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
           schoolName: element.schoolName,
           schoolType: element.schoolType.toString(),
           startDate: new Date(element.startDate),
-          endDate: new Date(element.endDate),
+          endDate: element.endDate ?  new Date(element.endDate) : new Date(),
           major: element.major,
           description: element.description,
           cvId: this.cvId,
@@ -451,10 +458,7 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     this.newCV.headline = this.createCVForm.get("headline").value;
     this.newCV.description = this.createCVForm.get("description").value;
     this.newCV.gender = this.createCVForm.get("gender").value;
-    this.newCV.address =
-      this.createCVForm.get("address.street").value +
-      ", " +
-      this.handleAddress();
+    this.newCV.address = this.address;
     this.newCV.birthDate = moment(
       this.createCVForm.get("birthDate").value
     ).format("MM/DD/YYYY");
@@ -463,13 +467,13 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
     let listEducations = this.createCVForm.get("educations").value;
     listEducations.forEach((element) => {
       element.startDate = moment(element.startDate).format("MM/DD/YYYY");
-      element.endDate = moment(element.endDate).format("MM/DD/YYYY");
+      element.endDate = element.endDate ?  moment(element.endDate).format("MM/DD/YYYY") : moment(new Date()).format("MM/DD/YYYY");
     });
     this.newCV.listEducations = listEducations;
     let listExperiences = this.createCVForm.get("experiences").value;
     listExperiences.forEach((element) => {
       element.startDate = moment(element.startDate).format("MM/DD/YYYY");
-      element.endDate = moment(element.endDate).format("MM/DD/YYYY");
+      element.endDate = element.endDate ?  moment(element.endDate).format("MM/DD/YYYY") : moment(new Date()).format("MM/DD/YYYY");
     });
     this.newCV.listExperiences = listExperiences;
     this.newCV.listSkills = this.createCVForm.get("skills").value;

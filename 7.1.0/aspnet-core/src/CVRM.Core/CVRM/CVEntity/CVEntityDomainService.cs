@@ -20,6 +20,13 @@ using Microsoft.AspNetCore.Hosting;
 using Syncfusion.Pdf.Graphics;
 using Syncfusion.Pdf;
 using Syncfusion.Drawing;
+using Abp.Application.Services.Dto;
+using Abp.Collections.Extensions;
+using Abp.Linq.Extensions;
+using System.Linq.Expressions;
+using Abp.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace CVRM.CVEntites
 {
@@ -56,7 +63,7 @@ namespace CVRM.CVEntites
         public async Task<List<CVEntityLikeResult>> GetAllCVByUserAsync(int userId)
         {
             var result = new List<CVEntityLikeResult>();
-            var allCV = await _cvEntityRepository.GetAllListAsync();
+            var allCV = await _cvEntityRepository.GetAll().Where(p => p.UserId == userId).ToListAsync();
             var listLike = await _cvLikeEntityRepository.GetAllListAsync();
             foreach (var cv in allCV)
             {
@@ -330,6 +337,80 @@ namespace CVRM.CVEntites
             }
 
             return new BadRequestResult();
+        }
+
+        public async Task<PagedResultDto<CVEntityLikeResult>> GetAllDataByPageAsync(GetCVByPageInput input)
+        {
+
+            try
+            {
+                if (input.filter == null) input.filter = 0;
+                Expression<Func<CVEntity, bool>> filter = x => x.IsDeleted != true;
+                var keyWordSearch = "";
+                if (!string.IsNullOrEmpty(input.searchKey))
+                {
+                    keyWordSearch = input.searchKey.Trim().ToLower();
+                    switch (input?.filter)
+                    {
+                        case (int?)FilterSearchCV.Name:
+                            filter = filter.And(x => (x.FirstName + x.LastName).ToLower().Contains(keyWordSearch));
+                            break;
+                        case (int?)FilterSearchCV.Email:
+                            filter = filter.And(x => x.Email.ToLower().Contains(keyWordSearch));
+                            break;
+                        case (int?)FilterSearchCV.PhoneNumber:
+                            filter = filter.And(x => x.PhoneNumber.Contains(keyWordSearch));
+                            break;
+                        case (int?)FilterSearchCV.HeadLine:
+                            filter = filter.And(x => x.Headline.ToLower().Contains(keyWordSearch));
+                            break;
+                        case (int?)FilterSearchCV.TeamplateId:
+                            filter = filter.And(x => (Regex.IsMatch(keyWordSearch, @"^\d+$") ? int.Parse(keyWordSearch).Equals(x.TemplateId ?? default) : false));
+                            break;
+                        default:
+                            Expression<Func<CVEntity, bool>> filterAll = x =>
+                            (x.FirstName + x.LastName).ToLower().Contains(keyWordSearch) ||
+                            x.PhoneNumber.Contains(keyWordSearch) || x.Email.ToLower().Contains(keyWordSearch) ||
+                            x.Headline.ToLower().Contains(keyWordSearch) ||
+                            (Regex.IsMatch(keyWordSearch, @"^\d+$") ? int.Parse(keyWordSearch).Equals(x.TemplateId ?? default) : false) ||
+                            x.Description.ToLower().Contains(keyWordSearch);
+                            filter = filter.And(filterAll);
+                            break;
+                    }
+                }
+                var listCV = _cvEntityRepository.GetAll().Where(filter);
+                var listCVLike = new List<CVEntityLikeResult>();
+                var listLike = await _cvLikeEntityRepository.GetAllListAsync();
+                foreach (var cv in listCV)
+                {
+                    var obj = ObjectMapper.Map<CVEntityLikeResult>(cv);
+                    obj.TotalLike = listLike.Count(p => p.CVId == obj.Id);
+                    if (listLike.FirstOrDefault(p => p.UserId == input.userId && p.CVId == obj.Id) == null)
+                    {
+                        obj.IsLike = false;
+                    }
+                    else obj.IsLike = true;
+                    listCVLike.Add(obj);
+                }
+                var result = new PagedResultDto<CVEntityLikeResult>
+                {
+                    Items = listCVLike,
+                    TotalCount = listCVLike.Count()
+                };
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        private enum FilterSearchCV
+        {
+            Name = 1,
+            Email = 2,
+            PhoneNumber = 3,
+            HeadLine = 4,
+            TeamplateId = 5
         }
     }
 }

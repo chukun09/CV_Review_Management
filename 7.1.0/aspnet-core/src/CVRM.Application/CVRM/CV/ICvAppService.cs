@@ -24,5 +24,7 @@ namespace CVRM.CVRM.CV
         //Task<IActionResult> uploadImage(ImageUpload input);
         Task<IActionResult> ConvertImageToPDF(ImageUpload input);
         Task<IActionResult> EditCVAndAllInformations(CVEntityAllInformationsInput input);
+        Task<PagedResultDto<CVEntityLikeDto>> GetAllDataByPageAsync(GetCVByPageInput input);
+
     }
 }

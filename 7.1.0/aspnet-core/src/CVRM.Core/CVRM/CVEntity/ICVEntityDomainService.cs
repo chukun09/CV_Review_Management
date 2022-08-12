@@ -1,5 +1,7 @@
-﻿using Abp.Domain.Services;
+﻿using Abp.Application.Services.Dto;
+using Abp.Domain.Services;
 using CVRM.CVEntites;
+using CVRM.Entites;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ namespace CVRM.CVEntites
         Task<IActionResult> CreateNewCVAndAllInformation(CVEntityAllInformationsInput result);
         Task<IActionResult> EditCVAndAllInformation(CVEntityAllInformationsInput result);
         Task<string> UploadImage(string input);
+        Task<PagedResultDto<CVEntityLikeResult>> GetAllDataByPageAsync(GetCVByPageInput input);
         Task<IActionResult> ConvertImageToPDF(string input, string pdfName, int cvId);
     }
 }

@@ -38,4 +38,7 @@ export class CVInformationService {
   convertImageToPDFServer(file){
     return this.http.post<any>(environment.BASE_API_URL + API_CONSTS.CVFile.CONVERT_IMAGE_TO_PDF, file, this.headers);
   }
+  getAllCVDataByPage(userId: any,searchKey: string, filter: any){
+    return this.http.get<any>(environment.BASE_API_URL + API_CONSTS.CVEntity.GET_DATA_BY_PAGE + "?userId=" + userId +"&searchKey=" + searchKey + "&filter=" + filter);
+  }
 }

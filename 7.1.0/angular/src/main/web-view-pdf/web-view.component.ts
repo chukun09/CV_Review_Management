@@ -21,6 +21,7 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
   userInformation: any;
   userLogin: any;
   id: number;
+  userId: any;
   fullName: string;
   // SignalR
   private hubConnection: HubConnection;
@@ -55,6 +56,7 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
   async ngOnInit(): Promise<void> {
     this.route.params.subscribe((params) => {
       this.id = params["id"];
+      this.userId = params["userId"];
     });
     this.userLogin = this.appSession.user;
     (this.userInformationService.getUserInformationByUserId(this.userLogin.id)).subscribe((response) => {
@@ -75,7 +77,8 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
     this.webViewService.addNewAnnotation(annotations).subscribe(res => {
       console.log(res);
     });
-    this._router.navigate(['/main/all-cv']);
+    this.message.success("Cảm ơn bạn đã góp ý, đóng góp của bạn đã được ghi nhận !");
+    setTimeout(() => {this._router.navigate(['/main/all-cv']);}, 2000);
   }
   async cancelEdit() {
     this._location.back();
@@ -120,10 +123,10 @@ export class WebViewComponent extends AppComponentBase implements OnInit {
           baseUrl: location.protocol + "//" + location.host + "/assets/",
           instantJSON: instantJSON,
           document: environment.BASE_PDF_URL + pdfPath,
-          container: "#container",
+          container: "#pspdfkit-container",
           toolbarItems: PSPDFKit.defaultToolbarItems.concat(item),
           // autoSaveMode: PSPDFKit.AutoSaveMode.INTELLIGENT,
-          isEditableAnnotation: (annotation) => annotation.creatorName === this.fullName + "_" + this.id,
+          isEditableAnnotation: (annotation) => annotation.creatorName === this.fullName + "_" + this.id || this.userId,
           // initialViewState: new PSPDFKit.ViewState({ readOnly: true })
           
         }).then(async instance => {

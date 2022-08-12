@@ -6,6 +6,7 @@ import { TemplateService } from "services/template.service";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { CVInformationService } from "services/cv-information.service";
 import { ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-cv-management",
@@ -17,20 +18,29 @@ export class CvManagementComponent extends AppComponentBase implements OnInit {
   modalRef: BsModalRef;
   userId: number;
   cvId: number;
+  txtEmpty: string;
   constructor(
     injector: Injector,
     private templateService: TemplateService,
     private cvInformationService: CVInformationService,
     private route: ActivatedRoute,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private _location: Location
   ) {
     super(injector);
   }
-  allCV!: Observable<any[]>;
+  allCV!: any;
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.userId = params["id"];
     });
+    if(this.userId.toString() != localStorage.getItem("userId")){ 
+      this.message.error(
+        "Bạn không có quyền truy cập trang này!"
+      );
+      setTimeout(() => {this._location.back();}, 2000);
+      return;
+    }
     this.generateData();
   }
   generateData() {
@@ -38,7 +48,11 @@ export class CvManagementComponent extends AppComponentBase implements OnInit {
       .getCVInformationByUserId(this.userId)
       .subscribe((res: any) => {
         this.allCV = res.result;
-        console.log(this.allCV);
+        if (!this.allCV.length) {
+          this.txtEmpty = "Hiện nay bạn chưa có CV nào";
+        } else {
+          this.txtEmpty = "";
+        }
       });
   }
   openModal(template: TemplateRef<any>, id: number) {

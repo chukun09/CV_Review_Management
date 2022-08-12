@@ -1,21 +1,22 @@
 <div [@routerTransition]>
     <div class="container-fluid pt-4 pl-4 pr-4">
+        <ngx-spinner type="ball-clip-rotate"></ngx-spinner>
         <div class="row">
             <div class="col-12">
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-sm-12 col-md-12 search-area">
                             <div class="filter">
-                                <ng-select bindLabel="name" bindValue="id" [searchable]="false"
-                                    placeholder="Lựa chọn bộ lọc">
-                                </ng-select>
+                                <ng-select [items]="filterField" bindLabel="name" bindValue="id" [(ngModel)]="selectedProjectTypeId"
+                                [searchable]="false" placeholder="Lựa chọn bộ lọc" (change)="projectTypeChange()">
+                              </ng-select>
                             </div>
                             <div class="input-group group-search">
-                                <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Title"
-                                    aria-describedby="addon-wrapping">
-
+                                <input type="text" [(ngModel)]="searchKey" class="form-control" placeholder="Tìm kiếm"
+                                aria-label="Username" aria-describedby="addon-wrapping"
+                                (ngModelChange)="notesModelChanged.next($event)">
                                 <div class="input-group-prepend">
-                                    <button type="button" class="btn-basic btn-search">Tìm Kiếm</button>
+                                    <button type="button" (click)="loadListCV()" class="btn-basic btn-search">Tìm Kiếm</button>
                                 </div>
                             </div>
                         </div>
@@ -60,6 +61,9 @@
                         </div>
                     </div>
                 </div>
+                <div *ngIf="txtEmpty" class="text-empty">
+                    {{txtEmpty}}
+                  </div>
             </div>
         </div>
     </div>

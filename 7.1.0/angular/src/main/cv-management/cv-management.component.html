@@ -17,7 +17,7 @@
                                 src="../../assets/icons/Edit.svg"></a>
                     </span> -->
                     <button class="btn btn-primary mr-3 btn-sm rounded-0" type="button" data-toggle="tooltip"
-                    data-placement="top" title="View" ><i class="fa fa-eye"></i></button>
+                    data-placement="top" title="View" [routerLink]="['../../web-view',element.id, userId]" ><i class="fa fa-eye"></i></button>
                     <button class="btn btn-success mr-3 btn-sm rounded-0" type="button" data-toggle="tooltip"
                         data-placement="top" title="Edit" [routerLink]="['../../create-cv/edit',element.id, userId]"><i class="fa fa-edit"></i></button>
                     <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
@@ -30,6 +30,9 @@
             </div>
             <!-- </div> -->
         </div>
+        <div *ngIf="txtEmpty" class="text-empty">
+            {{txtEmpty}}
+          </div>
     </div>
 
     <!-- confirm delete modal -->
