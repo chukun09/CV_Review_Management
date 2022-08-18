@@ -26,7 +26,6 @@ export class SelectTemplateComponent extends AppComponentBase implements OnInit 
    generateData(){
     this.templateService.getAllTemplate().subscribe((res : any) =>{
       this.allTemplate = res.result.items;
-      console.log(this.allTemplate);
     });
   }
 

@@ -165,7 +165,6 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
       var canvas_image_height = HTML_Height;
       canvas.getContext("experimental-webgl");
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
-      console.log(imgData);
       var pdf = new jsPDF("p", "pt", [PDF_Width, PDF_Height]);
       pdf.addImage(
         imgData,
@@ -501,7 +500,6 @@ export class CreateCvComponent extends AppComponentBase implements OnInit {
         .CreateNewCVAndAllInformations(this.newCV)
         .subscribe(
           (res) => {
-            console.log(res);
             this.saveFilePDFServer(res.result);
           },
           (error) => {
